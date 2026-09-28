@@ -4,7 +4,7 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import Lenis from 'lenis'
 import { ShaderCanvas } from './shader-canvas.js'
 import { LOUVRE, MOSAIC, WAVES, RAYS } from './scenes/shaders.js'
-import { Highway } from './scenes/highway.js'
+import { CampusFlight } from './scenes/campus.js'
 import { Rotunda } from './scenes/rotunda.js'
 
 gsap.registerPlugin(ScrollTrigger)
@@ -30,28 +30,24 @@ const PALETTES = [
   [[0.08, 0.8, 0.62], [0.62, 1.0, 0.72], [1.0, 0.85, 0.35]],
 ]
 
-// Stops passed on the drive from the Seoul campus to the Yongin campus.
+// Stops on the flight from the Seoul campus to the Yongin campus, in the same
+// order as the stops in src/data/campus.json (built by scripts/build_campus.py).
 // Building codes follow the university's own numbering (S = 인문, Y = 자연).
 const ROUTE = [
   { stage: 'SEOUL', ko: '정문', en: 'Main Gate', note: '서대문구 거북골로 34' },
+  { stage: 'SEOUL', ko: 'MCC관', code: 'S10', en: 'Myongji Campus Complex', note: '베리타스홀 · 코이노니아홀' },
   { stage: 'SEOUL', ko: '종합관', code: 'S1', en: 'Main Hall', note: '인문캠퍼스의 중심 강의동' },
   { stage: 'SEOUL', ko: '학생회관', code: 'S2', en: 'Student Union', note: '학생식당 · 동아리방' },
   { stage: 'SEOUL', ko: '방목학술정보관', code: 'S9', en: 'Bangmok Library', note: '중앙도서관' },
-  { stage: 'SEOUL', ko: 'MCC관', code: 'S10', en: 'Myongji Campus Complex', note: '베리타스홀 · 코이노니아홀' },
   { stage: 'ROAD', ko: '한강', en: 'Han River', note: '서울을 가로질러 남쪽으로' },
   { stage: 'ROAD', ko: '용인', en: 'Yongin', note: '경기도 용인시 처인구' },
   { stage: 'YONGIN', ko: '정문', en: 'Main Gate', note: '처인구 명지로 116' },
-  { stage: 'YONGIN', ko: '백마상', en: 'White Horse', note: '자연캠퍼스의 상징' },
+  { stage: 'YONGIN', ko: '60주년 채플관', code: 'Y22', en: '60th Anniversary Chapel', note: '채플 · 공연장' },
   { stage: 'YONGIN', ko: '창조예술관', code: 'Y2', en: 'Creative Arts Hall', note: '캠퍼스 랜드마크' },
   { stage: 'YONGIN', ko: '명진당', code: 'Y3', en: 'Myungjindang', note: '자연도서관' },
   { stage: 'YONGIN', ko: '함박관', code: 'Y9', en: 'Hambak Hall', note: '신입생 교양 강의동' },
-  { stage: 'YONGIN', ko: '60주년 채플관', code: 'Y22', en: '60th Anniversary Chapel', note: '채플 · 공연장' },
 ]
 const STAGE_LABEL = { SEOUL: '인문캠퍼스 · SEOUL', ROAD: '이동 중 · ON THE ROAD', YONGIN: '자연캠퍼스 · YONGIN' }
-// Scroll progress at which each stop is right ahead of the viewer.
-const ROUTE_AT = ROUTE.map((_, i) => 0.05 + (0.9 * i) / (ROUTE.length - 1))
-const ROUTE_SPAN = 600 // world units of road per unit of scroll progress
-const SIGN_READ = 13 // distance (world units) at which a sign is best read
 
 const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
 const clamp01 = gsap.utils.clamp(0, 1)
@@ -69,7 +65,6 @@ function splitChars(el) {
   }
 }
 
-// 0..1 progress through a tall section whose content is sticky.
 function buildSigns() {
   const wrap = document.getElementById('signs')
   return ROUTE.map((stop, i) => {
@@ -87,6 +82,7 @@ function buildSigns() {
   })
 }
 
+// 0..1 progress through a tall section whose content is sticky.
 function stickyProgress(el) {
   const r = el.getBoundingClientRect()
   return clamp01(-r.top / Math.max(1, r.height - innerHeight))
@@ -126,13 +122,13 @@ async function boot() {
     maxDpr: 1.5,
     idleMouse: (t) => [0.5 + 0.25 * Math.sin(t * 0.4), 0.3],
   })
-  const highway = new Highway(document.getElementById('cvCampus'))
+  const campus = new CampusFlight(document.getElementById('cvCampus'))
   const rotunda = new Rotunda(document.getElementById('cvColleges'), COLLEGES)
 
   const scenes = [
     { el: document.getElementById('hero'), view: hero },
     { el: document.getElementById('name'), view: name },
-    { el: document.getElementById('campus'), view: highway },
+    { el: document.getElementById('campus'), view: campus },
     { el: document.getElementById('values'), view: values },
     { el: document.getElementById('colleges'), view: rotunda },
     { el: document.getElementById('finale'), view: finale },
@@ -185,7 +181,6 @@ async function boot() {
 
   /* per-section scroll wiring */
   const heroWord = document.querySelector('.hero__word')
-  const speedEl = document.getElementById('speed')
   const signEls = buildSigns()
   const campusHead = document.querySelector('.campus__head')
   const routeStage = document.getElementById('routeStage')
@@ -232,29 +227,26 @@ async function boot() {
     heroWord.style.transform = `translateY(${hp * -18}vh) scale(${1 + hp * 0.08})`
 
     const cp = stickyProgress(scenes[2].el)
-    highway.boost += (1 + Math.min(Math.abs(lenis.velocity), 40) * 0.15 - highway.boost) * Math.min(1, dt * 3)
-    speedEl.textContent = Math.round(60 + highway.boost * 34)
-    // Each stop's gantry sits ahead of us by how much scroll remains until it;
-    // the last one (arrival) stays in view to the end.
+    campus.progress = cp
+    // Where the flight is, measured in stops (fractional between them).
+    const at = campus.stopPosition()
     const lastStop = ROUTE.length - 1
-    highway.setGantries(ROUTE_AT.map((at, i) => {
-      const d = (at - cp) * ROUTE_SPAN + SIGN_READ
-      return i === lastStop ? Math.max(d, SIGN_READ) : d
-    }))
     if (scenes[2].on) {
+      // Each stop's label floats over its real building while the camera is near it.
+      const labelScale = innerWidth < 760 ? 0.3 : 0.42
       signEls.forEach((el, i) => {
-        const s = highway.signScreen(i)
-        const fade = Math.min(1, Math.max(0, (170 - s.distance) / 50))
-        el.style.visibility = s.visible && fade > 0 ? 'visible' : 'hidden'
+        const fade = Math.min(1, Math.max(0, 1 - Math.abs(i - at) * 1.4))
+        const s = fade > 0 && campus.labelScreen(i)
+        el.style.visibility = s ? 'visible' : 'hidden'
+        if (!s) return
         el.style.opacity = fade
-        el.style.zIndex = 1000 - Math.round(s.distance)
-        el.style.transform = `translate(${s.x}px, ${s.y}px) translate(-50%, -50%) scale(${s.width / 640})`
+        el.style.transform = `translate(${s.x}px, ${s.y}px) translate(-50%, -100%) scale(${labelScale})`
       })
     }
-    // The title steps aside once the signs start coming overhead.
+    // The title steps aside once the flight begins.
     campusHead.style.opacity = 1 - Math.min(1, Math.max(0, (cp - 0.02) / 0.05))
-    routeFill.style.transform = `scaleX(${Math.min(1, Math.max(0, (cp - ROUTE_AT[0]) / (ROUTE_AT[lastStop] - ROUTE_AT[0])))})`
-    const stop = Math.max(0, Math.min(lastStop, Math.round((cp - ROUTE_AT[0]) / (ROUTE_AT[1] - ROUTE_AT[0]))))
+    routeFill.style.transform = `scaleX(${at / lastStop})`
+    const stop = Math.round(at)
     if (stop !== currentStop) {
       currentStop = stop
       routeStage.textContent = STAGE_LABEL[ROUTE[stop].stage]
