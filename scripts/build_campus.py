@@ -14,6 +14,9 @@ M_PER_DEG_LAT = 110540
 FLOOR = 3.6  # metres per storey
 MATCH_M = 45  # max distance from an official point to an OSM footprint's edge
 
+# On the campus map but not Myongji's own buildings.
+NOT_MYONGJI = ('엘펜하임',)
+
 # Official entries that are not buildings.
 NOT_BUILDINGS = ('운동장', '테니스', '승차장', '승강장', '주차장', '수위실', '야외음악당', '정문', '백마상', '온실', '유압실')
 
@@ -89,6 +92,7 @@ def build(key, cfg):
     official = [
         {'name': e['artclNm'].strip(), 'lat': float(e['latitude']), 'lon': float(e['longitude'])}
         for e in json.load(open(os.path.join(HERE, f'official-{key}.json')))
+        if e['artclNm'].strip() not in NOT_MYONGJI
     ]
     lat0 = sum(o['lat'] for o in official) / len(official)
     lon0 = sum(o['lon'] for o in official) / len(official)
