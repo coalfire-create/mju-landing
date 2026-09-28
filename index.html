@@ -87,13 +87,19 @@
             <span class="eyebrow">02 — TWO CAMPUSES</span>
             <h2 class="h2"><span class="split">서울에서 용인까지,</span><br /><span class="split">하나의 길.</span></h2>
           </div>
-          <div class="place place--seoul">
-            <span class="place__en">FROM · SEOUL</span>
-            <strong>인문캠퍼스</strong>
-          </div>
-          <div class="place place--yongin" id="placeYongin">
-            <span class="place__en">TO · YONGIN</span>
-            <strong>자연캠퍼스</strong>
+          <div class="signs" id="signs" aria-hidden="true"></div>
+          <div class="route">
+            <div class="route__now">
+              <span class="route__stage" id="routeStage">인문캠퍼스 · SEOUL</span>
+              <strong class="route__place" id="routePlace">정문</strong>
+            </div>
+            <div class="route__bar">
+              <span class="route__fill" id="routeFill"></span>
+              <span class="route__mark" data-stage="SEOUL">인문캠퍼스</span>
+              <span class="route__mark" data-stage="ROAD">한강</span>
+              <span class="route__mark" data-stage="YONGIN">자연캠퍼스</span>
+              <span class="route__mark route__mark--end" style="left: 100%">도착</span>
+            </div>
           </div>
           <div class="speed"><span id="speed">0</span><small>KM/H</small></div>
         </div>

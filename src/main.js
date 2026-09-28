@@ -30,6 +30,29 @@ const PALETTES = [
   [[0.08, 0.8, 0.62], [0.62, 1.0, 0.72], [1.0, 0.85, 0.35]],
 ]
 
+// Stops passed on the drive from the Seoul campus to the Yongin campus.
+// Building codes follow the university's own numbering (S = 인문, Y = 자연).
+const ROUTE = [
+  { stage: 'SEOUL', ko: '정문', en: 'Main Gate', note: '서대문구 거북골로 34' },
+  { stage: 'SEOUL', ko: '종합관', code: 'S1', en: 'Main Hall', note: '인문캠퍼스의 중심 강의동' },
+  { stage: 'SEOUL', ko: '학생회관', code: 'S2', en: 'Student Union', note: '학생식당 · 동아리방' },
+  { stage: 'SEOUL', ko: '방목학술정보관', code: 'S9', en: 'Bangmok Library', note: '중앙도서관' },
+  { stage: 'SEOUL', ko: 'MCC관', code: 'S10', en: 'Myongji Campus Complex', note: '베리타스홀 · 코이노니아홀' },
+  { stage: 'ROAD', ko: '한강', en: 'Han River', note: '서울을 가로질러 남쪽으로' },
+  { stage: 'ROAD', ko: '용인', en: 'Yongin', note: '경기도 용인시 처인구' },
+  { stage: 'YONGIN', ko: '정문', en: 'Main Gate', note: '처인구 명지로 116' },
+  { stage: 'YONGIN', ko: '백마상', en: 'White Horse', note: '자연캠퍼스의 상징' },
+  { stage: 'YONGIN', ko: '창조예술관', code: 'Y2', en: 'Creative Arts Hall', note: '캠퍼스 랜드마크' },
+  { stage: 'YONGIN', ko: '명진당', code: 'Y3', en: 'Myungjindang', note: '자연도서관' },
+  { stage: 'YONGIN', ko: '함박관', code: 'Y9', en: 'Hambak Hall', note: '신입생 교양 강의동' },
+  { stage: 'YONGIN', ko: '60주년 채플관', code: 'Y22', en: '60th Anniversary Chapel', note: '채플 · 공연장' },
+]
+const STAGE_LABEL = { SEOUL: '인문캠퍼스 · SEOUL', ROAD: '이동 중 · ON THE ROAD', YONGIN: '자연캠퍼스 · YONGIN' }
+// Scroll progress at which each stop is right ahead of the viewer.
+const ROUTE_AT = ROUTE.map((_, i) => 0.05 + (0.9 * i) / (ROUTE.length - 1))
+const ROUTE_SPAN = 600 // world units of road per unit of scroll progress
+const SIGN_READ = 13 // distance (world units) at which a sign is best read
+
 const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
 const clamp01 = gsap.utils.clamp(0, 1)
 
@@ -47,6 +70,23 @@ function splitChars(el) {
 }
 
 // 0..1 progress through a tall section whose content is sticky.
+function buildSigns() {
+  const wrap = document.getElementById('signs')
+  return ROUTE.map((stop, i) => {
+    const el = document.createElement('div')
+    el.className = `sign sign--${stop.stage.toLowerCase()}`
+    el.innerHTML = `
+      <div class="sign__top">
+        <span class="sign__stage">${stop.stage === 'ROAD' ? 'ROUTE' : stop.stage === 'SEOUL' ? '인문캠퍼스' : '자연캠퍼스'}</span>
+        <span class="sign__code">${stop.code ?? String(i + 1).padStart(2, '0')}</span>
+      </div>
+      <strong class="sign__ko">${stop.ko}</strong>
+      <div class="sign__bottom"><span>${stop.en}</span><span>${stop.note}</span></div>`
+    wrap.appendChild(el)
+    return el
+  })
+}
+
 function stickyProgress(el) {
   const r = el.getBoundingClientRect()
   return clamp01(-r.top / Math.max(1, r.height - innerHeight))
@@ -146,7 +186,17 @@ async function boot() {
   /* per-section scroll wiring */
   const heroWord = document.querySelector('.hero__word')
   const speedEl = document.getElementById('speed')
-  const yongin = document.getElementById('placeYongin')
+  const signEls = buildSigns()
+  const campusHead = document.querySelector('.campus__head')
+  const routeStage = document.getElementById('routeStage')
+  const routePlace = document.getElementById('routePlace')
+  const routeFill = document.getElementById('routeFill')
+  let currentStop = -1
+  // Place the bar's landmarks at their stops' share of the route.
+  document.querySelectorAll('.route__mark[data-stage]').forEach((m) => {
+    const i = ROUTE.findIndex((s) => s.stage === m.dataset.stage)
+    m.style.left = `${(i / (ROUTE.length - 1)) * 100}%`
+  })
   const valueEls = [...document.querySelectorAll('.value')]
   const valueIdx = [...document.querySelectorAll('#valuesIndex li')]
   const activeEl = document.getElementById('collegeActive')
@@ -182,11 +232,34 @@ async function boot() {
     heroWord.style.transform = `translateY(${hp * -18}vh) scale(${1 + hp * 0.08})`
 
     const cp = stickyProgress(scenes[2].el)
-    highway.boost += (cp * 5 + Math.min(Math.abs(lenis.velocity), 40) * 0.12 - highway.boost) * Math.min(1, dt * 3)
+    highway.boost += (1 + Math.min(Math.abs(lenis.velocity), 40) * 0.15 - highway.boost) * Math.min(1, dt * 3)
     speedEl.textContent = Math.round(60 + highway.boost * 34)
+    // Each stop's gantry sits ahead of us by how much scroll remains until it;
+    // the last one (arrival) stays in view to the end.
+    const lastStop = ROUTE.length - 1
+    highway.setGantries(ROUTE_AT.map((at, i) => {
+      const d = (at - cp) * ROUTE_SPAN + SIGN_READ
+      return i === lastStop ? Math.max(d, SIGN_READ) : d
+    }))
     if (scenes[2].on) {
-      const h = highway.horizonPoint()
-      yongin.style.transform = `translate(${h.x}px, ${h.y}px) translate(-50%, -140%)`
+      signEls.forEach((el, i) => {
+        const s = highway.signScreen(i)
+        const fade = Math.min(1, Math.max(0, (170 - s.distance) / 50))
+        el.style.visibility = s.visible && fade > 0 ? 'visible' : 'hidden'
+        el.style.opacity = fade
+        el.style.zIndex = 1000 - Math.round(s.distance)
+        el.style.transform = `translate(${s.x}px, ${s.y}px) translate(-50%, -50%) scale(${s.width / 640})`
+      })
+    }
+    // The title steps aside once the signs start coming overhead.
+    campusHead.style.opacity = 1 - Math.min(1, Math.max(0, (cp - 0.02) / 0.05))
+    routeFill.style.transform = `scaleX(${Math.min(1, Math.max(0, (cp - ROUTE_AT[0]) / (ROUTE_AT[lastStop] - ROUTE_AT[0])))})`
+    const stop = Math.max(0, Math.min(lastStop, Math.round((cp - ROUTE_AT[0]) / (ROUTE_AT[1] - ROUTE_AT[0]))))
+    if (stop !== currentStop) {
+      currentStop = stop
+      routeStage.textContent = STAGE_LABEL[ROUTE[stop].stage]
+      routePlace.textContent = ROUTE[stop].code ? `${ROUTE[stop].ko} ${ROUTE[stop].code}` : ROUTE[stop].ko
+      gsap.fromTo(routePlace, { yPercent: 60, opacity: 0 }, { yPercent: 0, opacity: 1, duration: 0.6, ease: 'expo.out', overwrite: true })
     }
 
     const vp = stickyProgress(scenes[3].el)

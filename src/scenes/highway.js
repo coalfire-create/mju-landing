@@ -10,6 +10,11 @@ const LEN = 260
 const NEAR = 4
 const BEND = /* glsl */ `float roadX(float z){ return 16.0 * (1.0 - cos(z * 0.011)); }`
 const roadX = (z) => 16 * (1 - Math.cos(z * 0.011))
+// Overhead sign gantry: posts either side of the road, board hanging from the bar.
+const GANTRY_H = 5.8
+const GANTRY_HALF = 5.6
+const SIGN_W = 8
+const SIGN_Y = 4.6
 
 const streamVertex = /* glsl */ `
   attribute float aX;
@@ -121,6 +126,8 @@ export class Highway {
     this.boost = 0
     this.mouse = new THREE.Vector2()
     this.uniformsTravel = { value: 0 }
+    this.gantries = []
+    this.gantryDist = []
 
     this.skyUniforms = { uHorizon: { value: new THREE.Vector2(0.5, 0.6) }, uAspect: { value: 1 } }
     const sky = new THREE.Mesh(
@@ -196,11 +203,50 @@ export class Highway {
     this.skyUniforms.uAspect.value = w / h
   }
 
+  #project(x, y, z) {
+    const v = new THREE.Vector3(x, y, z).project(this.camera)
+    return { x: (v.x * 0.5 + 0.5) * this.canvas.clientWidth, y: (-v.y * 0.5 + 0.5) * this.canvas.clientHeight, uv: [v.x * 0.5 + 0.5, v.y * 0.5 + 0.5] }
+  }
+
   // Screen position (px within the canvas) of the far end of the road.
   horizonPoint() {
     const z = NEAR - LEN + 40
-    const v = new THREE.Vector3(roadX(z), 0, z).project(this.camera)
-    return { x: (v.x * 0.5 + 0.5) * this.canvas.clientWidth, y: (-v.y * 0.5 + 0.5) * this.canvas.clientHeight, uv: [v.x * 0.5 + 0.5, v.y * 0.5 + 0.5] }
+    return this.#project(roadX(z), 0, z)
+  }
+
+  // Overhead sign gantries, one per waypoint. `distances` are world units
+  // ahead of the camera; 0 means the gantry is directly overhead.
+  setGantries(distances) {
+    while (this.gantries.length < distances.length) {
+      const mat = new THREE.MeshBasicMaterial({ color: '#6cc4ff', transparent: true })
+      const g = new THREE.Group()
+      for (const side of [-1, 1]) {
+        const post = new THREE.Mesh(new THREE.BoxGeometry(0.14, GANTRY_H, 0.14), mat)
+        post.position.set(side * GANTRY_HALF, GANTRY_H / 2, 0)
+        g.add(post)
+      }
+      const bar = new THREE.Mesh(new THREE.BoxGeometry(GANTRY_HALF * 2 + 0.3, 0.16, 0.16), mat)
+      bar.position.y = GANTRY_H
+      g.add(bar)
+      g.userData.mat = mat
+      this.scene.add(g)
+      this.gantries.push(g)
+    }
+    this.gantryDist = distances
+  }
+
+  // Where the sign board hanging from gantry `i` lands on screen.
+  signScreen(i) {
+    const z = this.#gantryZ(this.gantryDist[i])
+    const visible = z < this.camera.position.z - 1 && z > NEAR - LEN + 20
+    const c = this.#project(roadX(z), SIGN_Y, z)
+    const l = this.#project(roadX(z) - SIGN_W / 2, SIGN_Y, z)
+    const r = this.#project(roadX(z) + SIGN_W / 2, SIGN_Y, z)
+    return { x: c.x, y: c.y, width: r.x - l.x, visible, distance: this.camera.position.z - z }
+  }
+
+  #gantryZ(d) {
+    return this.camera.position.z - 0.5 - d
   }
 
   render(time, dt) {
@@ -212,6 +258,13 @@ export class Highway {
     cam.lookAt(roadX(-40) * 0.6, 0.7, -40)
     const hp = this.horizonPoint()
     this.skyUniforms.uHorizon.value.set(hp.uv[0], hp.uv[1])
+    this.gantries.forEach((g, i) => {
+      const z = this.#gantryZ(this.gantryDist[i])
+      g.position.set(roadX(z), 0, z)
+      g.visible = z < cam.position.z - 0.5 && z > NEAR - LEN + 20
+      // Fade in over 60 units once it is within ~170 units of the camera.
+      g.userData.mat.opacity = Math.min(1, Math.max(0, (z - (NEAR - LEN + 90)) / 60))
+    })
     this.composer.render()
   }
 }

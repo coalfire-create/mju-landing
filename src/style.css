@@ -386,7 +386,7 @@ a {
 
 /* ---------- campus: traffic wave ---------- */
 .campus {
-  height: 260vh;
+  height: 900vh;
 }
 .campus__head {
   position: absolute;
@@ -394,33 +394,148 @@ a {
   left: var(--gutter);
   z-index: 2;
 }
-.place {
+/* Overhead road signs projected from the 3D gantries. */
+.signs {
   position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+}
+.sign {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 640px;
+  padding: 24px 30px 22px;
+  border: 5px solid #fff;
+  border-radius: 20px;
+  outline: 4px solid var(--sign);
+  background: var(--sign);
+  color: #fff;
+  box-shadow: 0 0 70px color-mix(in srgb, var(--sign) 55%, transparent);
+  will-change: transform, opacity;
+  visibility: hidden;
+}
+.sign--seoul {
+  --sign: #1f47d6;
+}
+.sign--road {
+  --sign: #0f7a4f;
+}
+.sign--yongin {
+  --sign: #0b8a8f;
+}
+.sign__top {
   display: flex;
-  flex-direction: column;
-  gap: 4px;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 18px;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+}
+.sign__code {
+  padding: 3px 12px;
+  border: 2px solid #fff;
+  border-radius: 8px;
+  letter-spacing: 0.05em;
+}
+.sign__ko {
+  display: block;
+  margin: 10px 0 8px;
+  font-size: 92px;
+  font-weight: 900;
+  line-height: 1.05;
+  letter-spacing: -0.045em;
+  white-space: nowrap;
+}
+.sign__bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 16px;
+  font-size: 20px;
+  font-weight: 600;
+  opacity: 0.85;
+}
+.sign__bottom span:first-child {
+  font-family: var(--serif);
+  font-style: italic;
+  font-weight: 400;
+  font-size: 28px;
+}
+
+/* Where we are on the Seoul → Yongin drive. */
+.route {
+  position: absolute;
+  left: var(--gutter);
+  bottom: 44px;
+  width: min(560px, 58vw);
   z-index: 2;
 }
-.place__en {
+.route__stage {
+  display: block;
   font-size: 10px;
   font-weight: 700;
   letter-spacing: 0.35em;
   color: var(--sky);
 }
-.place strong {
-  font-size: clamp(22px, 2.4vw, 34px);
+.route__place {
+  display: block;
+  margin-top: 6px;
+  font-size: clamp(24px, 2.6vw, 38px);
   font-weight: 800;
   letter-spacing: -0.03em;
 }
-.place--seoul {
-  left: var(--gutter);
-  bottom: 48px;
+.route__bar {
+  position: relative;
+  height: 2px;
+  margin: 22px 0 26px;
+  background: rgba(255, 255, 255, 0.2);
 }
-.place--yongin {
-  top: 0;
+.route__fill {
+  position: absolute;
+  inset: 0;
+  background: var(--sky);
+  transform-origin: left;
+  transform: scaleX(0);
+}
+.route__mark {
+  position: absolute;
+  top: 12px;
+  transform: translateX(-50%);
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--muted);
+  white-space: nowrap;
+}
+.route__fill + .route__mark {
+  transform: none;
+}
+.route__mark--end {
+  transform: translateX(-100%);
+}
+.route__mark::before {
+  content: '';
+  position: absolute;
+  top: -17px;
+  left: 50%;
+  width: 8px;
+  height: 8px;
+  margin-left: -4px;
+  border-radius: 50%;
+  background: var(--sky);
+}
+.route__fill + .route__mark::before {
   left: 0;
-  align-items: center;
-  text-align: center;
+  margin-left: 0;
+}
+.route__mark--end::before {
+  left: auto;
+  right: 0;
+  margin-left: 0;
+}
+@media (max-width: 760px) {
+  .route { width: auto; right: var(--gutter); bottom: 32px; }
 }
 .speed {
   position: absolute;
@@ -442,6 +557,9 @@ a {
   font-weight: 700;
   letter-spacing: 0.3em;
   color: var(--muted);
+}
+@media (max-width: 760px) {
+  .speed { display: none; }
 }
 
 /* ---------- values: striped waves ---------- */
