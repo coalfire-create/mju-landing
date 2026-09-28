@@ -1,0 +1,152 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>명지대학교 — 밝은 지혜, 明知</title>
+    <meta name="description" content="밝을 명(明), 알 지(知). 서울과 용인, 두 캠퍼스에서 내일의 지혜를 키우는 명지대학교." />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,400;1,700;1,900&family=Noto+Serif+KR:wght@700;900&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css"
+    />
+  </head>
+  <body>
+    <canvas id="gl"></canvas>
+    <div class="grain" aria-hidden="true"></div>
+
+    <div class="loader" id="loader">
+      <div class="loader__inner">
+        <span class="loader__label">MYONGJI UNIVERSITY · 明知</span>
+        <span class="loader__count" id="loaderCount">0</span>
+      </div>
+      <div class="loader__bar"><span id="loaderBar"></span></div>
+    </div>
+
+    <div class="cursor" aria-hidden="true"><span class="cursor__dot"></span><span class="cursor__ring"></span></div>
+
+    <header class="nav">
+      <a href="#hero" class="nav__logo">MJU<sup>明知</sup></a>
+      <nav class="nav__links">
+        <a href="#name">Name</a>
+        <a href="#campus">Campus</a>
+        <a href="#values">Values</a>
+        <a href="#colleges">Colleges</a>
+      </nav>
+      <a href="https://www.mju.ac.kr" target="_blank" rel="noopener" class="btn btn--small">입학 안내</a>
+    </header>
+
+    <main>
+      <!-- 01 HERO: particle MJU -->
+      <section class="section hero" id="hero" data-shape="0" data-tint="#1f4bff">
+        <div class="hero__top">
+          <span class="eyebrow">MYONGJI UNIVERSITY · SINCE 1948</span>
+          <span class="eyebrow">SEOUL · YONGIN</span>
+        </div>
+        <div class="hero__bottom">
+          <h1 class="hero__title">
+            <span class="line split">밝은 지혜로</span>
+            <span class="line split">세상을 밝히다<em>.</em></span>
+          </h1>
+          <div class="hero__side">
+            <p class="latin hero__motto split">Lux et Sapientia</p>
+            <p class="hero__desc reveal">
+              밝을 명(明), 알 지(知). 이름 그대로, 배운 것을 밝게 나누는 사람을 키웁니다. 서울과 용인, 두 캠퍼스에서.
+            </p>
+            <div class="hero__cta reveal">
+              <a href="#colleges" class="btn btn--primary magnetic"><span>단과대학 둘러보기</span></a>
+              <a href="#name" class="btn btn--ghost magnetic"><span>더 알아보기 ↓</span></a>
+            </div>
+          </div>
+        </div>
+        <div class="scroll-hint"><span></span>SCROLL</div>
+      </section>
+
+      <div class="marquee" aria-hidden="true">
+        <div class="marquee__track">
+          <span>MYONGJI UNIVERSITY ✦ 明知 ✦ 밝은 지혜 ✦ SEOUL · YONGIN ✦ </span>
+          <span>MYONGJI UNIVERSITY ✦ 明知 ✦ 밝은 지혜 ✦ SEOUL · YONGIN ✦ </span>
+        </div>
+      </div>
+
+      <!-- 02 NAME: kinetic-text knot -->
+      <section class="section name" id="name" data-shape="1" data-tint="#1236a8">
+        <div class="name__copy">
+          <span class="eyebrow">01 — OUR NAME</span>
+          <h2 class="h2">
+            <span class="hanja split">明知</span>
+          </h2>
+          <dl class="glyphs reveal">
+            <div><dt>明</dt><dd><b>밝을 명</b>세상을 밝게 비추는 빛</dd></div>
+            <div><dt>知</dt><dd><b>알 지</b>깊이 알고 바르게 쓰는 지혜</dd></div>
+          </dl>
+        </div>
+      </section>
+
+      <!-- 03 CAMPUS: fibre arc between two campuses -->
+      <section class="section campus" id="campus" data-shape="2" data-tint="#0a8cff">
+        <div class="campus__head">
+          <span class="eyebrow">02 — TWO CAMPUSES</span>
+          <h2 class="h2 split">서울과 용인,<br />빛으로 잇다<em>.</em></h2>
+        </div>
+        <div class="campus-labels" aria-hidden="true">
+          <div class="campus-label" id="labelSeoul">
+            <span class="campus-label__en">SEOUL</span>
+            <strong>인문캠퍼스</strong>
+            <small>서대문구</small>
+          </div>
+          <div class="campus-label" id="labelYongin">
+            <span class="campus-label__en">YONGIN</span>
+            <strong>자연캠퍼스</strong>
+            <small>처인구</small>
+          </div>
+        </div>
+      </section>
+
+      <!-- 04 VALUES: silk waves -->
+      <section class="section values" id="values" data-shape="3" data-tint="#8a4dff">
+        <span class="eyebrow">03 — VALUES</span>
+        <ol class="values__list">
+          <li class="value"><span class="value__no">01</span><span class="value__ko split">사랑</span><span class="value__en latin">Love</span></li>
+          <li class="value"><span class="value__no">02</span><span class="value__ko split">진리</span><span class="value__en latin">Truth</span></li>
+          <li class="value"><span class="value__no">03</span><span class="value__ko split">봉사</span><span class="value__en latin">Service</span></li>
+        </ol>
+      </section>
+
+      <!-- 05 COLLEGES: 3D carousel -->
+      <section class="colleges" id="colleges" data-shape="4" data-tint="#2f5bff">
+        <div class="colleges__sticky">
+          <div class="colleges__head">
+            <span class="eyebrow">04 — COLLEGES</span>
+            <h2 class="h2">당신의 지혜는<br />어디서 빛날까요?</h2>
+          </div>
+          <div class="carousel">
+            <div class="carousel__ring" id="ring"></div>
+          </div>
+          <div class="colleges__progress"><span id="collegeProgress"></span></div>
+        </div>
+      </section>
+
+      <!-- 06 CTA: particle 명지 -->
+      <section class="section finale" id="finale" data-shape="5" data-tint="#1f9dff">
+        <div class="finale__inner">
+          <span class="eyebrow">MYONGJI UNIVERSITY</span>
+          <h2 class="h2 finale__title split">당신의 내일을 밝힐 지혜,<br />명지에서<em>.</em></h2>
+          <a href="https://www.mju.ac.kr" target="_blank" rel="noopener" class="btn btn--sky magnetic btn--big"><span>지원하기 →</span></a>
+        </div>
+        <footer class="footer">
+          <span>인문캠퍼스 서울 서대문구 · 자연캠퍼스 경기 용인시</span>
+          <span class="latin">明知 · Myongji</span>
+          <span>© 2026 MJU Promotion</span>
+        </footer>
+      </section>
+    </main>
+
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>
