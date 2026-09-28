@@ -28,13 +28,11 @@ FLOORS = {
     '하이브리드': 1, '모형실험동': 1,
 }
 
+# Landmarks on the route that aren't buildings. Every official building is a
+# stop too; the route starts at the gate and walks nearest-first from there.
 CAMPUSES = {
-    'seoul': {
-        'stops': [('정문', '정문'), ('MCC관', 'MCC'), ('종합관', '종합관'), ('학생회관', '학생회관'), ('방목학술정보관', '방목학술정보관')],
-    },
-    'yongin': {
-        'stops': [('정문', '정문'), ('60주년 채플관', '60주년채플관'), ('창조예술관', '창조관'), ('백마상', '백마상'), ('명진당', '명진당'), ('함박관', '함박관')],
-    },
+    'seoul': {'landmarks': ['정문']},
+    'yongin': {'landmarks': ['정문', '백마상']},
 }
 
 
@@ -155,11 +153,21 @@ def build(key, cfg):
         if floors:
             hit['h'] = floors * FLOOR
 
-    stops = []
-    for ko, key_ in cfg['stops']:
-        o = next(o for o in official if key_ in o['name'])
-        idx = next((i for i, b in enumerate(buildings) if b['name'] and clean(o['name']) in b['name']), None)
-        stops.append({'ko': ko, 'at': to_xz(o['lat'], o['lon']), 'b': idx})
+    # Route: gate first, then every official building (and other landmarks)
+    # visited nearest-first, a simple walking tour of the campus.
+    places = []
+    for name in cfg['landmarks']:
+        o = next(o for o in official if o['name'] == name)
+        places.append({'ko': name, 'pt': (o['lat'], o['lon']), 'b': None})
+    for i, b in enumerate(buildings):
+        if b['name']:
+            places.append({'ko': b['name'], 'pt': b['c'], 'b': i})
+    tour = [places.pop(0)]
+    while places:
+        nxt = min(places, key=lambda q: dist_m(tour[-1]['pt'], q['pt']))
+        places.remove(nxt)
+        tour.append(nxt)
+    stops = [{'ko': q['ko'], 'at': to_xz(*q['pt']), 'b': q['b']} for q in tour]
 
     paths = []
     for e in osm:
@@ -187,5 +195,5 @@ out = {k: build(k, v) for k, v in CAMPUSES.items()}
 path = os.path.join(HERE, '..', 'src', 'data', 'campus.json')
 json.dump(out, open(path, 'w'), ensure_ascii=False, separators=(',', ':'))
 for k, v in out.items():
-    print(k, 'total', len(v['buildings']), 'stops', [(s['ko'], s['b']) for s in v['stops']])
+    print(k, 'total', len(v['buildings']), 'stops', len(v['stops']), [s['ko'] for s in v['stops']])
 print('bytes', os.path.getsize(path))

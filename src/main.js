@@ -5,6 +5,7 @@ import Lenis from 'lenis'
 import { ShaderCanvas } from './shader-canvas.js'
 import { LOUVRE, MOSAIC, WAVES, RAYS } from './scenes/shaders.js'
 import { CampusFlight } from './scenes/campus.js'
+import CAMPUS_DATA from './data/campus.json'
 import { Rotunda } from './scenes/rotunda.js'
 
 gsap.registerPlugin(ScrollTrigger)
@@ -30,23 +31,38 @@ const PALETTES = [
   [[0.08, 0.8, 0.62], [0.62, 1.0, 0.72], [1.0, 0.85, 0.35]],
 ]
 
-// Stops on the flight from the Seoul campus to the Yongin campus, in the same
-// order as the stops in src/data/campus.json (built by scripts/build_campus.py).
-// Building codes follow the university's own numbering (S = 인문, Y = 자연).
+// Extra sign text for places we have reliable details for; every other stop
+// shows its name from the university's campus map.
+const INFO = {
+  정문: { en: 'Main Gate' },
+  MCC관: { en: 'Myongji Campus Complex', note: '베리타스홀 · 코이노니아홀' },
+  종합관: { en: 'Main Hall', note: '인문캠퍼스의 중심 강의동' },
+  학생회관: { en: 'Student Union', note: '학생식당 · 동아리방' },
+  방목학술정보관: { en: 'Bangmok Library', note: '중앙도서관' },
+  '60주년채플관': { en: '60th Anniversary Chapel', note: '채플 · 공연장' },
+  창조예술관: { en: 'Creative Arts Hall', note: '캠퍼스 랜드마크' },
+  백마상: { en: 'White Horse Statue', note: '자연캠퍼스의 상징' },
+  명진당: { en: 'Myungjindang', note: '자연도서관' },
+  함박관: { en: 'Hambak Hall', note: '신입생 교양 강의동' },
+}
+const ADDRESS = { SEOUL: '서대문구 거북골로 34', YONGIN: '처인구 명지로 116' }
+
+// Every stop on the flight, in the same order as the camera path in
+// scenes/campus.js: each campus's stops from src/data/campus.json (built by
+// scripts/build_campus.py), with two stops on the road in between.
+const campusRoute = (key, stage) =>
+  CAMPUS_DATA[key].stops.map((s, i, all) => ({
+    stage,
+    ko: s.ko,
+    code: i === 0 ? null : `${String(i).padStart(2, '0')}/${all.length - 1}`,
+    en: INFO[s.ko]?.en ?? '',
+    note: INFO[s.ko]?.note ?? (i === 0 ? ADDRESS[stage] : ''),
+  }))
 const ROUTE = [
-  { stage: 'SEOUL', ko: '정문', en: 'Main Gate', note: '서대문구 거북골로 34' },
-  { stage: 'SEOUL', ko: 'MCC관', code: 'S10', en: 'Myongji Campus Complex', note: '베리타스홀 · 코이노니아홀' },
-  { stage: 'SEOUL', ko: '종합관', code: 'S1', en: 'Main Hall', note: '인문캠퍼스의 중심 강의동' },
-  { stage: 'SEOUL', ko: '학생회관', code: 'S2', en: 'Student Union', note: '학생식당 · 동아리방' },
-  { stage: 'SEOUL', ko: '방목학술정보관', code: 'S9', en: 'Bangmok Library', note: '중앙도서관' },
+  ...campusRoute('seoul', 'SEOUL'),
   { stage: 'ROAD', ko: '한강', en: 'Han River', note: '서울을 가로질러 남쪽으로' },
   { stage: 'ROAD', ko: '용인', en: 'Yongin', note: '경기도 용인시 처인구' },
-  { stage: 'YONGIN', ko: '정문', en: 'Main Gate', note: '처인구 명지로 116' },
-  { stage: 'YONGIN', ko: '60주년 채플관', code: 'Y22', en: '60th Anniversary Chapel', note: '채플 · 공연장' },
-  { stage: 'YONGIN', ko: '창조예술관', code: 'Y2', en: 'Creative Arts Hall', note: '캠퍼스 랜드마크' },
-  { stage: 'YONGIN', ko: '백마상', en: 'White Horse Statue', note: '자연캠퍼스의 상징' },
-  { stage: 'YONGIN', ko: '명진당', code: 'Y3', en: 'Myungjindang', note: '자연도서관' },
-  { stage: 'YONGIN', ko: '함박관', code: 'Y9', en: 'Hambak Hall', note: '신입생 교양 강의동' },
+  ...campusRoute('yongin', 'YONGIN'),
 ]
 const STAGE_LABEL = { SEOUL: '인문캠퍼스 · SEOUL', ROAD: '이동 중 · ON THE ROAD', YONGIN: '자연캠퍼스 · YONGIN' }
 
@@ -68,15 +84,15 @@ function splitChars(el) {
 
 function buildSigns() {
   const wrap = document.getElementById('signs')
-  return ROUTE.map((stop, i) => {
+  return ROUTE.map((stop) => {
     const el = document.createElement('div')
     el.className = `sign sign--${stop.stage.toLowerCase()}`
     el.innerHTML = `
       <div class="sign__top">
         <span class="sign__stage">${stop.stage === 'ROAD' ? 'ROUTE' : stop.stage === 'SEOUL' ? '인문캠퍼스' : '자연캠퍼스'}</span>
-        <span class="sign__code">${stop.code ?? String(i + 1).padStart(2, '0')}</span>
+        ${stop.code ? `<span class="sign__code">${stop.code}</span>` : ''}
       </div>
-      <strong class="sign__ko">${stop.ko}</strong>
+      <strong class="sign__ko" style="font-size:${Math.min(92, Math.floor(600 / [...stop.ko].length))}px">${stop.ko}</strong>
       <div class="sign__bottom"><span>${stop.en}</span><span>${stop.note}</span></div>`
     wrap.appendChild(el)
     return el
@@ -268,13 +284,13 @@ async function boot() {
       })
     }
     // The title steps aside once the flight begins.
-    campusHead.style.opacity = 1 - Math.min(1, Math.max(0, (cp - 0.02) / 0.05))
+    campusHead.style.opacity = 1 - Math.min(1, Math.max(0, (cp - 0.004) / 0.012))
     routeFill.style.transform = `scaleX(${at / lastStop})`
     const stop = Math.round(at)
     if (stop !== currentStop) {
       currentStop = stop
       routeStage.textContent = STAGE_LABEL[ROUTE[stop].stage]
-      routePlace.textContent = ROUTE[stop].code ? `${ROUTE[stop].ko} ${ROUTE[stop].code}` : ROUTE[stop].ko
+      routePlace.textContent = ROUTE[stop].ko
       gsap.fromTo(routePlace, { yPercent: 60, opacity: 0 }, { yPercent: 0, opacity: 1, duration: 0.6, ease: 'expo.out', overwrite: true })
     }
 

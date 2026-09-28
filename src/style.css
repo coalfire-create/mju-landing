@@ -386,7 +386,8 @@ a {
 
 /* ---------- campus: traffic wave ---------- */
 .campus {
-  height: 900vh;
+  /* ~45 stops: about 45vh of scroll each. */
+  height: 2000vh;
 }
 .campus__head {
   position: absolute;
