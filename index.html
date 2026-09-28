@@ -5,6 +5,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>명지대학교 — 밝게 알고, 밝게 나눈다</title>
     <meta name="description" content="밝을 명(明), 알 지(知). 서울과 용인, 두 캠퍼스에서 내일의 지혜를 키우는 명지대학교." />
+    <meta name="theme-color" content="#050a24" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://mju-landing.vercel.app/" />
+    <meta property="og:title" content="명지대학교 — 밝게 알고, 밝게 나눈다" />
+    <meta property="og:description" content="서울 인문캠퍼스에서 용인 자연캠퍼스까지, 실제 캠퍼스를 3D로 날아보세요." />
+    <meta property="og:image" content="https://mju-landing.vercel.app/og.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:image" content="https://mju-landing.vercel.app/og.png" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -89,6 +101,16 @@
           </div>
           <div class="btags" id="buildingTags" aria-hidden="true"></div>
           <div class="signs" id="signs" aria-hidden="true"></div>
+          <aside class="dir" id="directory">
+            <button type="button" class="dir__toggle" id="dirToggle">모든 장소 보기 <span>↗</span></button>
+            <div class="dir__panel">
+              <div class="dir__head">
+                <strong>캠퍼스 둘러보기</strong>
+                <button type="button" class="dir__back" id="dirBack">투어로 돌아가기</button>
+              </div>
+              <div class="dir__list" id="dirList"></div>
+            </div>
+          </aside>
           <div class="route">
             <div class="route__now">
               <span class="route__stage" id="routeStage">인문캠퍼스 · SEOUL</span>
@@ -108,7 +130,7 @@
       <section class="scene values" id="values">
         <div class="scene__sticky">
           <canvas class="scene__canvas" id="cvValues"></canvas>
-          <span class="eyebrow values__eyebrow">03 — VALUES</span>
+          <span class="eyebrow values__eyebrow">03 — 대학이념 · VALUES</span>
           <div class="values__stage">
             <div class="value" data-i="0"><span class="value__ko">사랑</span><span class="value__en">Love</span></div>
             <div class="value" data-i="1"><span class="value__ko">진리</span><span class="value__en">Truth</span></div>
@@ -128,7 +150,7 @@
           <canvas class="scene__canvas scene__canvas--grab" id="cvColleges"></canvas>
           <div class="colleges__head">
             <span class="eyebrow eyebrow--dark">04 — COLLEGES</span>
-            <h2 class="h2 h2--dark">열 개의 문,<br />당신의 방은?</h2>
+            <h2 class="h2 h2--dark">열세 개의 문,<br />당신의 방은?</h2>
           </div>
           <div class="colleges__foot">
             <span class="colleges__active" id="collegeActive"></span>

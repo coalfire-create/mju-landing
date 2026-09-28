@@ -10,10 +10,11 @@ function panelTexture([ko, en, campus], i, n) {
   c.width = 900
   c.height = 1220
   const ctx = c.getContext('2d')
-  const seoul = campus === 'SEOUL'
+  // Seoul blue, Yongin teal, both-campus violet.
+  const [top, bottom] = { SEOUL: ['#2f5bff', '#0b1a6b'], YONGIN: ['#10b3a3', '#063f5c'], BOTH: ['#7a5cff', '#2a1a6b'] }[campus]
   const g = ctx.createLinearGradient(0, 0, 900, 1220)
-  g.addColorStop(0, seoul ? '#2f5bff' : '#10b3a3')
-  g.addColorStop(1, seoul ? '#0b1a6b' : '#063f5c')
+  g.addColorStop(0, top)
+  g.addColorStop(1, bottom)
   ctx.fillStyle = g
   ctx.fillRect(0, 0, 900, 1220)
 
@@ -33,7 +34,7 @@ function panelTexture([ko, en, campus], i, n) {
 
   ctx.font = '600 34px "Pretendard Variable", Pretendard, sans-serif'
   ctx.fillText(`${String(i + 1).padStart(2, '0')} / ${n}`, 70, 70)
-  const chip = seoul ? '인문캠퍼스 · SEOUL' : '자연캠퍼스 · YONGIN'
+  const chip = { SEOUL: '인문캠퍼스 · SEOUL', YONGIN: '자연캠퍼스 · YONGIN', BOTH: '양 캠퍼스 · BOTH' }[campus]
   ctx.font = '600 32px "Pretendard Variable", Pretendard, sans-serif'
   const cw = ctx.measureText(chip).width + 48
   ctx.strokeStyle = 'rgba(255,255,255,0.6)'
@@ -47,7 +48,7 @@ function panelTexture([ko, en, campus], i, n) {
   ctx.textBaseline = 'alphabetic'
   let size = 150
   ctx.font = `800 ${size}px "Pretendard Variable", Pretendard, sans-serif`
-  while (ctx.measureText(ko).width > 760 && size > 80) {
+  while (ctx.measureText(ko).width > 760 && size > 40) {
     size -= 6
     ctx.font = `800 ${size}px "Pretendard Variable", Pretendard, sans-serif`
   }
@@ -71,7 +72,7 @@ export class Rotunda {
   constructor(canvas, items) {
     this.canvas = canvas
     this.renderer = new THREE.WebGLRenderer({ canvas, antialias: true })
-    this.renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
+    this.renderer.setPixelRatio(Math.min(window.devicePixelRatio, innerWidth < 760 ? 1.5 : 2))
     this.renderer.outputColorSpace = THREE.SRGBColorSpace
     this.scene = new THREE.Scene()
     this.scene.background = new THREE.Color('#eef2fb')

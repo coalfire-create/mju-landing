@@ -3,13 +3,16 @@
 Which buildings belong to Myongji comes from the university's own campus map
 (www.mju.ac.kr/campusMap/mjukr/{1,2}/artclList.do, saved as official-*.json).
 Footprints come from OpenStreetMap (© OpenStreetMap contributors, ODbL; saved
-as osm-*.json). An official building with no OSM footprint gets a generated
+as osm-*.json), or for Yongin from Overture Maps (overture-yongin.json, via
+fetch_overture.py), which adds ML-traced footprints OSM lacks. An official building with no OSM footprint gets a generated
 one, so every building on the official list appears. All other OSM buildings
 are background only.
 """
 import json, math, os
+from parse_details import summarise
 
 HERE = os.path.dirname(__file__)
+DETAILS = json.load(open(os.path.join(HERE, 'official-details.json')))
 M_PER_DEG_LAT = 110540
 FLOOR = 3.6  # metres per storey
 MATCH_M = 45  # max distance from an official point to an OSM footprint's edge
@@ -33,9 +36,11 @@ FLOORS = {
 
 # Landmarks on the route that aren't buildings. Every official building is a
 # stop too; the route starts at the gate and walks nearest-first from there.
+# 'famous' stops are the ones the scroll tour passes; the rest are reachable
+# from the on-page building directory.
 CAMPUSES = {
-    'seoul': {'landmarks': ['정문']},
-    'yongin': {'landmarks': ['정문', '백마상']},
+    'seoul': {'landmarks': ['정문'], 'famous': ['정문', 'MCC관', '종합관', '학생회관', '방목학술정보관']},
+    'yongin': {'landmarks': ['정문', '백마상'], 'famous': ['정문', '60주년채플관', '창조예술관', '백마상', '명진당', '함박관']},
 }
 
 
@@ -90,7 +95,7 @@ def clean(name):
 def build(key, cfg):
     osm = json.load(open(os.path.join(HERE, f'osm-{key}.json')))['elements']
     official = [
-        {'name': e['artclNm'].strip(), 'lat': float(e['latitude']), 'lon': float(e['longitude'])}
+        {'name': e['artclNm'].strip(), 'lat': float(e['latitude']), 'lon': float(e['longitude']), 'seq': e['artclSeq']}
         for e in json.load(open(os.path.join(HERE, f'official-{key}.json')))
         if e['artclNm'].strip() not in NOT_MYONGJI
     ]
@@ -105,7 +110,20 @@ def build(key, cfg):
     in_box = lambda lat, lon: min(lats) - pad < lat < max(lats) + pad and min(lons) - pad < lon < max(lons) + pad
 
     buildings = []
-    for e in osm:
+    # Overture Maps (OSM + ML-traced footprints) where fetched: it has
+    # footprints for Yongin buildings that OSM alone is missing.
+    overture = os.path.join(HERE, f'overture-{key}.json')
+    if os.path.exists(overture):
+        for o in json.load(open(overture)):
+            g = o['geom']
+            polys = [g['coordinates']] if g['type'] == 'Polygon' else g['coordinates']
+            for poly in polys:
+                ring = [(lat, lon) for lon, lat in poly[0]]
+                c = centroid(ring)
+                if in_box(*c):
+                    h = o['height'] or (o['floors'] * FLOOR if o['floors'] else None)
+                    buildings.append({'ring': ring, 'c': c, 'h': h, 'name': None})
+    for e in [] if os.path.exists(overture) else osm:
         t = e.get('tags', {})
         if 'building' not in t:
             continue
@@ -153,7 +171,12 @@ def build(key, cfg):
             buildings.append(hit)
             generated.append(o['name'])
         hit['name'] = clean(o['name'])
-        floors = next((f for k, f in FLOORS.items() if k in o['name']), None)
+        info = DETAILS.get(str(o['seq']))
+        info = summarise(info['detail']) if info and isinstance(info['detail'], list) and len(info['detail']) > 1 else {}
+        hit['code'], hit['note'] = info.get('code'), info.get('note', '')
+        # Official floor lists are sometimes partial; trust the larger count.
+        floors = max(info.get('floors') or 0, next((f for k, f in FLOORS.items() if k in o['name']), 0))
+        hit['floors'], hit['basement'] = floors or None, info.get('basement', 0)
         if floors:
             hit['h'] = floors * FLOOR
 
@@ -165,13 +188,18 @@ def build(key, cfg):
         places.append({'ko': name, 'pt': (o['lat'], o['lon']), 'b': None})
     for i, b in enumerate(buildings):
         if b['name']:
-            places.append({'ko': b['name'], 'pt': b['c'], 'b': i})
+            places.append({'ko': b['name'], 'pt': b['c'], 'b': i, 'code': b.get('code'), 'note': b.get('note', ''),
+                           'floors': b.get('floors'), 'basement': b.get('basement', 0)})
     tour = [places.pop(0)]
     while places:
         nxt = min(places, key=lambda q: dist_m(tour[-1]['pt'], q['pt']))
         places.remove(nxt)
         tour.append(nxt)
-    stops = [{'ko': q['ko'], 'at': to_xz(*q['pt']), 'b': q['b']} for q in tour]
+    stops = [
+        {'ko': q['ko'], 'at': to_xz(*q['pt']), 'b': q['b'], 'famous': q['ko'] in cfg['famous'],
+         **{k: q[k] for k in ('code', 'note', 'floors', 'basement') if q.get(k)}}
+        for q in tour
+    ]
 
     paths = []
     for e in osm:

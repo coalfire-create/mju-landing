@@ -71,7 +71,8 @@ export class ShaderCanvas {
   }
 
   resize() {
-    const dpr = Math.min(window.devicePixelRatio, this.maxDpr)
+    // Full-screen fragment shaders are fill-rate bound; phones render at 1x.
+    const dpr = Math.min(window.devicePixelRatio, innerWidth < 760 ? 1 : this.maxDpr)
     const w = this.canvas.clientWidth
     const h = this.canvas.clientHeight
     this.canvas.width = Math.round(w * dpr)

@@ -1,0 +1,1749 @@
+{
+ "104": {
+  "campus": "seoul",
+  "name": "MCC(Myongji Campus Complex)관",
+  "detail": [
+   {
+    "imgPath": "/mbs/sites/mjukr/atchmnfl/campusMap/null",
+    "artclNm": "MCC(Myongji Campus Complex)관",
+    "artclPlc": null,
+    "telno": null,
+    "artclCn": "경영대학 교학팀"
+   },
+   {
+    "floorType": "지상",
+    "floor": "1층",
+    "cn": "박물관(S10102 ~ 4), 총동문회(S10108), \r\n공연장(S10134), 다목적홀(S10144), 대형강의실(S10142, S10143)\r\n경영대학 강의실(S10101, S10110 ~ S10119)\r\n편의시설(입점중)"
+   },
+   {
+    "floorType": "지상",
+    "floor": "2층",
+    "cn": "인문대학 강의실\r\n사회과학대학 강의실\r\n법과대학 강의실\r\n미래융합대학 강의실\r\nICT융합대학 강의실\r\n\r\n편의시설(입접중)"
+   },
+   {
+    "floorType": "지상",
+    "floor": "3층",
+    "cn": "인문대학 강의실\r\n사회과학대학 강의실\r\n경영대학 강의실\r\n법과대학 강의실\r\n미래융합대학 강의실\r\nICT융합대학 강의실\r\n방목교육기초대학 강의실\r\n\r\n대학원교학팀(S10350)\r\n"
+   },
+   {
+    "floorType": "지상",
+    "floor": "4층",
+    "cn": "경영대학 교학팀(S10433)\r\n특수대학원 원장실(S10410 ~ S10414)"
+   }
+  ]
+ },
+ "14": {
+  "campus": "seoul",
+  "name": "행정동",
+  "detail": [
+   {
+    "imgPath": "/mbs/sites/mjukr/atchmnfl/campusMap/null",
+    "artclNm": "행정동",
+    "artclPlc": "본관",
+    "telno": "010-1234-1234",
+    "artclCn": "행정동"
+   },
+   {
+    "floorType": "지상",
+    "floor": "1층",
+    "cn": "● S5101 하나은행\t\n● S5102 입학기획팀\t\n● S5104 입학관리팀\t\n● S5112 경력개발팀(인문)\t\n● S5114 경력개발팀 JOB CAFE\t\n● S5122 학사지원팀"
+   },
+   {
+    "floorType": "지상",
+    "floor": "2층",
+    "cn": "● S5205 총무시설팀\t\n● S5207 직원평의회 사무실\t\n● S5210 대외홍보팀\t\n● S5212 대외홍보팀\t\n● S5214 콜센터\t\n● S5215 국제교육청 유학생 상담실\t\n● S5216 국제교육원 교학팀\t\n● S5217 국제교육원 교학팀"
+   },
+   {
+    "floorType": "지상",
+    "floor": "3층",
+    "cn": "● S5301 총장실\t\n● S5303 비서실\t\n● S5304 행정부총장실\t\n● S5306 교학부총장실\t\n● S5321 접견실\t\n● S5323 회상회의실"
+   },
+   {
+    "floorType": "지상",
+    "floor": "4층",
+    "cn": "● S5401 한국문화유산자료실\t\n● S5403 방목기념사업회 유푼전시실\t\n● S5409 평가감사팀\t\n● S5410 새마을금고\t\n● S5423 수출당문고"
+   },
+   {
+    "floorType": "지상",
+    "floor": "5층",
+    "cn": "● S5501 국제한국학연구소사업지원부\t\n● S5502 국제한국학연구소\t\n● S5504 다기능행정실\t\n● S5505 입학사정관실\t\n● S5510 세미나실\t\n● S5514 사회교육대학원 예술치료학과 매체실\t\n● S5521 입학사정관실"
+   }
+  ]
+ },
+ "17": {
+  "campus": "seoul",
+  "name": "방목학술정보관",
+  "detail": [
+   {
+    "imgPath": "/mbs/sites/mjukr/atchmnfl/campusMap/null",
+    "artclNm": "방목학술정보관",
+    "artclPlc": "본관",
+    "telno": "010-1234-1234",
+    "artclCn": "방목학술정보관"
+   },
+   {
+    "floorType": "지상",
+    "floor": "1층",
+    "cn": "● S9104 복사문구\t\n● S9105 일반열람실1\t\n● S9106 자유열람실\t\n● S9107 일반열람실2\t\n● S9114 국제회의장\t\n● S9126 무인반납소\t\n● S9127 대학원열람실\t\n● S9128 노트북열람실\t\n● S9133 스터디라운지\t\n● S9134 인터렉티브가든"
+   },
+   {
+    "floorType": "지상",
+    "floor": "2층",
+    "cn": "● S9201 방목기념전시관\n● S9202 개인문고\n● S9203 미정리실\n● S9204 정리실\n● S9205 처리실\n● S9206 소회의실\n● S9213 연암문고\n● S9214 기영회\n● S9215 한적실\n● S9216 사료실\n● S9219-1 통역실1\n● S9219-2 통역실2\n● S9219-3 통역실3\n● S9219-4 통역실4\n● S9220 영사조정실\n● S9222-1 그룹스터디룸1\n● S9222-2 그룹스터디룸2\n● S9222-3 그룹스터디룸3\n● S9222-4 그룹스터디룸4\n● S9222-5 그룹스터디룸5\n● S9222-6 그룹스터디룸6\n● S9222-7 그룹스터디룸7\n● S9222-8 그룹스터디룸8\n● S9222-9 그룹스터디룸9\n● S9223-1 그룹스터디룸10\n● S9223-2 그룹스터디룸11\n● S9223-3 그룹스터디룸12\n● S9223-4 그룹스터디룸13\n● S9223-4 그룹스터디룸14"
+   },
+   {
+    "floorType": "지상",
+    "floor": "3층",
+    "cn": "● S9301 자연과학/예체능\n● S9302 장애인열람실\n● S9303 UCC스튜디오\n● S9304 교육실\n● S9313 사무실\n● S9315 멀티미디어자료실\n● S9316 소극장\n● S9317 전산정보자료실\n● S9318-1 캐럴1\n● S9318-2 캐럴2\n● S9318-3 캐럴3\n● S9318-4 캐럴4\n● S9318-5 캐럴5\n● S9318-6 캐럴6\n● S9318-7 캐럴7\n● S9318-8 캐럴8\n● S9319 연속간행물/논문실\n● S9321 무인반납소\n● S9325 자료보관실\n● S9326 대출실"
+   },
+   {
+    "floorType": "지상",
+    "floor": "4층",
+    "cn": "● S9401 인문과학자료실1\t\n● S9102 인문과학자료실2\t\n● S9409 사회과학자료실1\t\n● S9410 열람코너\t\n● S9411 사회과학자료실2\t\n● S9412 지정도서실\t\n● S9413 인문과학자료실3\t\n● S9416 사무실\t\n● S9418 스터디라운지\t\n● S9428 스터디라운지"
+   }
+  ]
+ },
+ "16": {
+  "campus": "seoul",
+  "name": "생활관(인문)",
+  "detail": [
+   {
+    "imgPath": "/mbs/sites/mjukr/atchmnfl/campusMap/null",
+    "artclNm": "생활관(인문)",
+    "artclPlc": "본관",
+    "telno": "010-1234-1234",
+    "artclCn": "생활관"
+   },
+   {
+    "floorType": "지상",
+    "floor": "1층",
+    "cn": "● S8111 휴게실\t\n● S8118 빨래방\t\n● S8126 중앙감시실"
+   },
+   {
+    "floorType": "지상",
+    "floor": "2층",
+    "cn": "● S8213 생활관 다목적세미나실\t\n● S8216 세미나실\t\n● S8217 생활관 소회의실\t\n● S8218 생활관 상담실"
+   },
+   {
+    "floorType": "지상",
+    "floor": "3층",
+    "cn": " "
+   },
+   {
+    "floorType": "지상",
+    "floor": "4층",
+    "cn": "● S8410 운영팀사무실\t\n● S8411 관리팀사무실\t\n● S8414 생활관 일반매점\t\n● S8415 생활관 간이취사실\t\n● S8416 생활관 컴퓨터 A/S"
+   },
+   {
+    "floorType": "지상",
+    "floor": "5층",
+    "cn": " "
+   },
+   {
+    "floorType": "지상",
+    "floor": "6층",
+    "cn": "● S8616 휴게실"
+   },
+   {
+    "floorType": "지상",
+    "floor": "7층",
+    "cn": "● S8716 휴게실"
+   }
+  ]
+ },
+ "11": {
+  "campus": "seoul",
+  "name": "학생회관",
+  "detail": [
+   {
+    "imgPath": "/mbs/sites/mjukr/atchmnfl/campusMap/null",
+    "artclNm": "학생회관",
+    "artclPlc": "본관",
+    "telno": "010-1234-1234",
+    "artclCn": "학생회관"
+   },
+   {
+    "floorType": "지하",
+    "floor": "지하1층",
+    "cn": "● S2001 안경점\t\n● S2003 파인\t\n● S2004 해병전우회\t\n● S2005 화이트호스연주실\t\n● S2006 화이트호스회의실\t\n● S2013 체력단련실\t"
+   },
+   {
+    "floorType": "지상",
+    "floor": "1층",
+    "cn": "● S2101 소강당\t\n● S2111 소강당"
+   },
+   {
+    "floorType": "지상",
+    "floor": "2층",
+    "cn": "● S2201 교직원식당\t\n● S2202 세미나실\t\n● S2204 명지미디어센터 사무실\t\n● S2205 명지미디어센터 명대신문사\t\n● S2207 명지미디어센터 영자신문사\t\n● S2209 영자신문사 주필실"
+   },
+   {
+    "floorType": "지상",
+    "floor": "3층",
+    "cn": "● S2306 커피전문점"
+   },
+   {
+    "floorType": "지상",
+    "floor": "4층",
+    "cn": "● S2401 복사실\t\n● S2404 인문학생복지봉사팀\t\n● S2406 안정실\t\n● S2407 안정실\t\n● S2408 여학생휴게실\t\n● S2409 흡연실\t\n● S2410 세미나 1실\t\n● S2411 세미나 2실\t\n● S2412 세미나 3실\t\n● S2413 세미나 4실\t\n● S2414 세미나 5실\t\n● S2415 세미나 6실\t\n● S2416 세미나 6실\t\n● S2417 복사실\t\n● S2418 휴게실\t\n● S2422 복사실\t\n● S2441-5 학생휴게실 /레스토랑"
+   },
+   {
+    "floorType": "지상",
+    "floor": "5층",
+    "cn": "● S2501 세미나실\t\n● S2502 PC 제작실\t\n● S2503 추모사업회\t\n● S2505 총학생회사무실\t\n● S2506 총학생회장실\t\n● S2508 경영대 학생회\t\n● S2509 인문대 학생회\t\n● S2510 인해극단\t\n● S2512 사회과학대 학생회실\t\n● S2513 법정대학 학생회실\t\n● S2514 총여학생회\t\n● S2515 사회봉사단실\t\n● S2516 명지기독연합회"
+   },
+   {
+    "floorType": "지상",
+    "floor": "6층",
+    "cn": "● S2601 산악부\t\n● S2602 LIBF\t\n● S2603 에스페란토\t\n● S2604 농어민후생연구회\t\n● S2605 학생복지위원회\t\n● S2606 동아리연합회\t\n● S2607 극예술연구회\t\n● S2608 뉴스위크\t\n● S2609 카톨릭학생회\t\n● S2510 나누미\t\n● S2511 명지서법연구회\t\n● S2512 나이너스\t\n● S2513 C.A.M\t\n● S2514 총여학생회\t\n● S2515 탈터사랑\t\n● S2516 포토랩"
+   },
+   {
+    "floorType": "지상",
+    "floor": "7층",
+    "cn": "● S2701 아마추어무선국\t\n● S2702 테니스\t\n● S2703 명불회\t\n● S2704 코아\t\n● S2705 흑풍\t\n● S2706 굴렁쇠\t\n● S2707 주리랑\t\n● S2708 가람토문학회\t\n● S2709 JUM\t\n● S2510 ALS\t\n● S2511 MIRS\t\n● S2512 스크린\t\n● S2513 정치경제연구회\t\n● S2514 전통무예\t\n● S2515 라루즈\t\n● S2516 실로암"
+   },
+   {
+    "floorType": "지상",
+    "floor": "8층",
+    "cn": "● S2806 교수협의회\t\n● S2807 새빛모리\t\n● S2809 스카우트\t\n● S2810 TIME\t\n● S2812 국제통상학과 무역실습실\t\n● S2813 학군단장실\t\n● S2814 한국이미지언어연구소\t\n● S2815 회의실\t\n● S2816 한국이미지언어연구소 수장고\t\n● S2817 졸업준비위원회"
+   },
+   {
+    "floorType": "지상",
+    "floor": "9층",
+    "cn": "● S2511 명지미디어센터(신문사서고)\t\n● S2512 출판부\t\n● S2516 교양학습실"
+   },
+   {
+    "floorType": "지상",
+    "floor": "10층",
+    "cn": "● S21002 정책과학연구소\t\n● S21003 인문한국지원사업 HK공동교수실\t\n● S21004 대학발전연구소\t\n● S21005 꿈나무사업단\t\n● S21007 미술학과 대학원연구실\t\n● S21008 대학원연구원실\t\n● S21009 인문한국지원사업 HK연구교수실\t\n● S21010 중동문제연구소\t\n● S21011 금융지식연구소 행정실\t\n● S21014 인문과학연구소"
+   }
+  ]
+ },
+ "12": {
+  "campus": "seoul",
+  "name": "미래관(미래교육원,어린이집)",
+  "detail": [
+   {
+    "imgPath": "/mbs/sites/mjukr/atchmnfl/campusMap/null",
+    "artclNm": "미래관(미래교육원,어린이집)",
+    "artclPlc": "본관",
+    "telno": "010-1234-1234",
+    "artclCn": "미래관(미래교육원,어린이집)"
+   },
+   {
+    "floorType": "지하",
+    "floor": "1층",
+    "cn": " "
+   },
+   {
+    "floorType": "지상",
+    "floor": "2층",
+    "cn": "● S3202 사회교육원교학부 교학팀\t\n● S3203 사회교육원교학부\t\n● S3205 원목실\t\n● S3206 세미나실\t\n● S3216 컴퓨터실\t\n● S3218 컴퓨터실\t\n● S3221 기자재실\t\n● S3222 교강사휴게실"
+   },
+   {
+    "floorType": "지상",
+    "floor": "3층",
+    "cn": "● S3303 만화창작학과실습실"
+   },
+   {
+    "floorType": "지상",
+    "floor": "4층",
+    "cn": " "
+   },
+   {
+    "floorType": "지상",
+    "floor": "5층",
+    "cn": "● S3513 디지털 피아노실\t\n● S3514 피아노실습실\t\n● S3516 피아노실습실\t\n● S3517 음악실습실\t\n● S3518 콘서바토리교수실"
+   }
+  ]
+ },
+ "13": {
+  "campus": "seoul",
+  "name": "국제관(구 경상관, 대학원)",
+  "detail": [
+   {
+    "imgPath": "/mbs/sites/mjukr/atchmnfl/campusMap/null",
+    "artclNm": "국제관(구 경상관, 대학원)",
+    "artclPlc": "본관",
+    "telno": "010-1234-1234",
+    "artclCn": "국제관(구 경상관, 대학원)"
+   },
+   {
+    "floorType": "지하",
+    "floor": "지하1층",
+    "cn": "● S4005 한유회\t\n● S4006 그림패시만화\t\n● S4007 명중회\t\n● S4008 CCC\t\n● S4009 배수펌프실\t\n● S4010 PTPI\t\n● S4012 경영학과 학생회실\t\n● S4013 국제통상학과 학생회실\t\n● S4014 디지털미디어학과 학생회실\t\n● S4015 무용실습실\t\n● S4016 경영정보학과 학생회실\t\n● S4017 도서관자치위원회\t\n● S4018 경영정보학과 학생회실\t\n● S4019 I.B.K\t\n● S4020 씨네메이션\t\n● S4021 키비탄\t\n● S4022 바다이야기"
+   },
+   {
+    "floorType": "지상",
+    "floor": "1층",
+    "cn": "● S4103 장애학생지원센터\t\n● S4107 정보지원팀\t\n● S4109 전산실\t\n● S4111 멀티미디어1실(교육개발센터)\t\n● S4112 개방실습실(정보지원팀)\t\n● S4120 컴퓨터 유지보수실\t\n● S4123 기능직대기실\t\n● S4127 아동학과 실습실\t\n● S4127-1 집단상담실\t\n● S4128 개인상담실"
+   },
+   {
+    "floorType": "지상",
+    "floor": "2층",
+    "cn": "● S4217 경영대학 세미나실\t\n● S4225 방목기초교육대학 세미나실"
+   },
+   {
+    "floorType": "지상",
+    "floor": "3층",
+    "cn": " "
+   },
+   {
+    "floorType": "지상",
+    "floor": "4층",
+    "cn": "● S4423 경영정보학과 PC실"
+   },
+   {
+    "floorType": "지상",
+    "floor": "5층",
+    "cn": " "
+   },
+   {
+    "floorType": "지상",
+    "floor": "6층",
+    "cn": "● S4601 대학원 원우회실\t\n● S4605 특수대학원교학팀\t\n● S4615 부동산대학원우회\t\n● S4616 사회교육대학원 원우회\t\n● S4617 교육대학원 원우회\t\n● S4618 유통경영대학원우회\t\n● S4619 사회복지대학원 원우회\t\n● S4620 문화예술대학원 원우회"
+   },
+   {
+    "floorType": "지상",
+    "floor": "7층",
+    "cn": "● S4701 문화예술대학원실습실\t\n● S4715 심상치료 및 음악치료실\t\n● S4716 언어치료 및 아동심리치료실"
+   },
+   {
+    "floorType": "지상",
+    "floor": "8층",
+    "cn": "● S4801 음악치료실습실\t\n● S4802 음악치료실습실\t\n● S4803 예술치료실습실\t\n● S4804 특수대학원조교실\t\n● S4823 특수대학원 세미나실\t\n● S4827 언어,놀이실습실\t\n● S4828 언어,놀이실습실"
+   },
+   {
+    "floorType": "지상",
+    "floor": "9층",
+    "cn": "● S4901 일반열람실-5\t\n● S4907 일반열람실-6\t\n● S4911 고시원열람실-4(공무원반)\t\n● S4914 고시원열람실-3(회계세무사반)\t\n● S4916 고시원열람실-1(사범시험반)\t\n● S4919 고시원열람실-2(관세시험반)\t\n● S4921 열람실 사무실\t\n● S4941 사무실"
+   },
+   {
+    "floorType": "지상",
+    "floor": "10층",
+    "cn": " "
+   }
+  ]
+ },
+ "15": {
+  "campus": "seoul",
+  "name": "운동장",
+  "detail": [
+   {
+    "imgPath": "/mbs/sites/mjukr/atchmnfl/campusMap/null",
+    "artclNm": "운동장",
+    "artclPlc": "본관",
+    "telno": "010-1234-1234",
+    "artclCn": "운동장"
+   }
+  ]
+ },
+ "10": {
+  "campus": "seoul",
+  "name": "종합관(구 본관)",
+  "detail": [
+   {
+    "imgPath": "/mbs/sites/mjukr/atchmnfl/campusMap/null",
+    "artclNm": "종합관(구 본관)",
+    "artclPlc": "본관",
+    "telno": "010-1234-1234",
+    "artclCn": "[ 구 본관 ]\r\n2F : 방목기초대학 교학팀\r\n3F : 교목실, 학생복지봉사팀, 학군단,\r\n4F : 아동학과 \r\n5F : 교육학습개발원, 법과대학 강의실\r\n6F : 사회과학대학 교학팀\r\n7F : 인문대학 교학팀"
+   },
+   {
+    "floorType": "지상",
+    "floor": "1층",
+    "cn": " ● S1101 방목기초교육대학 교양지원실\r\n● S1103 방목기초교육대학 세미나실\r\n● S1105 방목기초교육대학 학장실\r\n● S1106 방목기초교육대학 석좌교수실\r\n● S1107 방목기초교육대학 교학팀\r\n● S1108 방목기초교육대학 교학팀\r\n● S1110 교육개발센터 기자재실\r\n● S1125 방목기초교육대학 PC개방실\r\n● S1132 보존서고\r\n● S1133 인쇄실\r\n● S1135 교육개발센터 시청각실\r\n● S1141 잉글리쉬카페\r\n● S1145 이용원\r\n● S1146 교수휴게실(교양, 교강사)\r\n● S1150 멀티미디어 제2실습실\r\n● S1154 멀티미디어 제3실습실\r\n● S1159 교양체육사무실\r\n● S1160 기도실"
+   },
+   {
+    "floorType": "지상",
+    "floor": "2층",
+    "cn": "● S1201 학생복지봉사팀\r\n● S1205-9 세미나실\r\n● S1229 교목실\r\n● S1239 소예배실"
+   },
+   {
+    "floorType": "지상",
+    "floor": "3층",
+    "cn": "● S1301 본관 지상3층 열람실\r\n● S1309 디지털미디어학과 실습실\r\n● S1313 디지털미디어학과 조정실\r\n● S1315 디지털미디어학과 실습실\r\n● S1317 명지미디어센터 방송국\r\n● S1319 학군단 교관실\r\n● S1331 학군단 단장실\r\n● S1333 학군단 3학년 생도실\r\n● S1334-5 도서관 휴게실\r\n● S1335 학군단 4학년 생도실\r\n● S1337 학군단 여사관 후보생실\r\n● S1339 방목기초교육대학 교양강의실\r\n● S1339-1 학군단 교관실\r\n● S1339-2 자치위원실\r\n● S1345 도서관 휴게실"
+   },
+   {
+    "floorType": "지상",
+    "floor": "4층",
+    "cn": "● S1433 아동학과 견학실\n● S1434 아동학과 실습강의실\n● S1445 매점\n● S1458 청소년지도학과 견학실\n● S1461 청소년지도학과 실습실"
+   },
+   {
+    "floorType": "지상",
+    "floor": "5층",
+    "cn": "● S1509 인문교육학습개발원 스튜디오\n● S1511 기상교육원 매체제작실\n● S1539 법과대학 모의법정실\n● S1550 법과대학 세미나실"
+   },
+   {
+    "floorType": "지상",
+    "floor": "6층",
+    "cn": "● S1614 사회과학대학 교학팀\n● S1619 사회과학대학 교학팀\n● S1623 사회과학대학 세미나실\n● S1645 법과대학 전자자료실\n● S1646 법과대학 자료실\n● S1648 법과대학 자료실\n● S1654 사회과학대학 대학원연구실"
+   },
+   {
+    "floorType": "지상",
+    "floor": "7층",
+    "cn": "● S1701 인문대학 교학팀\n● S1719 인문대학 회희실\n● S1721 인문대학 교수회의실\n● S1729 아이아언어학부 어학실A\n● S1731 아이아언어학부 어학실B\n● S1733 인문대학 본관PC실(강의용)\n● S1746 문헌정보학과 실습실\n● S1750 인문대학 자료실\n● S1758 인문대학 세미나실"
+   },
+   {
+    "floorType": "지상",
+    "floor": "8층",
+    "cn": "● S1818 인문대학 대학원연구실"
+   },
+   {
+    "floorType": "지상",
+    "floor": "9층",
+    "cn": "● S1943 영작문 실습실\n● S1945 International Cafe\n● S1948 International Cafe"
+   },
+   {
+    "floorType": "지상",
+    "floor": "10층",
+    "cn": "● S11001 대강당\n● S11019 기록과학대학원우회실\n● S11021 시스템실습실\n● S11031 세미나실\n● S11033 한국기록관리학교육원\n● S11037 LAB-1실\n● S11038 LAB-2실\n● S11039 LAB-3실, 4실\n● S11041 기록과학대학원 PC실"
+   }
+  ]
+ },
+ "38": {
+  "campus": "seoul",
+  "name": "정문",
+  "detail": [
+   {
+    "imgPath": "/mbs/sites/mjukr/atchmnfl/campusMap/null",
+    "artclNm": "정문",
+    "artclPlc": null,
+    "telno": null,
+    "artclCn": "정문"
+   }
+  ]
+ },
+ "39": {
+  "campus": "seoul",
+  "name": "수위실",
+  "detail": [
+   {
+    "imgPath": "/mbs/sites/mjukr/atchmnfl/campusMap/null",
+    "artclNm": "수위실",
+    "artclPlc": null,
+    "telno": null,
+    "artclCn": "수위실"
+   }
+  ]
+ },
+ "40": {
+  "campus": "yongin",
+  "name": "60주년채플관",
+  "detail": [
+   {
+    "imgPath": "/mbs/sites/mjukr/atchmnfl/campusMap/null",
+    "artclNm": "60주년채플관",
+    "artclPlc": null,
+    "telno": null,
+    "artclCn": "60주년채플관"
+   },
+   {
+    "floorType": "지상",
+    "floor": "1층",
+    "cn": "● Y22101 앙상블실습실(음악)\t\n● Y22103 소연주실\t\n● Y22107 디지털피아노 연습실(음악)\t\n● Y22110 피아노연습실"
+   },
+   {
+    "floorType": "지상",
+    "floor": "2층",
+    "cn": "● Y22227 성도석1\t\r\n● Y22229 성도석2"
+   },
+   {
+    "floorType": "지상",
+    "floor": "3층",
+    "cn": " 성도석"
+   },
+   {
+    "floorType": "지상",
+    "floor": "4층",
+    "cn": "● Y22401 천교실 및 영유아부실\t\n● Y22403 교회회의실 및 부목사실\t\n● Y22405 교회사무실\t\n● Y22409 교목실\t\n● Y22411 선교지원팀\t\n● Y22413 동호기도실\t\n● Y22424 기도실\t\n● Y22427 성도석\t\n● Y22429 음향조정실"
+   }
+  ]
+ },
+ "41": {
+  "campus": "yongin",
+  "name": "건축도시설계원",
+  "detail": [
+   {
+    "imgPath": "/mbs/sites/mjukr/atchmnfl/campusMap/null",
+    "artclNm": "건축도시설계원",
+    "artclPlc": null,
+    "telno": null,
+    "artclCn": "건축도시설계원"
+   },
+   {
+    "floorType": "지상",
+    "floor": "1층",
+    "cn": "● Y20101 전시실"
+   },
+   {
+    "floorType": "지상",
+    "floor": "2층",
+    "cn": " "
+   },
+   {
+    "floorType": "지상",
+    "floor": "3층",
+    "cn": "● Y20301 설계실"
+   },
+   {
+    "floorType": "지상",
+    "floor": "4층",
+    "cn": "● Y20401 설계실"
+   },
+   {
+    "floorType": "지상",
+    "floor": "5층",
+    "cn": "● Y20501 설계실(건축)"
+   },
+   {
+    "floorType": "지상",
+    "floor": "6층",
+    "cn": "● Y20598 계단실"
+   }
+  ]
+ },
+ "42": {
+  "campus": "yongin",
+  "name": "공동실험동",
+  "detail": [
+   {
+    "imgPath": "/mbs/sites/mjukr/atchmnfl/campusMap/null",
+    "artclNm": "공동실험동",
+    "artclPlc": null,
+    "telno": null,
+    "artclCn": "공동실험동"
+   },
+   {
+    "floorType": "지상",
+    "floor": "1층",
+    "cn": "● Y18101 마이크로코드\t\n● Y18102 학부실험실\t\n● Y18103 (주)SERVOWELD\t\n● Y18104 소현세라\t\n● Y18107 공동공작기계실\t\n● Y18108-1 고체및재료강도실습실\t\n● Y18109-1 (주)옙스랩\t\n● Y18109-2 (주)애델프라우\t\n● Y18109-3 애델프라우, EMV\t\n● Y18110 전자상거래\t\n● Y18111 도자기연구소\t\n● Y18112 도자기연구소"
+   }
+  ]
+ },
+ "44": {
+  "campus": "yongin",
+  "name": "대운동장",
+  "detail": [
+   {
+    "imgPath": "/mbs/sites/mjukr/atchmnfl/campusMap/null",
+    "artclNm": "대운동장",
+    "artclPlc": null,
+    "telno": null,
+    "artclCn": "대운동장"
+   }
+  ]
+ },
+ "43": {
+  "campus": "yongin",
+  "name": "구조재료실험동",
+  "detail": [
+   {
+    "imgPath": "/mbs/sites/mjukr/atchmnfl/campusMap/null",
+    "artclNm": "구조재료실험동",
+    "artclPlc": null,
+    "telno": null,
+    "artclCn": "구조재료실험동"
+   },
+   {
+    "floorType": "지상",
+    "floor": "1층",
+    "cn": "● Y14101 구조재료실험실\t\n● Y14102 준비실\t\n● Y14103 실험제어실\t\n● Y14105 기자재실1\t\n● Y14106 기자재실2"
+   },
+   {
+    "floorType": "지상",
+    "floor": "2층",
+    "cn": "● Y14201 구조연구실-1\t\n● Y14203 구조연구실-2\t\n● Y14205 물탱크실\t\n● Y14206 콘크리트구조연구실-1\t\n● Y14207 콘크리트구조연구실-2\t\n● Y14208 콘크리트구조연구실-3"
+   }
+  ]
+ },
+ "46": {
+  "campus": "yongin",
+  "name": "디자인조형센터",
+  "detail": [
+   {
+    "imgPath": "/mbs/sites/mjukr/atchmnfl/campusMap/null",
+    "artclNm": "디자인조형센터",
+    "artclPlc": null,
+    "telno": null,
+    "artclCn": "디자인조형센터"
+   },
+   {
+    "floorType": "지상",
+    "floor": "1층",
+    "cn": "● Y12100 모형제작실\n● Y12101 인증자료실(건축)\n● Y12102 공간디자인 실습실D\n● Y12105 공간디자인 실습실C(PC실+출력실)\n● Y12109 공간디자인 실습실B\n● Y12111 공간디자인 실습실A\n● Y12113 공간다자인 학회실\n● Y12119 레이저컷팅머신기 실험실습실\n● Y12120-1 캐드실(PC실)\n● Y12120-2 전시실\n● Y12120-4 스터디룸\n● Y12121 출력실\n● Y12121-1 인증자료실\n● Y12122 대형 강의실(건축)\n● Y12124 모형제작실(디자인)\n● Y12130 판화, 사진제작실\n● Y12130-1 암실\n● Y12133 모형제작실\n● Y12134 모형제작실(디자인)"
+   },
+   {
+    "floorType": "지상",
+    "floor": "2층",
+    "cn": "● Y12202 건설관리연구실\n● Y12204 세미나실\n● Y12207 교강사휴게실\n● Y12210 건축대학장실\n● Y12211 건축대학 통합행정실\n● Y12216 건축미학연구실\n● Y12218 한옥기술개발 연구실\n● Y12219 설계실(건축)\n● Y12220 세미나실(건축)\n● Y12222 공연장\n● Y12223 뮤지컬전공실습실/전시실\n● Y12226 시각디자인실습실\n● Y12230 공업디자인실습실\n● Y12232 공업디자인실습실\n● Y12233 영상디자인 실습실3\n● Y12237 컴퓨터실습실\n● Y12239 시각디자인실습실\n● Y12241 공업디자인실습실\n● Y12243 공업디자인실습실\n● Y12245 강의실2(패션)\n● Y12247 강의실1(패션)\n● Y12249 의복제작실습실(패션)\n● Y12253 CG실\n● Y12255 영상종합편집실\n● Y12255-1 사운드녹음실"
+   },
+   {
+    "floorType": "지상",
+    "floor": "3층",
+    "cn": "● Y12307 학생회실\t\n● Y12308 학교관리(건축사용중)\t\n● Y12313 교수실\t\n● Y12314 공간행테디자인연구실\t\n● Y12319 건축학부학생회실\t\n● Y12320-1 복사실\t\n● Y12322 영사실 및 음향실\t\n● Y12334 영상디자인 편집실\t\n● Y12335 영상디자인 스튜디오\t\n● Y12336 예술체육대학 제3통합행정실\t\n● Y12337 세미나실\t\n● Y12342 학생회실\t\n● Y12345 사진스튜디오(시각)\t\n● Y12347 CAD실습실(패션)\t\n● Y12353 영상디자인실습실1\t\n● Y12355 영상디자인실습실2"
+   }
+  ]
+ },
+ "47": {
+  "campus": "yongin",
+  "name": "생활관(명덕관)",
+  "detail": [
+   {
+    "imgPath": "/mbs/sites/mjukr/atchmnfl/campusMap/null",
+    "artclNm": "생활관(명덕관)",
+    "artclPlc": null,
+    "telno": null,
+    "artclCn": "명덕관"
+   },
+   {
+    "floorType": "지상",
+    "floor": "1층",
+    "cn": "● Y31103 매점\t\n● Y31104 사생자치회의실\t\n● Y31105 독서실\t\n● Y31113 예배실\t\n● Y31114 매점"
+   },
+   {
+    "floorType": "지상",
+    "floor": "2층",
+    "cn": " "
+   },
+   {
+    "floorType": "지상",
+    "floor": "3층",
+    "cn": "● Y31331 부사감실"
+   },
+   {
+    "floorType": "지상",
+    "floor": "4층",
+    "cn": "● Y31424 관장숙직실(온돌)"
+   }
+  ]
+ },
+ "48": {
+  "campus": "yongin",
+  "name": "엘펜하임",
+  "detail": [
+   {
+    "imgPath": "/mbs/sites/mjukr/atchmnfl/campusMap/null",
+    "artclNm": "엘펜하임",
+    "artclPlc": null,
+    "telno": null,
+    "artclCn": "엘펜하임"
+   }
+  ]
+ },
+ "49": {
+  "campus": "yongin",
+  "name": "명진당",
+  "detail": [
+   {
+    "imgPath": "/mbs/sites/mjukr/atchmnfl/campusMap/null",
+    "artclNm": "명진당",
+    "artclPlc": null,
+    "telno": null,
+    "artclCn": "명진당"
+   },
+   {
+    "floorType": "지하",
+    "floor": "지하1층",
+    "cn": "● Y3002 학생식당\t\n● Y3025 딕시랜드\t\n● Y3030 보존서고(도서관)\t\n● Y3066-1 매점\t\n● Y3068 보존서고"
+   },
+   {
+    "floorType": "지상",
+    "floor": "1층",
+    "cn": "● Y3108 1노트북열람실\t\n● Y3112 도서관장실\t\n● Y3116 명진당 세미나실\t\n● Y3117 대기실\t\n● Y3120 강당"
+   },
+   {
+    "floorType": "지상",
+    "floor": "2층",
+    "cn": "● Y3201 자료열람실\t\n● Y3235 전자도서관\t\n● Y3246 AV ROOM\t\n● Y3247 영상자료실"
+   },
+   {
+    "floorType": "지상",
+    "floor": "3층",
+    "cn": "● Y3301 자료열람실\t\n● Y3328 보존서고"
+   },
+   {
+    "floorType": "지상",
+    "floor": "4층",
+    "cn": "● Y3401 2노트북열람실\t\n● Y3406 4열람실\t\n● Y3421 토론학습실(제4열람실)\t\n● Y3456 복사실"
+   },
+   {
+    "floorType": "지상",
+    "floor": "5층",
+    "cn": "● Y3509 전산정보원장실\t\n● Y3516 자연정보지원팀\t\n● Y3528 5열람실"
+   },
+   {
+    "floorType": "지상",
+    "floor": "6층",
+    "cn": "● Y3601 고고미술실\t\n● Y3621 박물관사무실\t\n● Y3624 박물관관장실\t\n● Y3634 전시실\t\n● Y3640 민속실"
+   }
+  ]
+ },
+ "50": {
+  "campus": "yongin",
+  "name": "생활관(명현관)",
+  "detail": [
+   {
+    "imgPath": "/mbs/sites/mjukr/atchmnfl/campusMap/null",
+    "artclNm": "생활관(명현관)",
+    "artclPlc": null,
+    "telno": null,
+    "artclCn": "명현관"
+   },
+   {
+    "floorType": "지하",
+    "floor": "1층",
+    "cn": "● Y30003 탁구장\t\n● Y30015 체육시설(탁구장)"
+   },
+   {
+    "floorType": "지상",
+    "floor": "1층",
+    "cn": " "
+   },
+   {
+    "floorType": "지상",
+    "floor": "2층",
+    "cn": "● Y30225 사목실"
+   }
+  ]
+ },
+ "51": {
+  "campus": "yongin",
+  "name": "모형실험동",
+  "detail": [
+   {
+    "imgPath": "/mbs/sites/mjukr/atchmnfl/campusMap/null",
+    "artclNm": "모형실험동",
+    "artclPlc": null,
+    "telno": null,
+    "artclCn": "모형실험동"
+   },
+   {
+    "floorType": "지상",
+    "floor": "1층",
+    "cn": "● Y83101 모형실습실\t\n● Y83102 다목적실"
+   }
+  ]
+ },
+ "52": {
+  "campus": "yongin",
+  "name": "방목기념관",
+  "detail": [
+   {
+    "imgPath": "/mbs/sites/mjukr/atchmnfl/campusMap/null",
+    "artclNm": "방목기념관",
+    "artclPlc": null,
+    "telno": null,
+    "artclCn": "방목기념관"
+   },
+   {
+    "floorType": "지상",
+    "floor": "1층",
+    "cn": "● Y1601 대회의실"
+   },
+   {
+    "floorType": "지상",
+    "floor": "2층",
+    "cn": "● Y16206 직원평의회 사무실\t\n● Y16207 회의실"
+   },
+   {
+    "floorType": "지상",
+    "floor": "3층",
+    "cn": "● Y16301 체육시설개발사업"
+   },
+   {
+    "floorType": "지상",
+    "floor": "4층",
+    "cn": "● Y16401-Y16402 교직원식당"
+   }
+  ]
+ },
+ "53": {
+  "campus": "yongin",
+  "name": "방문자숙소",
+  "detail": [
+   {
+    "imgPath": "/mbs/sites/mjukr/atchmnfl/campusMap/null",
+    "artclNm": "방문자숙소",
+    "artclPlc": null,
+    "telno": null,
+    "artclCn": "방문자숙소"
+   }
+  ]
+ },
+ "56": {
+  "campus": "yongin",
+  "name": "창조관 예술관",
+  "detail": [
+   {
+    "imgPath": "/mbs/sites/mjukr/atchmnfl/campusMap/null",
+    "artclNm": "창조관 예술관",
+    "artclPlc": null,
+    "telno": null,
+    "artclCn": "창조관 예술관"
+   },
+   {
+    "floorType": "지하",
+    "floor": "지하1층",
+    "cn": " "
+   },
+   {
+    "floorType": "지상",
+    "floor": "1층",
+    "cn": "● 2127 뮤지컬 보컬 실습실1\t\n● 2128 뮤지컬 보컬 실습실2\t\n● 2141 강의실2(뮤지컬)\t\n● 2143 강의실1(뮤지컬)\t\n● 2119 뮤지컬 실습실1\t\n● 2155 뮤지컬 실습실2\t\n● 2145 뮤지컬 실습실3\t\n● 2115 뮤지컬 실습실4\t\n● 2114 학생회실(영화/뮤지컬)\t\n● 2113 단대 세미나실(영화/뮤지컬)\t\n● 2107 ~ 2112 교수실"
+   },
+   {
+    "floorType": "지상",
+    "floor": "2층",
+    "cn": "● 2207~2210, 2215~2218 교수실\t\n● 2211 교강사대기실(공통)\t\n● 2213 통합교학팀\t\n● 2219 바둑박물관\t\n● 2223 PC실(바둑)\t\n● 2266 강의실2(바둑)\t\n● 2259 강의실2(바둑)\t\n● 2270 기자재실(영화)\t\n● 2256 시청각실(영화)\t\n● 2245 스튜디오(영화)\t\n● 2227 학생회실(바둑)\t\n● 2228 교육실습실(바둑)\t\n● 2235 강의실1(바둑)\t\n● 2237 시청각실1(영화)\t\n● 2241 편집실(영화)\t\n● 2243 사운드 믹싱룸(영화)\t\n● 2240 서버룸 등"
+   },
+   {
+    "floorType": "지상",
+    "floor": "3층",
+    "cn": "● 3층 음악학부\t\n- 2320 ~ 2363 연습실\t\n- 2307 ~ 2318 교수실\t\n- 2245 스튜디오(영화)\t\n- 2335 교강사휴게실(음악)\t\n- 2336 기자재실(음악)\t\n- 2337 강의실1(음악)\t\n- 2339 강의실2(음악)\t\n- 2342 소연습실(음악)\t\n● 검수장\t\n- 2327 검수실(구매관재팀)\t\n● 창고\t\n- 2328 창고(입학관리팀)"
+   },
+   {
+    "floorType": "지상",
+    "floor": "4층",
+    "cn": "● 2437 교육지원처 자연학사지원팀\t\n● 2443 입학처 입학관리팀"
+   },
+   {
+    "floorType": "지상",
+    "floor": "5층",
+    "cn": "● 중형강의실\t\n- Y2523, 2526, 2529, 2532, 2535, 2501, 2508, 2511 강의실"
+   },
+   {
+    "floorType": "지상",
+    "floor": "6층",
+    "cn": "● 2608 사무지원처 총무인사팀\t\n● 2635 사무지원처 구매관재팀\t\n● 2641, 2644 사무지원처 시설관리팀\t\n● 2612 대학원교학처 교학팀\t\n● 2618 대학원교학처 대학원장실\t\n● 2615 대학원교학처 교학처장실"
+   },
+   {
+    "floorType": "지상",
+    "floor": "7층",
+    "cn": "● 2721 총장실\t\n● 2719 교학총장부속실\t\n● 2718 총장부속실\t\n● 2715 행정부총장실\t\n● 2712 기획조정실장실\t\n● 2708 통합실처장실\t\n● 2708 기획조정실 기획예산팀\t\n● 2701 기획조정실 평가감사팀\t\n● 2747 회계팀"
+   },
+   {
+    "floorType": "지상",
+    "floor": "8층",
+    "cn": "● 2818 교육지원처 교육지원처장실\t\n● 2808 입학처 입학처장실\t\n● 2815 교육지원처 교원인사팀"
+   }
+  ]
+ },
+ "57": {
+  "campus": "yongin",
+  "name": "백마상",
+  "detail": [
+   {
+    "imgPath": "/mbs/sites/mjukr/atchmnfl/campusMap/null",
+    "artclNm": "백마상",
+    "artclPlc": null,
+    "telno": null,
+    "artclCn": "백마상"
+   }
+  ]
+ },
+ "58": {
+  "campus": "yongin",
+  "name": "버스관리사무소",
+  "detail": [
+   {
+    "imgPath": "/mbs/sites/mjukr/atchmnfl/campusMap/null",
+    "artclNm": "버스관리사무소",
+    "artclPlc": null,
+    "telno": null,
+    "artclCn": "버스관리사무소"
+   },
+   {
+    "floorType": "지상",
+    "floor": "1층",
+    "cn": "● Y81103 기사대기실\t\n● Y81104 사무실"
+   }
+  ]
+ },
+ "59": {
+  "campus": "yongin",
+  "name": "선수숙소",
+  "detail": [
+   {
+    "imgPath": "/mbs/sites/mjukr/atchmnfl/campusMap/null",
+    "artclNm": "선수숙소",
+    "artclPlc": null,
+    "telno": null,
+    "artclCn": "선수숙소"
+   },
+   {
+    "floorType": "지하",
+    "floor": "지하1층",
+    "cn": "● Y10002 여자목욕탕\t\n● Y10006 남자목욕탕\t\n● Y10008 웨이트룸\t\n● Y10011 웨이트룸"
+   },
+   {
+    "floorType": "지상",
+    "floor": "1층",
+    "cn": "● Y10101 실기지도실\t\n● Y10102 실기지도실\t\n● Y10105 매점\t\n● Y10110 식당\t\n● Y10111 주방"
+   }
+  ]
+ },
+ "60": {
+  "campus": "yongin",
+  "name": "선수전용테니스장",
+  "detail": [
+   {
+    "imgPath": "/mbs/sites/mjukr/atchmnfl/campusMap/null",
+    "artclNm": "선수전용테니스장",
+    "artclPlc": null,
+    "telno": null,
+    "artclCn": "선수전용테니스장"
+   }
+  ]
+ },
+ "61": {
+  "campus": "yongin",
+  "name": "소운동장",
+  "detail": [
+   {
+    "imgPath": "/mbs/sites/mjukr/atchmnfl/campusMap/null",
+    "artclNm": "소운동장",
+    "artclPlc": null,
+    "telno": null,
+    "artclCn": "소운동장"
+   }
+  ]
+ },
+ "62": {
+  "campus": "yongin",
+  "name": "수리모형실습동",
+  "detail": [
+   {
+    "imgPath": "/mbs/sites/mjukr/atchmnfl/campusMap/null",
+    "artclNm": "수리모형실습동",
+    "artclPlc": null,
+    "telno": null,
+    "artclCn": "수리모형실습동"
+   },
+   {
+    "floorType": "지상",
+    "floor": "1층",
+    "cn": "● Y15101 층정 및 기자재실\t\n● Y15102 수리모형실험실\t\n● Y15103 연구실2\t\n● Y15104 연구실1\t\n● Y15105 실험준비실\t\n● Y15107 펌프실"
+   },
+   {
+    "floorType": "지상",
+    "floor": "2층",
+    "cn": "● Y15201 수리연구실-1\t\n● Y15202 수리연구실-2\t\n● Y15203 수리연구실-3\t\n● Y15204 수리연구실-4\t\n● Y15205 물탱크실"
+   }
+  ]
+ },
+ "63": {
+  "campus": "yongin",
+  "name": "수위실",
+  "detail": [
+   {
+    "imgPath": "/mbs/sites/mjukr/atchmnfl/campusMap/null",
+    "artclNm": "수위실",
+    "artclPlc": null,
+    "telno": null,
+    "artclCn": "수위실"
+   }
+  ]
+ },
+ "64": {
+  "campus": "yongin",
+  "name": "실내테니스장",
+  "detail": [
+   {
+    "imgPath": "/mbs/sites/mjukr/atchmnfl/campusMap/null",
+    "artclNm": "실내테니스장",
+    "artclPlc": null,
+    "telno": null,
+    "artclCn": "실내테니스장"
+   },
+   {
+    "floorType": "지상",
+    "floor": "1층",
+    "cn": "● Y84101 코트\t\n● Y84102 스탠드\t\n● Y84108 사무실(경기진행실)"
+   },
+   {
+    "floorType": "지상",
+    "floor": "2층",
+    "cn": "● Y84201 VIP실"
+   }
+  ]
+ },
+ "65": {
+  "campus": "yongin",
+  "name": "야외음악당",
+  "detail": [
+   {
+    "imgPath": "/mbs/sites/mjukr/atchmnfl/campusMap/null",
+    "artclNm": "야외음악당",
+    "artclPlc": null,
+    "telno": null,
+    "artclCn": "야외음악당"
+   },
+   {
+    "floorType": "지상",
+    "floor": "1층",
+    "cn": "● Y80101 준비실\t\n● Y80102 무대"
+   }
+  ]
+ },
+ "66": {
+  "campus": "yongin",
+  "name": "제2공학관(에코바이오관)",
+  "detail": [
+   {
+    "imgPath": "/mbs/sites/mjukr/atchmnfl/campusMap/null",
+    "artclNm": "제2공학관(에코바이오관)",
+    "artclPlc": null,
+    "telno": null,
+    "artclCn": "제2공학관(에코바이오관)"
+   },
+   {
+    "floorType": "지하",
+    "floor": "지하1층",
+    "cn": "● Y8007 경지역환경센터1\t\n● Y8008 경지역환경센터2"
+   },
+   {
+    "floorType": "지상",
+    "floor": "1층",
+    "cn": "● Y8101 기업인재개발원강의실1"
+   },
+   {
+    "floorType": "지상",
+    "floor": "2층",
+    "cn": "● Y8201 기업인재개발원강의실2\t\n● Y8205 기업인재개발원강의실3\t\n● Y8208 기업인재개발원\t\n● Y8209 기업인재개발원휴게실\t\n● Y8211 기업인재개발원사무실\t\n● Y8214 에너지환경융합기술연구소\t\n● Y8218 기업인재개발원강의실4"
+   },
+   {
+    "floorType": "지상",
+    "floor": "3층",
+    "cn": "● Y8305 학부실험실습실2(생명)\t\n● Y8309 실험실습실1(생명)\t\n● Y8313 통합교학팀\t\n● Y8316 학생회실(생명)\t\n● Y8335-1 응급샤워\t\n● Y8340 학생회실(환경)"
+   },
+   {
+    "floorType": "지상",
+    "floor": "4층",
+    "cn": "● Y8401 연구실12\t\n● Y8404 공동기기실(생명)\t\n● Y8407 연구실11(생명)\t\n● Y8410 연구실10(생명)\t\n● Y8413 연구실9(생명)\t\n● Y8416 공동기기실(생명)\t\n● Y8419 연구실8(생명)\t\n● Y8422 연구실7(생명)\t\n● Y8439 학부기기실(생명)\t\n● Y8440 냉장실\t\n● Y8441 식물배양실"
+   },
+   {
+    "floorType": "지상",
+    "floor": "5층",
+    "cn": "● Y8501 연구실6(생명)\t\n● Y8504 공동기기실(생명)\t\n● Y8507 연구실5(생명)\t\n● Y8510 연구실4(생명)\t\n● Y8513 연구실3(생명)\t\n● Y8516 공동기기실(생명)\t\n● Y8519 연구실2(생명)\t\n● Y8522 연구실1(생명)\t\n● Y8535-1 응급샤워\t\n● Y8537 회의실/PC실\t\n● Y8540 학부기기실(생명)"
+   },
+   {
+    "floorType": "지상",
+    "floor": "6층",
+    "cn": "● Y8601 연구실3\t\n● Y8604 대학원실3\t\n● Y8605 연구실2/대학원실2\t\n● Y8609 대학원실1\t\n● Y8610 연구실1\t\n● Y8613 실험실습실3\t\n● Y8617 실험실습실2(환경)\t\n● Y8621 실험실습실1\t\n● Y8625 BK21연구센터 연구교수실험실\t\n● Y8628 BK21연구센터 연구교수실\t\n● Y8629 BK21연구센터 사무실\t\n● Y8637 세미나실\t\n● Y8645 공동기기실"
+   },
+   {
+    "floorType": "지상",
+    "floor": "7층",
+    "cn": "● Y8701 연구실9\t\n● Y8704 대학원실9\t\n● Y8705 연구실8\t\n● Y8708 대학원실8\t\n● Y8709 대학원실\t\n● Y8711 연구실7(이창희-환경)\t\n● Y8712 연구실7\t\n● Y8713 대학원실6\t\n● Y8714 연구실6(이기세-환경)\t\n● Y8714-1 연구실6(이기세-환경)\t\n● Y8717 연구실5(안대희-환경)\t\n● Y8720 대학원실5\t\n● Y8721 대학원실4\t\n● Y8722 연구실4(오영숙-환경)\t\n● Y8725 경기지역환경센터\t\n● Y8735-1 응급샤워"
+   },
+   {
+    "floorType": "지상",
+    "floor": "8층",
+    "cn": "● Y8815 에너지환경융합기술연구소2\t\n● Y8819 한국재단연구실\t\n● Y8820 농림바이오기술사업단\t\n● Y8825 차세대바이오그린21사업단\t\n● Y8837 E2FTC Membrane Lab2\t\n● Y8839 E2FTC Membrane Lab1"
+   }
+  ]
+ },
+ "68": {
+  "campus": "yongin",
+  "name": "체육문화관",
+  "detail": [
+   {
+    "imgPath": "/mbs/sites/mjukr/atchmnfl/campusMap/null",
+    "artclNm": "체육문화관",
+    "artclPlc": null,
+    "telno": null,
+    "artclCn": "체육문화관"
+   },
+   {
+    "floorType": "지상",
+    "floor": "1층",
+    "cn": "● Y6101 체육학부 기자재실\n● Y6103 PC실\n● Y6109 실습실\n● Y6109-1 개인연습실\n● Y6109-2 개인연습실\n● Y6109-3 개인연습실\n● Y6109-4 개인연습실\n● Y6109-5 개인연습실\n● Y6109-6 개인연습실\n● Y6109-7 개인연습실\n● Y6110 실습실\n● Y6110-1 개인연습실\n● Y6110-2 개인연습실\n● Y6110-3 개인연습실\n● Y6110-4 개인연습실\n● Y6110-5 개인연습실\n● Y6110-6 개인연습실\n● Y6110-7 개인연습실"
+   },
+   {
+    "floorType": "지상",
+    "floor": "2층",
+    "cn": "● Y6208 예술체육대학 제1통합행정실\n● Y6214 기자재실\n● Y6220-1 개인연습실\n● Y6220-2 개인연습실\n● Y6220-3 개인연습실\n● Y6220-4 개인연습실\n● Y6220-5 개인연습실\n● Y6223-1 실기지도실\n● Y6223-2 실기지도실\n● Y6224-1 실기지도실\n● Y6224-2 실기지도실\n● Y6225 음악지도실\n● Y6226-1 개인연습실\n● Y6226-2 개인연습실\n● Y6227-1 개인연습실\n● Y6227-2 개인연습실\n● Y6228-1 개인연습실\n● Y6228-2 개인연습실\n● Y6229-1 개인연습실\n● Y6229-2 개인연습실\n● Y6230-1 개인연습실\n● Y6230-2 개인연습실"
+   },
+   {
+    "floorType": "지상",
+    "floor": "3층",
+    "cn": "● Y8305 학부실험실습실2(생명)\t\n● Y8309 실험실습실1(생명)\t\n● Y8313 통합교학팀\t\n● Y8316 학생회실(생명)\t\n● Y8335-1 응급샤워\t\n● Y8340 학생회실(환경)"
+   },
+   {
+    "floorType": "지상",
+    "floor": "4층",
+    "cn": "● Y7314 기사 대기실\n● Y7101 수위실\n● Y7102 탈의실\n● Y7103 학회실\n● Y7104 탈의실(남)\n● Y7105 샤워실(남)\n● Y7106 샤워실(여)\n● Y7107 탈의실(여)\n● Y7108 예술체육대학 학생회실\n● Y7110 배구부 사무실\n● Y7112 방송실\n● Y7115 청소원대기실\n● Y7113 아마배구부실\n● Y7117 아마농구부실\n● Y7119 서고(출판부)\n● Y7122 앙상블실(사회교육원)"
+   }
+  ]
+ },
+ "69": {
+  "campus": "yongin",
+  "name": "온실",
+  "detail": [
+   {
+    "imgPath": "/mbs/sites/mjukr/atchmnfl/campusMap/null",
+    "artclNm": "온실",
+    "artclPlc": null,
+    "telno": null,
+    "artclCn": "온실"
+   },
+   {
+    "floorType": "지상",
+    "floor": "1층",
+    "cn": "● Y82101 실험실1\t\n● Y82102 실험실2\t\n● Y82103 실험실3\t\n● Y82104 실험실4\t\n● Y82105 종자보관실\t\n● Y82106 사무실, 준비실\t\n● Y82111 실험실5(논)"
+   }
+  ]
+ },
+ "71": {
+  "campus": "yongin",
+  "name": "유압실",
+  "detail": [
+   {
+    "imgPath": "/mbs/sites/mjukr/atchmnfl/campusMap/null",
+    "artclNm": "유압실",
+    "artclPlc": null,
+    "telno": null,
+    "artclCn": "유압실"
+   }
+  ]
+ },
+ "72": {
+  "campus": "yongin",
+  "name": "정문",
+  "detail": [
+   {
+    "imgPath": "/mbs/sites/mjukr/atchmnfl/campusMap/null",
+    "artclNm": "정문",
+    "artclPlc": null,
+    "telno": null,
+    "artclCn": "정문"
+   }
+  ]
+ },
+ "73": {
+  "campus": "yongin",
+  "name": "제1공학관",
+  "detail": [
+   {
+    "imgPath": "/mbs/sites/mjukr/atchmnfl/campusMap/null",
+    "artclNm": "제1공학관",
+    "artclPlc": null,
+    "telno": null,
+    "artclCn": "제1공학관"
+   },
+   {
+    "floorType": "지상",
+    "floor": "1층",
+    "cn": "● Y106 트라이블로지 실험실\t\n● Y108 제어 및 자동화 실험실\t\n● Y111 유체공학연구실(이계한)\t\n● Y114 학회실\t\n● Y115 학부실험실(연삭실)\t\n● Y116 학부실험실(연삭실)\t\n● Y131 공과대 학생회실\t\n● Y131-1 복사실\t\n● Y133 소성계측연구실\t\n● Y135 학수실험실3(내연공학)"
+   },
+   {
+    "floorType": "지상",
+    "floor": "2층",
+    "cn": "● Y201 CAD 및 컴퓨터 실습실\t\r\n● Y215 제3통합교학팀\t\r\n● Y218 지능형자동차실험실(기계-이수진)\t\r\n● Y219 공대연구소\t\r\n● Y224 캡스톤디자인실(기계)\t\r\n● Y227 응용역학연구실\t\r\n● Y229 시스템동역학 및 제어연구실\t\r\n● Y231 지능생산연구실\t\r\n● Y233 파괴역학연구실\t\r\n● Y235 메카트로닉스 실습실\t\r\n● Y237 중소기업훈련컨소시엄 사무실\t\r\n● Y239 학부실험실(캡스톤디자인실2)\t\r\n● Y243 연소공학연구실\r\n● Y245 열공학연구실"
+   },
+   {
+    "floorType": "지상",
+    "floor": "3층",
+    "cn": "● Y314 에너지환경촉매연구실\t\n● Y321 지능형시스템연구실\t\n● Y322 지능형시스템연구실\t\n● Y325 촉매 및 반응공학 연구실\t\n● Y329 시약실2\t\n● Y330 화학공정연구실\t\n● Y333 화학공학실험실\t\n● Y336 화공기초실험실\t\n● Y339 화학공정실험실\t\n● Y345 촉매 및 에너지 연구실"
+   },
+   {
+    "floorType": "지상",
+    "floor": "4층",
+    "cn": "● Y401 고분자재료연구실\t\n● Y403 탄소재료연구실\t\n● Y413 세미나실(방목)\t\n● Y420 바둑교육실습실\t\n● Y421 바둑박물관\t\n● Y429 PC실\t\n● Y437 가상교육연구실\t\n● Y439 실습실\t\n● Y442 도서자료실\t\n● Y449 PC실(화학공)\t\n● Y453-1 탄소재료연구실\t\n● Y453-2 고분자재료연구실"
+   },
+   {
+    "floorType": "지상",
+    "floor": "5층",
+    "cn": "● Y505 산학컨소시엄센터\t\n● Y509 물류정보시스템연구소\t\n● Y517 생산관리연구실\t\n● Y525-1 창의공학연구실\t\n● Y529 PC실습실\t\n● Y534 물류시스템실험실\t\n● Y535 ELS연구실\t\n● Y537 경영혁신연구실\t\n● Y539 동시공학연구실\t\n● Y541 시스템분석연구실\t\n● Y545 MIS연구실\t\n● Y547 자동생산시스템연구실"
+   },
+   {
+    "floorType": "지상",
+    "floor": "6층",
+    "cn": "● YP101 학회실"
+   }
+  ]
+ },
+ "74": {
+  "campus": "yongin",
+  "name": "제3공학관",
+  "detail": [
+   {
+    "imgPath": "/mbs/sites/mjukr/atchmnfl/campusMap/null",
+    "artclNm": "제3공학관",
+    "artclPlc": null,
+    "telno": null,
+    "artclCn": "제3공학관"
+   },
+   {
+    "floorType": "지상",
+    "floor": "1층",
+    "cn": " "
+   }
+  ]
+ },
+ "76": {
+  "campus": "yongin",
+  "name": "생활관(제3학생기숙사(1동))",
+  "detail": [
+   {
+    "imgPath": "/mbs/sites/mjukr/atchmnfl/campusMap/null",
+    "artclNm": "생활관(제3학생기숙사(1동))",
+    "artclPlc": null,
+    "telno": null,
+    "artclCn": "제3학생기숙사(1동)"
+   },
+   {
+    "floorType": "지상",
+    "floor": "1층",
+    "cn": " "
+   }
+  ]
+ },
+ "77": {
+  "campus": "yongin",
+  "name": "생활관(제3학생기숙사(4동))",
+  "detail": [
+   {
+    "imgPath": "/mbs/sites/mjukr/atchmnfl/campusMap/null",
+    "artclNm": "생활관(제3학생기숙사(4동))",
+    "artclPlc": null,
+    "telno": null,
+    "artclCn": "제3학생기숙사(4동)"
+   },
+   {
+    "floorType": "지하",
+    "floor": "지하1층",
+    "cn": "● Y33002 중앙감시실"
+   },
+   {
+    "floorType": "지상",
+    "floor": "1층",
+    "cn": "● Y33101 열람실\t\n● Y33110 상담실\t\n● Y33114 안내실"
+   }
+  ]
+ },
+ "78": {
+  "campus": "yongin",
+  "name": "생활관(제3학생기숙사(5동))",
+  "detail": [
+   {
+    "imgPath": "/mbs/sites/mjukr/atchmnfl/campusMap/null",
+    "artclNm": "생활관(제3학생기숙사(5동))",
+    "artclPlc": null,
+    "telno": null,
+    "artclCn": "제3학생기숙사(5동)"
+   },
+   {
+    "floorType": "지상",
+    "floor": "1층",
+    "cn": " "
+   }
+  ]
+ },
+ "79": {
+  "campus": "yongin",
+  "name": "생활관(제3학생기숙사(B동))",
+  "detail": [
+   {
+    "imgPath": "/mbs/sites/mjukr/atchmnfl/campusMap/null",
+    "artclNm": "생활관(제3학생기숙사(B동))",
+    "artclPlc": null,
+    "telno": null,
+    "artclCn": "제3학생기숙사(B동)"
+   },
+   {
+    "floorType": "지하",
+    "floor": "지하1층",
+    "cn": "● Y35004 체력단련실"
+   },
+   {
+    "floorType": "지상",
+    "floor": "1층",
+    "cn": "● Y35103 식당"
+   },
+   {
+    "floorType": "지상",
+    "floor": "2층",
+    "cn": "● Y35203 미장원\t\n● Y35204 스낵바\t\n● Y35207 매점\t\n● Y35209 매점"
+   }
+  ]
+ },
+ "80": {
+  "campus": "yongin",
+  "name": "제4공학관",
+  "detail": [
+   {
+    "imgPath": "/mbs/sites/mjukr/atchmnfl/campusMap/null",
+    "artclNm": "제4공학관",
+    "artclPlc": null,
+    "telno": null,
+    "artclCn": "제4공학관"
+   },
+   {
+    "floorType": "지상",
+    "floor": "1층",
+    "cn": "● Y13101 학회실\t\n● Y13102 PC실\t\n● Y13103 강의실(교양)\t\n● Y13107 측량기자재실\t\n● Y13112-1 토목설계원\t\n● Y13115 공과대학보유공간\t\n● Y13116 연구실(토질)\t\n● Y13117 토질실험실"
+   },
+   {
+    "floorType": "지상",
+    "floor": "2층",
+    "cn": "● Y13201 콘크리트연구실II\t\n● Y13202 측량실험실\t\n● Y13204 연구실(수공)\t\n● Y13205 연구실(수공)\t\n● Y13207 연구실(수공)\t\n● Y13211 공과대학 제6통합행정실\t\n● Y13212 세미나실"
+   },
+   {
+    "floorType": "지상",
+    "floor": "3층",
+    "cn": "● Y13301 연구실(토질)\t\n● Y13302 콘크리트연구실 I\t\n● Y13303 연구실(구조)\t\n● Y13304 연구실(구조)\t\n● Y13307 연구실(구조)\t\n● Y13312 토목연구정보센터\t\n● Y13313 토목연구정보센터\t\n● Y13314 토목연구정보센터\t\n● Y13316 토목연구정보센터\t\n● Y13317 토목연구정보센터\t\n● Y13318 워크스테이션실"
+   }
+  ]
+ },
+ "81": {
+  "campus": "yongin",
+  "name": "제5공학관",
+  "detail": [
+   {
+    "imgPath": "/mbs/sites/mjukr/atchmnfl/campusMap/null",
+    "artclNm": "제5공학관",
+    "artclPlc": null,
+    "telno": null,
+    "artclCn": "제5공학관"
+   },
+   {
+    "floorType": "지상",
+    "floor": "1층",
+    "cn": "● Y5101 대형작업실\t\n● Y5107 입문설계실2\t\n● Y5110 입문설계실1\t\n● Y5135 디자인스튜디오A\t\n● Y5137 디자인스튜디오B\t\n● Y5139 소형제작실\t\n● Y5144 사무실\t\n● Y5145 CAD/CAM실"
+   },
+   {
+    "floorType": "지상",
+    "floor": "2층",
+    "cn": "● Y5209 통합교학팀\t\n● Y5211 시청각실\t\n● Y5215 기자재실\t\n● Y5216 기자재실\t\n● Y5235 시청각실\t\n● Y5237 편집실\t\n● Y5241 시청각실\t\n● Y5243 학생회실"
+   },
+   {
+    "floorType": "지상",
+    "floor": "3층",
+    "cn": "● Y5307 교통운영연구실(손영태)\t\n● Y5309 ITS연구실(이의은)\t\n● Y5311 교통모형시뮬레이션연구소\t\n● Y5313 교통시설연구실(금기정)\t\n● Y5315 교통안전실험실(김홍상)\t\n● Y5319 공학인증실\t\n● Y5329 교통정보실\t\n● Y5334 도로연구실(김인태)\t\n● Y5335 교통계획연구실(김현명)\t\n● Y5336 교통조사분석실\t\n● Y5337 교통기기실\t\n● Y5338 교통전산실험실\t\n● Y5343 캡스톤설계실\t\n● Y5351 공과대학 제4교학팀"
+   },
+   {
+    "floorType": "지상",
+    "floor": "4층",
+    "cn": "● Y5401 PC실\t\n● Y5407 PC실\t\n● Y5414 PC실\t\n● Y5419 학생회실\t\n● Y5420 PC실\t\n● Y5425 강의실(PC실 겸용)\t\n● Y5437 PC실\t\n● Y5441 PC실\t\n● Y5445 PC실"
+   },
+   {
+    "floorType": "지상",
+    "floor": "5층",
+    "cn": "● Y5537 인증자료실"
+   },
+   {
+    "floorType": "지상",
+    "floor": "6층",
+    "cn": "● Y5609 PC실\t\n● Y5615 세미나실\t\n● Y5419 실습실\t\n● Y5621 실습실(정보통신공)\t\n● Y5634 실습실\t\n● Y5637 실습실"
+   },
+   {
+    "floorType": "지상",
+    "floor": "7층",
+    "cn": "● Y5701 세미나실\t\n● Y5704 학생회실(컴퓨터공)\t\n● Y5748 인증자료실"
+   }
+  ]
+ },
+ "82": {
+  "campus": "yongin",
+  "name": "차세대과학관",
+  "detail": [
+   {
+    "imgPath": "/mbs/sites/mjukr/atchmnfl/campusMap/null",
+    "artclNm": "차세대과학관",
+    "artclPlc": null,
+    "telno": null,
+    "artclCn": "차세대과학관"
+   },
+   {
+    "floorType": "지상",
+    "floor": "1층",
+    "cn": " "
+   }
+  ]
+ },
+ "83": {
+  "campus": "yongin",
+  "name": "체육관",
+  "detail": [
+   {
+    "imgPath": "/mbs/sites/mjukr/atchmnfl/campusMap/null",
+    "artclNm": "체육관",
+    "artclPlc": null,
+    "telno": null,
+    "artclCn": "체육관"
+   },
+   {
+    "floorType": "지상",
+    "floor": "1층",
+    "cn": "● Y7100 경기장(코트)\t\n● Y7103 학회실\t\n● Y7108 생체역학실험실\t\n● Y7109 예체능대 학생회실\t\n● Y7110 배구부사무실\t\n● Y7112 방송실\t\n● Y7113 아마추어배구부실\t\n● Y7114 문서고\t\n● Y7117 합기무예반\t\n● Y7118 농구부사무실\t\n● Y7122 기능직통합사무실\t\n● Y7125 기사대기실"
+   },
+   {
+    "floorType": "지상",
+    "floor": "2층",
+    "cn": "● Y7200 관람석\t\n● Y7207 명지교직원 체력증진센터 기자재\t\n● Y7208 명지 스포츠과학 산업연구원\t\n● Y7210 명지교직원 체력증진센터 기자재"
+   }
+  ]
+ },
+ "84": {
+  "campus": "yongin",
+  "name": "테니스장",
+  "detail": [
+   {
+    "imgPath": "/mbs/sites/mjukr/atchmnfl/campusMap/null",
+    "artclNm": "테니스장",
+    "artclPlc": null,
+    "telno": null,
+    "artclCn": "테니스장"
+   }
+  ]
+ },
+ "85": {
+  "campus": "yongin",
+  "name": "테니스장관리사무소",
+  "detail": [
+   {
+    "imgPath": "/mbs/sites/mjukr/atchmnfl/campusMap/null",
+    "artclNm": "테니스장관리사무소",
+    "artclPlc": null,
+    "telno": null,
+    "artclCn": "테니스장관리사무소"
+   },
+   {
+    "floorType": "지하",
+    "floor": "지하1층",
+    "cn": "● Y30003 탁구장\t\n● Y30015 체육시설(탁구장)"
+   },
+   {
+    "floorType": "지상",
+    "floor": "1층",
+    "cn": " "
+   },
+   {
+    "floorType": "지상",
+    "floor": "2층",
+    "cn": "● Y30225 사목실"
+   }
+  ]
+ },
+ "86": {
+  "campus": "yongin",
+  "name": "통학버스승강장",
+  "detail": [
+   {
+    "imgPath": "/mbs/sites/mjukr/atchmnfl/campusMap/null",
+    "artclNm": "통학버스승강장",
+    "artclPlc": null,
+    "telno": null,
+    "artclCn": "통학버스승강장"
+   }
+  ]
+ },
+ "87": {
+  "campus": "yongin",
+  "name": "하이브리드 구조실험센터",
+  "detail": [
+   {
+    "imgPath": "/mbs/sites/mjukr/atchmnfl/campusMap/null",
+    "artclNm": "하이브리드 구조실험센터",
+    "artclPlc": null,
+    "telno": null,
+    "artclCn": "하이브리드 구조실험센터"
+   },
+   {
+    "floorType": "지상",
+    "floor": "1층",
+    "cn": "● Y24101 실험실\t\n● Y24106 공작실\t\n● Y24110 자재보관실\t\n● Y24111 컨트롤실"
+   },
+   {
+    "floorType": "지상",
+    "floor": "2층",
+    "cn": "● Y24201 센터장실\t\n● Y24202 행정실\t\n● Y24203 부센터장실\t\n● Y24204 소회의실\t\n● Y24205 리셉션룸\t\n● Y24206 대회의실"
+   },
+   {
+    "floorType": "지상",
+    "floor": "3층",
+    "cn": "● Y24301 공동연구실\t\n● Y24302 연구실\t\n● Y24303 숙소\t\n● Y24304 자문위원실\t\n● Y24305 협동기관연구실"
+   }
+  ]
+ },
+ "89": {
+  "campus": "yongin",
+  "name": "학군단",
+  "detail": [
+   {
+    "imgPath": "/mbs/sites/mjukr/atchmnfl/campusMap/null",
+    "artclNm": "학군단",
+    "artclPlc": null,
+    "telno": null,
+    "artclCn": "학군단"
+   },
+   {
+    "floorType": "지상",
+    "floor": "1층",
+    "cn": "● Y11002 여성사관후보생자치위원실"
+   },
+   {
+    "floorType": "지상",
+    "floor": "2층",
+    "cn": "● Y11101 여성사관후보생자치위원실\t\n● Y11104 생활관\t\n● Y11105 3학년지도 내무실\t\n● Y11106 4학년지도 내무실\t\n● Y11109 체력단련실\t\n● Y11112 휴게실\t\n● Y11113 4학년 자치위원실"
+   },
+   {
+    "floorType": "지상",
+    "floor": "3층",
+    "cn": "● Y11206 행정실\t\n● Y11211 3학년 훈육관실"
+   }
+  ]
+ },
+ "90": {
+  "campus": "yongin",
+  "name": "학생복지관",
+  "detail": [
+   {
+    "imgPath": "/mbs/sites/mjukr/atchmnfl/campusMap/null",
+    "artclNm": "학생복지관",
+    "artclPlc": null,
+    "telno": null,
+    "artclCn": "학생복지관"
+   },
+   {
+    "floorType": "지하",
+    "floor": "지하1층",
+    "cn": "● Y21007 녹음실(영화전공)\t\n● Y21014 연습실"
+   },
+   {
+    "floorType": "지상",
+    "floor": "1층",
+    "cn": "● Y21102 강당\t\n● Y21103 갤러리석\t\n● Y21112 하나은행"
+   },
+   {
+    "floorType": "지상",
+    "floor": "2층",
+    "cn": "● Y21201 문구점\t\n● Y21203 패스트푸드점\t\n● Y21204 컴퓨터용품점\t\n● Y21209 기념품판매점\t\n● Y21212 서점\t\n● Y21216 안경점\t\n● Y21218 패스트푸드점\t\n● Y21219 사진관"
+   },
+   {
+    "floorType": "지상",
+    "floor": "3층",
+    "cn": "● Y21301\t\n● Y21304 여행사"
+   }
+  ]
+ },
+ "92": {
+  "campus": "yongin",
+  "name": "학생테니스",
+  "detail": [
+   {
+    "imgPath": "/mbs/sites/mjukr/atchmnfl/campusMap/null",
+    "artclNm": "학생테니스",
+    "artclPlc": null,
+    "telno": null,
+    "artclCn": "학생테니스"
+   }
+  ]
+ },
+ "93": {
+  "campus": "yongin",
+  "name": "학생회관",
+  "detail": [
+   {
+    "imgPath": "/mbs/sites/mjukr/atchmnfl/campusMap/null",
+    "artclNm": "학생회관",
+    "artclPlc": null,
+    "telno": null,
+    "artclCn": "학생회관"
+   },
+   {
+    "floorType": "지하",
+    "floor": "지하1층",
+    "cn": "● Y1001 동아리다용도연습실\n● Y1007 PEGASUS\n● Y1008 동아리연합회실\n● Y1009 신명\n● Y1010 맥\n● Y1011 이따위\n● Y1012 마라톤\n● Y1013 MCC\n● Y1016 세미나실\n● Y1017 세미나실\n● Y1018 PMC\n● Y1019 울림소리\n● Y1020 윈드서핑\n● Y1021 포토랩\n● Y1022 한겨레 역사 배움터\n● Y1023 표현의 자유\n● Y1024 도우회\n● Y1025 슬기터\n● Y1026 테니스\n● Y1027 참\n● Y1028 자유새\n● Y1029 검심"
+   },
+   {
+    "floorType": "지상",
+    "floor": "1층",
+    "cn": "● Y1101 식당주방\t\n● Y1105 식당사무실\t\n● Y1109 장애학생지원센터\t\n● Y1111 안정실\t\n● Y1113 약품실\t\n● Y1115 진료실\t\n● Y1117 진료대기실\t\n● Y1121 우체국\t\n● Y1125 분식코너\t\n● Y1126 커피전문점\t\n● Y1127 학생식당"
+   },
+   {
+    "floorType": "지상",
+    "floor": "2층",
+    "cn": "● Y1201 총여학생회실\t\n● Y1203 명지미디어센터(공동자료실)\t\n● Y1205 명지서법\t\n● Y1209 상담실\t\n● Y1213 학생복지봉사팀\t\n● Y1219 학생활동지원팀장실\t\n● Y1221 학생지원처장실\t\n● Y1225 학생회관 회의실\t\n● Y1229 자연경력개발팀\t\n● Y1234 국제교류원자연캠퍼스사무실\t\n● Y1235 세미나실(자연 경력개발팀)\t\n● Y1237 홍보도우미실(입학관리팀)\t\n● Y1239 예비군연대\t\n● Y1241 여학생휴게실"
+   },
+   {
+    "floorType": "지상",
+    "floor": "3층",
+    "cn": "● Y1301 LAMU\t\n● Y1303 FILM ART\t\n● Y1305 지역사회개발연구회\t\n● Y1309 여진\t\n● Y1311 하늘바라기\t\n● Y1313 열린눈영상패\t\n● Y1315 도깨비\t\n● Y1317 졸업준비위원회\t\n● Y1320 지원\t\n● Y1322 신국토연구회\t\n● Y1324 TIME\t\n● Y1326 방송국\t\n● Y1330 스튜디오\t\n● Y1332 총학생회실"
+   },
+   {
+    "floorType": "지상",
+    "floor": "4층",
+    "cn": "● Y1401 CAM\t\n● Y1403 조우회\t\n● Y1405 비롯소리\t\n● Y1409 어린교사\t\n● Y1411 SCOUT\t\n● Y1413 노래여울\t\n● Y1415 극예술연구회\t\n● Y1417 굿패혼\t\n● Y1419 소설과 사회\t\n● Y1421 KUSA\t\n● Y1423 삶소리\t\n● Y1425 실로암\t\n● Y1427 CCC\t\n● Y1429 MTM\t\n● Y1431 카톨릭학생회\t\n● Y1433 AIM-SPOT(볼링반)"
+   },
+   {
+    "floorType": "지상",
+    "floor": "5층",
+    "cn": "● Y1501 유스호스텔\t\n● Y1503 MECC\t\n● Y1503 CDC\t\n● Y1507 CBA\t\n● Y1509 산악부\t\n● Y1511 AIESEC\t\n● Y1513 키비탄\t\n● Y1515 스킨스쿠버\t\n● Y1517 설마(스키)\t\n● Y1519 교지편집위원회\t\n● Y1521 물새\t\n● Y1523 GMP\t\n● Y1525 손짓사랑회\t\n● Y1527 얼을 찾아서\t\n● Y1529 SWICH\t\n● Y1531 예현회\t\n● Y1533 NEWS WEEK"
+   }
+  ]
+ },
+ "94": {
+  "campus": "yongin",
+  "name": "함박관",
+  "detail": [
+   {
+    "imgPath": "/mbs/sites/mjukr/atchmnfl/campusMap/null",
+    "artclNm": "함박관",
+    "artclPlc": null,
+    "telno": null,
+    "artclCn": "함박관"
+   },
+   {
+    "floorType": "지하",
+    "floor": "지하1층",
+    "cn": "● Y9018-1 복사실"
+   },
+   {
+    "floorType": "지상",
+    "floor": "1층",
+    "cn": "● Y9101 멀티미디어실4\t\n● Y9119 멀티미디어실1\t\n● Y9129 멀티미디어실\t\n● Y9135 멀티미디어실3"
+   },
+   {
+    "floorType": "지상",
+    "floor": "2층",
+    "cn": "● Y9201 영화회화전용강의실(교양)\t\n● Y9203 영화회화전용강의실(교양)\t\n● Y9206 인쇄실\t\n● Y9207 도자기센터분석실\t\n● Y9211 자료보관실(도자기)\t\n● Y9211-1 분석사무실(도자기)\t\n● Y9212 도자기실습실\t\n● Y9214 RRC\t\n● Y9216 RRC\t\n● Y9221-1 PC정비실\t\n● Y9222 RRC\t\n● Y9226 RRC\t\n● Y9228 잉글리쉬카페\t\n● Y9236 영어회화전용강의실(교양)\t\n● Y9238 영어회화전용강의실(교양)"
+   },
+   {
+    "floorType": "지상",
+    "floor": "3층",
+    "cn": "● Y9301 교수학습지원팀\t\n● Y9303 전공자유학부 상담실\t\n● Y9308 센터장실 및 매체제작실\t\n● Y9311 공과대학 제1통합행정실\t\n● Y9315 공대회의실(공대학장보실)\t\n● Y9317 교수협의회실\t\n● Y9319 방목기초교육대학교학팀"
+   },
+   {
+    "floorType": "지상",
+    "floor": "4층",
+    "cn": "● Y9401 수업행동분석실상담실\t\n● Y9406 산업/국제대학원원우회실\t\n● Y9410 친화회 사무실\t\n● Y9413 교학부\t\n● Y9415-1 세미나실\t\n● Y9415-1 세미나실\t\n● Y9420 용인미래전략연구실\t\n● Y9422 공학교육혁신센터지원사업\t\n● Y9423 영어회화교수실\t\n● Y9430 지방행정학과교수연구실/원우회"
+   },
+   {
+    "floorType": "지상",
+    "floor": "5층",
+    "cn": "● Y9506 세미나실"
+   }
+  ]
+ },
+ "95": {
+  "campus": "yongin",
+  "name": "산학협력관",
+  "detail": [
+   {
+    "imgPath": "/mbs/sites/mjukr/atchmnfl/campusMap/null",
+    "artclNm": "산학협력관",
+    "artclPlc": null,
+    "telno": null,
+    "artclCn": "산학협력관"
+   },
+   {
+    "floorType": "지상",
+    "floor": "1층",
+    "cn": "● Y17101 수처리사업단\t\n● Y17102-1 수처리사업단\t\n● Y17102-2 수처리사업단\t\n● Y17106-1 시설관리팀\t\n● Y17106-2"
+   },
+   {
+    "floorType": "지상",
+    "floor": "2층",
+    "cn": "● Y17201\t\n● Y17202 다기능행정실/대외협력홍보위원\t\n● Y17204 통합문서창고\t\n● Y17206\t\n● Y17206-1 직원휴게실\t\n● Y17207\t\n● Y17208"
+   },
+   {
+    "floorType": "지상",
+    "floor": "3층",
+    "cn": "● Y17301 산학협력단장실\t\n● Y17301-1 산학협력단 회의실\t\n● Y17304 산학협력단 사무실\t\n● Y17308\t\n● Y17301"
+   },
+   {
+    "floorType": "지상",
+    "floor": "4층",
+    "cn": "● Y17401\t\n● Y17403\t\n● Y17408\t\n● Y17409\t\n● Y17410 회의실"
+   },
+   {
+    "floorType": "지상",
+    "floor": "5층",
+    "cn": "● Y17501 기사대기실\t\n● Y17502 화상회의실\t\n● Y17506-1\t\n● Y17506-2\t\n● Y17507"
+   },
+   {
+    "floorType": "지상",
+    "floor": "6층",
+    "cn": " "
+   },
+   {
+    "floorType": "지상",
+    "floor": "7층",
+    "cn": "● Y17702\t\n● Y17703\t\n● Y17705"
+   },
+   {
+    "floorType": "지상",
+    "floor": "8층",
+    "cn": "● Y17802\t\n● Y17803 대회의실"
+   }
+  ]
+ },
+ "96": {
+  "campus": "yongin",
+  "name": "셔틀버스 승차장(명진당)",
+  "detail": [
+   {
+    "imgPath": "/mbs/sites/mjukr/atchmnfl/campusMap/null",
+    "artclNm": "셔틀버스 승차장(명진당)",
+    "artclPlc": null,
+    "telno": null,
+    "artclCn": "명진당앞"
+   }
+  ]
+ },
+ "97": {
+  "campus": "yongin",
+  "name": "셔틀버스 승차장(3공학관)",
+  "detail": [
+   {
+    "imgPath": "/mbs/sites/mjukr/atchmnfl/campusMap/null",
+    "artclNm": "셔틀버스 승차장(3공학관)",
+    "artclPlc": null,
+    "telno": null,
+    "artclCn": "제3공학관, 제4공학관(토목관), 건축관(건축설계원), 디자인조형센터"
+   }
+  ]
+ },
+ "98": {
+  "campus": "yongin",
+  "name": "셔틀버스 승차장(1공학관)",
+  "detail": [
+   {
+    "imgPath": "/mbs/sites/mjukr/atchmnfl/campusMap/null",
+    "artclNm": " 셔틀버스 승차장(1공학관)",
+    "artclPlc": null,
+    "telno": null,
+    "artclCn": "1,2,5공학관, 학생회관, 공동실험동"
+   }
+  ]
+ },
+ "99": {
+  "campus": "yongin",
+  "name": "셔틀버스 승차장(정문)",
+  "detail": [
+   {
+    "imgPath": "/mbs/sites/mjukr/atchmnfl/campusMap/null",
+    "artclNm": "셔틀버스 승차장(정문)",
+    "artclPlc": null,
+    "telno": null,
+    "artclCn": "정문 승차장"
+   }
+  ]
+ },
+ "103": {
+  "campus": "yongin",
+  "name": "학생주차장",
+  "detail": [
+   {
+    "imgPath": "/mbs/sites/mjukr/atchmnfl/campusMap/null",
+    "artclNm": "학생주차장",
+    "artclPlc": null,
+    "telno": null,
+    "artclCn": "학생주차장"
+   }
+  ]
+ }
+}

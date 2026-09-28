@@ -10,19 +10,24 @@ import { Rotunda } from './scenes/rotunda.js'
 
 gsap.registerPlugin(ScrollTrigger)
 
-// [name, English name, campus]
+// [name, English name, campus] — the university's college list (mju.ac.kr,
+// 대학 page, 2026). Campus follows where each college's departments are housed.
 const COLLEGES = [
   ['인문대학', 'Humanities', 'SEOUL'],
   ['사회과학대학', 'Social Sciences', 'SEOUL'],
   ['경영대학', 'Business', 'SEOUL'],
-  ['법과대학', 'Law', 'SEOUL'],
-  ['ICT융합대학', 'ICT Convergence', 'SEOUL'],
+  ['미디어·휴먼라이프대학', 'Media & Human Life', 'SEOUL'],
+  ['인공지능·소프트웨어융합대학', 'AI & Software Convergence', 'SEOUL'],
   ['미래융합대학', 'Future Convergence', 'SEOUL'],
-  ['자연과학대학', 'Natural Sciences', 'YONGIN'],
-  ['공과대학', 'Engineering', 'YONGIN'],
-  ['예술체육대학', 'Arts & Physical Education', 'YONGIN'],
+  ['화학·생명과학대학', 'Chemistry & Life Sciences', 'YONGIN'],
+  ['스마트시스템공과대학', 'Smart Systems Engineering', 'YONGIN'],
+  ['반도체·ICT대학', 'Semiconductor & ICT', 'YONGIN'],
+  ['스포츠·예술대학', 'Sports & Arts', 'YONGIN'],
   ['건축대학', 'Architecture', 'YONGIN'],
+  ['아너칼리지', 'Honors College', 'BOTH'],
+  ['방목기초교육대학', 'Bangmok College of Basic Education', 'BOTH'],
 ]
+const CAMPUS_NAME = { SEOUL: '인문캠퍼스', YONGIN: '자연캠퍼스', BOTH: '양 캠퍼스' }
 
 // Wire palettes for 사랑 / 진리 / 봉사.
 const PALETTES = [
@@ -31,19 +36,19 @@ const PALETTES = [
   [[0.08, 0.8, 0.62], [0.62, 1.0, 0.72], [1.0, 0.85, 0.35]],
 ]
 
-// Extra sign text for places we have reliable details for; every other stop
-// shows its name from the university's campus map.
+// English names and notes for places the campus map doesn't describe. Building
+// contents, codes and storeys come from the campus map (src/data/campus.json).
 const INFO = {
   정문: { en: 'Main Gate' },
-  MCC관: { en: 'Myongji Campus Complex', note: '베리타스홀 · 코이노니아홀' },
-  종합관: { en: 'Main Hall', note: '인문캠퍼스의 중심 강의동' },
-  학생회관: { en: 'Student Union', note: '학생식당 · 동아리방' },
-  방목학술정보관: { en: 'Bangmok Library', note: '중앙도서관' },
-  '60주년채플관': { en: '60th Anniversary Chapel', note: '채플 · 공연장' },
-  창조예술관: { en: 'Creative Arts Hall', note: '캠퍼스 랜드마크' },
+  MCC관: { en: 'Myongji Campus Complex' },
+  종합관: { en: 'Main Hall' },
+  학생회관: { en: 'Student Union' },
+  방목학술정보관: { en: 'Bangmok Library' },
+  '60주년채플관': { en: '60th Anniversary Chapel' },
+  창조예술관: { en: 'Creative Arts Hall' },
   백마상: { en: 'White Horse Statue', note: '자연캠퍼스의 상징' },
-  명진당: { en: 'Myungjindang', note: '자연도서관' },
-  함박관: { en: 'Hambak Hall', note: '신입생 교양 강의동' },
+  명진당: { en: 'Myungjindang Library' },
+  함박관: { en: 'Hambak Hall' },
 }
 const ADDRESS = { SEOUL: '서대문구 거북골로 34', YONGIN: '처인구 명지로 116' }
 
@@ -51,12 +56,13 @@ const ADDRESS = { SEOUL: '서대문구 거북골로 34', YONGIN: '처인구 명�
 // scenes/campus.js: each campus's stops from src/data/campus.json (built by
 // scripts/build_campus.py), with two stops on the road in between.
 const campusRoute = (key, stage) =>
-  CAMPUS_DATA[key].stops.map((s, i, all) => ({
+  CAMPUS_DATA[key].stops.map((s, i) => ({
     stage,
     ko: s.ko,
-    code: i === 0 ? null : `${String(i).padStart(2, '0')}/${all.length - 1}`,
+    code: s.code ?? null,
     en: INFO[s.ko]?.en ?? '',
-    note: INFO[s.ko]?.note ?? (i === 0 ? ADDRESS[stage] : ''),
+    note: s.note || INFO[s.ko]?.note || (i === 0 ? ADDRESS[stage] : ''),
+    floors: s.floors ? `${s.basement ? `지하${s.basement} · ` : ''}지상 ${s.floors}층` : '',
   }))
 const ROUTE = [
   ...campusRoute('seoul', 'SEOUL'),
@@ -93,7 +99,8 @@ function buildSigns() {
         ${stop.code ? `<span class="sign__code">${stop.code}</span>` : ''}
       </div>
       <strong class="sign__ko" style="font-size:${Math.min(92, Math.floor(600 / [...stop.ko].length))}px">${stop.ko}</strong>
-      <div class="sign__bottom"><span>${stop.en}</span><span>${stop.note}</span></div>`
+      <div class="sign__bottom"><span>${stop.en}</span><span>${stop.floors}</span></div>
+      ${stop.note ? `<p class="sign__note">${stop.note}</p>` : ''}`
     wrap.appendChild(el)
     return el
   })
@@ -208,6 +215,8 @@ async function boot() {
     tagWrap.appendChild(el)
     return el
   })
+  const famous = new Set(ROUTE.filter((r, i) => campus.tour.includes(i)).map((r) => r.ko))
+  const tagOrder = campus.tags.map((_, i) => i).sort((a, b) => famous.has(campus.tags[b].name) - famous.has(campus.tags[a].name))
   const campusHead = document.querySelector('.campus__head')
   const routeStage = document.getElementById('routeStage')
   const routePlace = document.getElementById('routePlace')
@@ -215,9 +224,41 @@ async function boot() {
   let currentStop = -1
   // Place the bar's landmarks at their stops' share of the route.
   document.querySelectorAll('.route__mark[data-stage]').forEach((m) => {
-    const i = ROUTE.findIndex((s) => s.stage === m.dataset.stage)
-    m.style.left = `${(i / (ROUTE.length - 1)) * 100}%`
+    const k = campus.tour.findIndex((i) => ROUTE[i].stage === m.dataset.stage)
+    m.style.left = `${(k / (campus.tour.length - 1)) * 100}%`
   })
+
+  // Building directory: every place on both campuses, one tap to fly there.
+  const dir = document.getElementById('directory')
+  const dirToggle = document.getElementById('dirToggle')
+  const dirList = document.getElementById('dirList')
+  for (const [stage, title] of [['SEOUL', '인문캠퍼스 · 서울'], ['YONGIN', '자연캠퍼스 · 용인']]) {
+    const group = document.createElement('div')
+    group.className = 'dir__group'
+    group.innerHTML = `<h4>${title}</h4>`
+    ROUTE.forEach((stop, i) => {
+      if (stop.stage !== stage) return
+      const b = document.createElement('button')
+      b.type = 'button'
+      b.className = 'dir__item'
+      b.dataset.stop = i
+      b.innerHTML = `<span>${i === ROUTE.findIndex((r) => r.stage === stage) ? '캠퍼스 전체 보기' : stop.ko}</span>${stop.code ? `<small>${stop.code}</small>` : ''}`
+      b.addEventListener('click', () => {
+        campus.flyTo(i)
+        dir.classList.add('is-exploring')
+        if (innerWidth < 760) dir.classList.remove('is-open')
+      })
+      group.appendChild(b)
+    })
+    dirList.appendChild(group)
+  }
+  const dirItems = [...dirList.querySelectorAll('.dir__item')]
+  function closeDirectory(returnToTour) {
+    if (returnToTour) campus.exitExplore()
+    dir.classList.remove('is-exploring')
+  }
+  dirToggle.addEventListener('click', () => dir.classList.toggle('is-open'))
+  document.getElementById('dirBack').addEventListener('click', () => closeDirectory(true))
   const valueEls = [...document.querySelectorAll('.value')]
   const valueIdx = [...document.querySelectorAll('#valuesIndex li')]
   const activeEl = document.getElementById('collegeActive')
@@ -227,7 +268,7 @@ async function boot() {
 
   rotunda.onActive = (i) => {
     const [ko, en, campus] = COLLEGES[i]
-    activeEl.innerHTML = `<b>${ko}</b> ${en} · ${campus === 'SEOUL' ? '인문캠퍼스' : '자연캠퍼스'}`
+    activeEl.innerHTML = `<b>${ko}</b> ${en} · ${CAMPUS_NAME[campus]}`
   }
   rotunda.onActive(0)
 
@@ -254,14 +295,14 @@ async function boot() {
 
     const cp = stickyProgress(scenes[2].el)
     campus.progress = cp
-    // Where the flight is, measured in stops (fractional between them).
-    const at = campus.stopPosition()
-    const lastStop = ROUTE.length - 1
+    // Scrolling takes the camera back from a directory jump to the tour.
+    if (campus.exploreTarget !== null && Math.abs(lenis.velocity) > 3) closeDirectory(true)
+    const active = campus.activeStop()
     if (scenes[2].on) {
-      // Each stop's label floats over its real building while the camera is near it.
+      // Only the stop the camera is on shows its sign, over its real building.
       const labelScale = innerWidth < 760 ? 0.3 : 0.42
       signEls.forEach((el, i) => {
-        const fade = Math.min(1, Math.max(0, 1 - Math.abs(i - at) * 1.4))
+        const fade = i === active.index ? active.weight : 0
         const s = fade > 0 && campus.labelScreen(i)
         el.style.visibility = s ? 'visible' : 'hidden'
         if (!s) return
@@ -269,29 +310,38 @@ async function boot() {
         // Keep the whole sign on screen (it is 640px wide before scaling).
         const half = (640 * labelScale) / 2 + 12
         const x = Math.min(innerWidth - half, Math.max(half, s.x))
-        el.style.transform = `translate(${x}px, ${s.y}px) translate(-50%, -100%) scale(${labelScale})`
+        // ...and below the nav bar.
+        const y = Math.max(s.y, 80 + el.offsetHeight * labelScale)
+        el.style.transform = `translate(${x}px, ${y}px) translate(-50%, -100%) scale(${labelScale})`
       })
-    }
-    if (scenes[2].on) {
+      // Overview name tags: famous buildings first, and any tag that would
+      // overlap one already placed is skipped, so small screens stay legible.
       const ov = campus.overview()
-      campus.tags.forEach((t, i) => {
+      const placed = []
+      tagOrder.forEach((i) => {
+        const t = campus.tags[i]
         const el = tagEls[i]
         const s = ov && ov.key === t.key && campus.screen(t.pos)
-        el.style.visibility = s ? 'visible' : 'hidden'
-        if (!s) return
+        const w = el.offsetWidth
+        const h = el.offsetHeight
+        const box = s && { l: s.x - w / 2 - 3, r: s.x + w / 2 + 3, t: s.y - h - 2, b: s.y + 2 }
+        const free = box && !placed.some((p) => box.l < p.r && box.r > p.l && box.t < p.b && box.b > p.t)
+        el.style.visibility = free ? 'visible' : 'hidden'
+        if (!free) return
+        placed.push(box)
         el.style.opacity = ov.weight
         el.style.transform = `translate(${s.x}px, ${s.y}px) translate(-50%, -100%)`
       })
     }
     // The title steps aside once the flight begins.
-    campusHead.style.opacity = 1 - Math.min(1, Math.max(0, (cp - 0.004) / 0.012))
-    routeFill.style.transform = `scaleX(${at / lastStop})`
-    const stop = Math.round(at)
-    if (stop !== currentStop) {
-      currentStop = stop
-      routeStage.textContent = STAGE_LABEL[ROUTE[stop].stage]
-      routePlace.textContent = ROUTE[stop].ko
+    campusHead.style.opacity = 1 - Math.min(1, Math.max(0, (cp - 0.01) / 0.03))
+    routeFill.style.transform = `scaleX(${campus.stopPosition() / (campus.tour.length - 1)})`
+    if (active.index !== currentStop) {
+      currentStop = active.index
+      routeStage.textContent = STAGE_LABEL[ROUTE[currentStop].stage]
+      routePlace.textContent = ROUTE[currentStop].ko
       gsap.fromTo(routePlace, { yPercent: 60, opacity: 0 }, { yPercent: 0, opacity: 1, duration: 0.6, ease: 'expo.out', overwrite: true })
+      dirItems.forEach((b) => b.classList.toggle('is-active', +b.dataset.stop === currentStop))
     }
 
     const vp = stickyProgress(scenes[3].el)

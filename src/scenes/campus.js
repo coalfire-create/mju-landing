@@ -92,7 +92,8 @@ export class CampusFlight {
   constructor(canvas) {
     this.canvas = canvas
     this.renderer = new THREE.WebGLRenderer({ canvas, antialias: true })
-    this.renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.75))
+    // Phones get a lower render resolution: the scene is heavy (1,300 buildings + bloom).
+    this.renderer.setPixelRatio(Math.min(window.devicePixelRatio, innerWidth < 760 ? 1.25 : 1.75))
     this.scene = new THREE.Scene()
     this.scene.background = new THREE.Color('#05061a')
     this.scene.fog = new THREE.FogExp2('#05061a', 0.0007)
@@ -101,6 +102,7 @@ export class CampusFlight {
     this.progress = 0
     this.time = 0
     this.materials = []
+    this.exploreTarget = null
 
     // Place Yongin along its true bearing from Seoul, at compressed distance.
     const [slat, slon] = DATA.seoul.origin
@@ -267,21 +269,23 @@ export class CampusFlight {
           const { center, radius } = this.#campusBounds(key)
           // Narrow (portrait) screens need to back off further to fit the width.
           const r = Math.max(radius, 230) * Math.max(1, 1.2 / this.camera.aspect)
-          return { focus: center, eye: center.clone().add(new THREE.Vector3(0, r * 1.15, r * 1.05)), top, overview: key }
+          return { focus: center, eye: center.clone().add(new THREE.Vector3(0, r * 1.15, r * 1.05)), top, overview: key, tour: true }
         }
         const focus = this.#stopPoint(key, i).setY(b ? b.h * 0.6 : 4)
         const lift = b ? b.h : 10
-        return { focus, eye: focus.clone().add(new THREE.Vector3(45, lift + 150, 120)), top }
+        return { focus, eye: focus.clone().add(new THREE.Vector3(45, lift + 150, 120)), top, tour: s.famous }
       })
     stops.push(...campusStops('seoul'))
     for (const t of [riverT, 0.86]) {
       const focus = this.route.getPointAt(t)
-      stops.push({ focus, eye: focus.clone().add(new THREE.Vector3(160, 300, 320)), top: focus.clone().setY(30) })
+      stops.push({ focus, eye: focus.clone().add(new THREE.Vector3(160, 300, 320)), top: focus.clone().setY(30), tour: true })
     }
     stops.push(...campusStops('yongin'))
     this.stops = stops
-    this.eyeCurve = new THREE.CatmullRomCurve3(stops.map((s) => s.eye), false, 'centripetal')
-    this.focusCurve = new THREE.CatmullRomCurve3(stops.map((s) => s.focus), false, 'centripetal')
+    // Scrolling only passes the famous stops; the directory can fly to any stop.
+    this.tour = stops.flatMap((s, i) => (s.tour ? [i] : []))
+    this.eyeCurve = new THREE.CatmullRomCurve3(this.tour.map((i) => stops[i].eye), false, 'centripetal')
+    this.focusCurve = new THREE.CatmullRomCurve3(this.tour.map((i) => stops[i].focus), false, 'centripetal')
   }
 
   // Centre and radius of a campus's official buildings, in world space.
@@ -313,14 +317,38 @@ export class CampusFlight {
 
   // Which campus overview (if any) the camera is at, and how fully (0..1).
   overview() {
-    const t = this.smooth * (this.stops.length - 1)
-    for (const [i, s] of this.stops.entries()) {
+    if (this.exploreTarget !== null) {
+      const s = this.stops[this.exploreTarget]
+      return s.overview ? { key: s.overview, weight: 1 } : null
+    }
+    const t = (this.smooth ?? 0) * (this.tour.length - 1)
+    for (const [k, i] of this.tour.entries()) {
+      const s = this.stops[i]
       if (s.overview) {
-        const w = Math.max(0, 1 - Math.abs(t - i) * 2)
+        const w = Math.max(0, 1 - Math.abs(t - k) * 2)
         if (w > 0) return { key: s.overview, weight: w }
       }
     }
     return null
+  }
+
+  // Fly to any stop (from the building directory); scrolling resumes the tour.
+  flyTo(i) {
+    this.exploreTarget = i
+  }
+
+  exitExplore() {
+    this.exploreTarget = null
+  }
+
+  // The stop whose sign should show, and how settled the camera is on it (0..1).
+  activeStop() {
+    if (this.exploreTarget !== null) {
+      return { index: this.exploreTarget, weight: Math.max(0, 1 - this.camEye.distanceTo(this.stops[this.exploreTarget].eye) / 60) }
+    }
+    const t = (this.smooth ?? 0) * (this.tour.length - 1)
+    const k = Math.round(t)
+    return { index: this.tour[k], weight: Math.max(0, 1 - Math.abs(t - k) * 1.4) }
   }
 
   screen(v) {
@@ -360,9 +388,10 @@ export class CampusFlight {
 
   // Scroll position in "stops": dwells on each stop, travels in between.
   stopPosition() {
-    const t = this.progress * (this.stops.length - 1)
+    const n = this.tour.length
+    const t = this.progress * (n - 1)
     const turn = Math.min(1, Math.max(0, (t - Math.floor(t) - 0.25) / 0.5))
-    return Math.min(this.stops.length - 1, Math.floor(t) + turn * turn * (3 - 2 * turn))
+    return Math.min(n - 1, Math.floor(t) + turn * turn * (3 - 2 * turn))
   }
 
   // Screen anchor for stop i's label, or null when off screen / behind.
@@ -372,14 +401,19 @@ export class CampusFlight {
 
   render(time, dt) {
     this.time += dt
-    const s = this.stopPosition()
-    const u = s / (this.stops.length - 1)
+    const u = this.stopPosition() / (this.tour.length - 1)
     this.smooth = this.smooth === undefined ? u : this.smooth + (u - this.smooth) * Math.min(1, dt * 3)
-    const eye = this.eyeCurve.getPoint(this.smooth)
-    const focus = this.focusCurve.getPoint(this.smooth)
-    this.camera.position.copy(eye).add(new THREE.Vector3(this.mouse.x * 12, this.mouse.y * 8, 0))
-    this.camera.lookAt(focus)
-    this.current = Math.round(this.smooth * (this.stops.length - 1))
+    const explore = this.exploreTarget !== null ? this.stops[this.exploreTarget] : null
+    const eye = explore ? explore.eye : this.eyeCurve.getPoint(this.smooth)
+    const focus = explore ? explore.focus : this.focusCurve.getPoint(this.smooth)
+    // Ease toward the pose so directory jumps and returns to the tour glide.
+    if (!this.camEye) (this.camEye = eye.clone()), (this.camFocus = focus.clone())
+    const k = Math.min(1, dt * (explore ? 2.5 : 8))
+    this.camEye.lerp(eye, k)
+    this.camFocus.lerp(focus, k)
+    this.camera.position.copy(this.camEye).add(new THREE.Vector3(this.mouse.x * 12, this.mouse.y * 8, 0))
+    this.camera.lookAt(this.camFocus)
+    this.current = this.activeStop().index
 
     for (const m of this.materials) m.uniforms.uTime.value = this.time
     for (const sm of this.stopMeshes) {

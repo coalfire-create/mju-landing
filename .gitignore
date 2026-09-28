@@ -27,3 +27,4 @@ dist-ssr
 
 # stray copy of the SNU project; not part of this site
 /서울대 홍보용 홈페이지/
+__pycache__/
