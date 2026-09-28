@@ -394,7 +394,31 @@ a {
   left: var(--gutter);
   z-index: 2;
 }
-/* Overhead road signs projected from the 3D gantries. */
+/* Name tags over every official building in the campus overviews. */
+.btags {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+}
+.btag {
+  position: absolute;
+  top: 0;
+  left: 0;
+  padding: 3px 8px;
+  border-radius: 6px;
+  background: rgba(5, 10, 36, 0.72);
+  border: 1px solid rgba(143, 211, 255, 0.45);
+  font-size: 11px;
+  font-weight: 600;
+  white-space: nowrap;
+  visibility: hidden;
+}
+@media (max-width: 760px) {
+  .btag { padding: 2px 5px; font-size: 9px; }
+}
+
+/* Labels for the stops, anchored above their real buildings. */
 .signs {
   position: absolute;
   inset: 0;
@@ -706,6 +730,19 @@ a {
   font-size: 12px;
   font-weight: 600;
   color: var(--muted-dark);
+}
+.footer {
+  flex-wrap: wrap;
+}
+.footer__credit {
+  flex-basis: 100%;
+  text-align: center;
+  font-size: 10px;
+  font-weight: 500;
+  opacity: 0.7;
+}
+.footer__credit a {
+  text-decoration: underline;
 }
 .footer__mark {
   font-family: var(--hanja);

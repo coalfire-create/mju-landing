@@ -44,6 +44,7 @@ const ROUTE = [
   { stage: 'YONGIN', ko: '정문', en: 'Main Gate', note: '처인구 명지로 116' },
   { stage: 'YONGIN', ko: '60주년 채플관', code: 'Y22', en: '60th Anniversary Chapel', note: '채플 · 공연장' },
   { stage: 'YONGIN', ko: '창조예술관', code: 'Y2', en: 'Creative Arts Hall', note: '캠퍼스 랜드마크' },
+  { stage: 'YONGIN', ko: '백마상', en: 'White Horse Statue', note: '자연캠퍼스의 상징' },
   { stage: 'YONGIN', ko: '명진당', code: 'Y3', en: 'Myungjindang', note: '자연도서관' },
   { stage: 'YONGIN', ko: '함박관', code: 'Y9', en: 'Hambak Hall', note: '신입생 교양 강의동' },
 ]
@@ -182,6 +183,15 @@ async function boot() {
   /* per-section scroll wiring */
   const heroWord = document.querySelector('.hero__word')
   const signEls = buildSigns()
+  // Small name tags for every official building, shown in the campus overviews.
+  const tagWrap = document.getElementById('buildingTags')
+  const tagEls = campus.tags.map((t) => {
+    const el = document.createElement('span')
+    el.className = 'btag'
+    el.textContent = t.name
+    tagWrap.appendChild(el)
+    return el
+  })
   const campusHead = document.querySelector('.campus__head')
   const routeStage = document.getElementById('routeStage')
   const routePlace = document.getElementById('routePlace')
@@ -240,7 +250,21 @@ async function boot() {
         el.style.visibility = s ? 'visible' : 'hidden'
         if (!s) return
         el.style.opacity = fade
-        el.style.transform = `translate(${s.x}px, ${s.y}px) translate(-50%, -100%) scale(${labelScale})`
+        // Keep the whole sign on screen (it is 640px wide before scaling).
+        const half = (640 * labelScale) / 2 + 12
+        const x = Math.min(innerWidth - half, Math.max(half, s.x))
+        el.style.transform = `translate(${x}px, ${s.y}px) translate(-50%, -100%) scale(${labelScale})`
+      })
+    }
+    if (scenes[2].on) {
+      const ov = campus.overview()
+      campus.tags.forEach((t, i) => {
+        const el = tagEls[i]
+        const s = ov && ov.key === t.key && campus.screen(t.pos)
+        el.style.visibility = s ? 'visible' : 'hidden'
+        if (!s) return
+        el.style.opacity = ov.weight
+        el.style.transform = `translate(${s.x}px, ${s.y}px) translate(-50%, -100%)`
       })
     }
     // The title steps aside once the flight begins.

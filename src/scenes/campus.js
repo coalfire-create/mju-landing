@@ -74,13 +74,12 @@ function buildingMaterial(color, windowColor) {
   })
 }
 
-function lineSegments(polylines, offset, y, closed = false) {
+function lineSegments(polylines, offset, y) {
   const pts = []
   for (const line of polylines) {
-    const n = closed ? line.length : line.length - 1
-    for (let i = 0; i < n; i++) {
+    for (let i = 0; i < line.length - 1; i++) {
       const [ax, az] = line[i]
-      const [bx, bz] = line[(i + 1) % line.length]
+      const [bx, bz] = line[i + 1]
       pts.push(ax + offset.x, y, az + offset.z, bx + offset.x, y, bz + offset.z)
     }
   }
@@ -96,7 +95,7 @@ export class CampusFlight {
     this.renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.75))
     this.scene = new THREE.Scene()
     this.scene.background = new THREE.Color('#05061a')
-    this.scene.fog = new THREE.FogExp2('#05061a', 0.0016)
+    this.scene.fog = new THREE.FogExp2('#05061a', 0.0007)
     this.camera = new THREE.PerspectiveCamera(50, 1, 1, 9000)
     this.mouse = new THREE.Vector2()
     this.progress = 0
@@ -162,10 +161,7 @@ export class CampusFlight {
     add(context, '#0c1238', '#3a4f9a', '#2a3b7a', 0.35)
     add(campus, '#16287a', '#8fd3ff', '#6cc4ff', 0.8)
 
-    // Campus boundary and footpaths drawn in light.
-    this.scene.add(
-      new THREE.LineSegments(lineSegments([data.outline], off, 0.3, true), new THREE.LineBasicMaterial({ color: '#8fd3ff' })),
-    )
+    // Footpaths drawn in light.
     this.scene.add(
       new THREE.LineSegments(
         lineSegments(data.paths, off, 0.2),
@@ -177,7 +173,22 @@ export class CampusFlight {
     // Index of this campus's first stop in the whole route (Seoul, 2 road stops, Yongin).
     const base = key === 'seoul' ? 0 : DATA.seoul.stops.length + 2
     data.stops.forEach((s, i) => {
-      if (s.b === null) return
+      if (s.b === null) {
+        // Places that aren't buildings (정문, 백마상) get a pillar of light.
+        const pillar = new THREE.Mesh(
+          new THREE.CylinderGeometry(1.6, 1.6, 26, 12, 1, true),
+          new THREE.MeshBasicMaterial({ color: '#ffd98a', transparent: true, opacity: 0.85, side: THREE.DoubleSide }),
+        )
+        pillar.position.set(s.at[0] + off.x, 13, s.at[1] + off.z)
+        const ring = new THREE.Mesh(
+          new THREE.RingGeometry(5, 6.5, 40),
+          new THREE.MeshBasicMaterial({ color: '#ffd98a', side: THREE.DoubleSide }),
+        )
+        ring.rotation.x = -Math.PI / 2
+        ring.position.set(s.at[0] + off.x, 0.4, s.at[1] + off.z)
+        this.scene.add(pillar, ring)
+        return
+      }
       const mat = buildingMaterial('#1d3aa8', '#bfe6ff')
       this.materials.push(mat)
       const mesh = new THREE.Mesh(footprintGeometry(data.buildings[s.b], off), mat)
@@ -250,9 +261,17 @@ export class CampusFlight {
     const campusStops = (key) =>
       DATA[key].stops.map((s, i) => {
         const b = s.b === null ? null : DATA[key].buildings[s.b]
+        const top = this.#stopPoint(key, i).setY((b ? b.h : 26) + 10)
+        if (i === 0) {
+          // Arriving at the gate: pull back to see the whole campus at once.
+          const { center, radius } = this.#campusBounds(key)
+          // Narrow (portrait) screens need to back off further to fit the width.
+          const r = Math.max(radius, 230) * Math.max(1, 1.2 / this.camera.aspect)
+          return { focus: center, eye: center.clone().add(new THREE.Vector3(0, r * 1.15, r * 1.05)), top, overview: key }
+        }
         const focus = this.#stopPoint(key, i).setY(b ? b.h * 0.6 : 4)
         const lift = b ? b.h : 10
-        return { focus, eye: focus.clone().add(new THREE.Vector3(45, lift + 150, 120)), top: focus.clone().setY((b ? b.h : 8) + 10) }
+        return { focus, eye: focus.clone().add(new THREE.Vector3(45, lift + 150, 120)), top }
       })
     stops.push(...campusStops('seoul'))
     for (const t of [riverT, 0.86]) {
@@ -263,6 +282,51 @@ export class CampusFlight {
     this.stops = stops
     this.eyeCurve = new THREE.CatmullRomCurve3(stops.map((s) => s.eye), false, 'centripetal')
     this.focusCurve = new THREE.CatmullRomCurve3(stops.map((s) => s.focus), false, 'centripetal')
+  }
+
+  // Centre and radius of a campus's official buildings, in world space.
+  #campusBounds(key) {
+    const pts = DATA[key].buildings.filter((b) => b.c).flatMap((b) => b.p)
+    const xs = pts.map((p) => p[0])
+    const zs = pts.map((p) => p[1])
+    const cx = (Math.min(...xs) + Math.max(...xs)) / 2
+    const cz = (Math.min(...zs) + Math.max(...zs)) / 2
+    const radius = Math.max(Math.max(...xs) - Math.min(...xs), Math.max(...zs) - Math.min(...zs)) / 2
+    return { center: new THREE.Vector3(cx, 0, cz).add(this.offsets[key]), radius }
+  }
+
+  // Every official building, for name tags in the campus overviews.
+  get tags() {
+    if (!this._tags) {
+      this._tags = ['seoul', 'yongin'].flatMap((key) =>
+        DATA[key].buildings
+          .filter((b) => b.n)
+          .map((b) => {
+            const cx = b.p.reduce((a, q) => a + q[0], 0) / b.p.length
+            const cz = b.p.reduce((a, q) => a + q[1], 0) / b.p.length
+            return { key, name: b.n, pos: new THREE.Vector3(cx, b.h + 4, cz).add(this.offsets[key]) }
+          }),
+      )
+    }
+    return this._tags
+  }
+
+  // Which campus overview (if any) the camera is at, and how fully (0..1).
+  overview() {
+    const t = this.smooth * (this.stops.length - 1)
+    for (const [i, s] of this.stops.entries()) {
+      if (s.overview) {
+        const w = Math.max(0, 1 - Math.abs(t - i) * 2)
+        if (w > 0) return { key: s.overview, weight: w }
+      }
+    }
+    return null
+  }
+
+  screen(v) {
+    const p = v.clone().project(this.camera)
+    if (p.z > 1) return null
+    return { x: (p.x * 0.5 + 0.5) * this.canvas.clientWidth, y: (-p.y * 0.5 + 0.5) * this.canvas.clientHeight }
   }
 
   #routeTAtZ(z) {
@@ -290,6 +354,8 @@ export class CampusFlight {
     this.camera.aspect = w / h
     this.camera.fov = w / h < 0.8 ? 68 : 50
     this.camera.updateProjectionMatrix()
+    // Overview framing depends on the aspect ratio.
+    if (this.stops) this.#buildStops()
   }
 
   // Scroll position in "stops": dwells on each stop, travels in between.
@@ -301,9 +367,7 @@ export class CampusFlight {
 
   // Screen anchor for stop i's label, or null when off screen / behind.
   labelScreen(i) {
-    const v = this.stops[i].top.clone().project(this.camera)
-    if (v.z > 1) return null
-    return { x: (v.x * 0.5 + 0.5) * this.canvas.clientWidth, y: (-v.y * 0.5 + 0.5) * this.canvas.clientHeight }
+    return this.screen(this.stops[i].top)
   }
 
   render(time, dt) {
