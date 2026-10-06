@@ -3,24 +3,12 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>명지대학교 — 밝게 알고, 밝게 나눈다</title>
-    <meta name="description" content="밝을 명(明), 알 지(知). 서울과 용인, 두 캠퍼스에서 내일의 지혜를 키우는 명지대학교." />
-    <meta name="theme-color" content="#050a24" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
-    <meta property="og:type" content="website" />
-    <meta property="og:url" content="https://mju-landing.vercel.app/" />
-    <meta property="og:title" content="명지대학교 — 밝게 알고, 밝게 나눈다" />
-    <meta property="og:description" content="서울 인문캠퍼스에서 용인 자연캠퍼스까지, 실제 캠퍼스를 3D로 날아보세요." />
-    <meta property="og:image" content="https://mju-landing.vercel.app/og.png" />
-    <meta property="og:image:width" content="1200" />
-    <meta property="og:image:height" content="630" />
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:image" content="https://mju-landing.vercel.app/og.png" />
+    <title>명지대학교 — 진리는 나의 빛</title>
+    <meta name="description" content="1946년 개교, 80년의 지성. 명지대학교에서 내일을 설계하세요." />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Noto+Serif+KR:wght@900&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@1,400;1,500&family=Noto+Serif+KR:wght@400;700;900&display=swap"
       rel="stylesheet"
     />
     <link
@@ -29,150 +17,278 @@
     />
   </head>
   <body>
+    <canvas id="gl"></canvas>
+    <div class="grain" aria-hidden="true"></div>
+
     <div class="loader" id="loader">
-      <span class="loader__glyph">明知</span>
-      <div class="loader__foot">
-        <span>MYONGJI UNIVERSITY</span>
-        <span id="loaderCount">0</span>
+      <div class="loader__inner">
+        <span class="loader__label">MYONGJI UNIVERSITY</span>
+        <span class="loader__count" id="loaderCount">0</span>
       </div>
       <div class="loader__bar"><span id="loaderBar"></span></div>
     </div>
 
+    <div class="cursor" aria-hidden="true"><span class="cursor__dot"></span><span class="cursor__ring"></span></div>
+
     <header class="nav">
-      <a href="#hero" class="nav__logo">Myongji<sup>明知</sup></a>
+      <a href="#hero" class="nav__logo">MJU<sup>80</sup></a>
       <nav class="nav__links">
-        <a href="#name">Name</a>
-        <a href="#campus">Campus</a>
-        <a href="#values">Values</a>
-        <a href="#colleges">Colleges</a>
+        <a href="#world" data-i18n="nav.global">Global</a>
+        <a href="#campus" data-i18n="nav.campus">Campus</a>
+        <a href="#colleges" data-i18n="nav.colleges">Colleges</a>
+        <a href="#climb" data-i18n="nav.climb">명지</a>
       </nav>
-      <a href="https://www.mju.ac.kr" target="_blank" rel="noopener" class="nav__cta">입학 안내 ↗</a>
+      <div class="nav__right">
+        <div class="lang-switch" id="langSwitch" role="group" aria-label="Language Selector">
+          <button type="button" class="lang-btn is-active" data-lang="ko" aria-label="한국어">KO</button>
+          <span class="lang-sep">/</span>
+          <button type="button" class="lang-btn" data-lang="en" aria-label="English">EN</button>
+        </div>
+        <a href="https://admission.snu.ac.kr" target="_blank" rel="noopener" class="btn btn--small" data-i18n="nav.admissions">입학 안내</a>
+      </div>
     </header>
 
     <main>
-      <!-- 01 HERO — Cobalt Louvre -->
-      <section class="scene hero" id="hero">
-        <div class="scene__sticky">
-          <canvas class="scene__canvas" id="cvHero"></canvas>
-          <div class="hero__top">
-            <span class="eyebrow">MYONGJI UNIVERSITY</span>
-            <span class="eyebrow">SEOUL — YONGIN</span>
-          </div>
-          <div class="hero__body">
-            <p class="hero__kicker reveal-hero">밝게 알고, 밝게 나눈다.</p>
-            <h1 class="hero__word"><span class="split">Myongji</span></h1>
-            <div class="hero__row reveal-hero">
-              <p class="hero__desc">밝을 명(明), 알 지(知).<br />이름이 곧 약속인 대학.</p>
-              <div class="hero__cta">
-                <a href="#colleges" class="pill pill--light">단과대학 보기</a>
-                <a href="#name" class="pill pill--line">Scroll ↓</a>
-              </div>
+      <!-- 01 HERO -->
+      <section class="section hero" id="hero" data-shape="0" data-tint="#2a3cff">
+        <div class="hero__top">
+          <span class="eyebrow" data-i18n="hero.eyebrowLeft">MYONGJI UNIVERSITY · EST. 1946</span>
+          <span class="eyebrow" data-i18n="hero.eyebrowRight">37.46°N 126.95°E · GWANAK</span>
+        </div>
+        <div class="hero__bottom">
+          <h1 class="hero__title">
+            <span class="line split" data-i18n-html="hero.titleLine1">진리는</span>
+            <span class="line split" data-i18n-html="hero.titleLine2">나의 빛<em class="latin">.</em></span>
+          </h1>
+          <div class="hero__side">
+            <p class="latin hero__motto split" data-i18n="hero.motto">Veritas Lux Mea</p>
+            <p class="hero__desc reveal" data-i18n="hero.desc">
+              대한민국 최초의 국립종합대학. 80년 동안 질문하고, 증명하고, 세상을 바꿔 온 사람들의 이름입니다.
+            </p>
+            <div class="hero__cta reveal">
+              <a href="#colleges" class="btn btn--primary magnetic"><span data-i18n="hero.ctaColleges">단과대학 둘러보기</span></a>
+              <a href="#world" class="btn btn--ghost magnetic"><span data-i18n="hero.ctaExplore">더 알아보기 ↓</span></a>
             </div>
           </div>
         </div>
+        <div class="scroll-hint"><span class="scroll-hint__line"></span><span class="scroll-hint__text" data-i18n="hero.scroll">SCROLL</span></div>
       </section>
 
-      <!-- 02 NAME — Mosaic Lens -->
-      <section class="scene name" id="name">
-        <div class="scene__sticky">
-          <canvas class="scene__canvas" id="cvName"></canvas>
-          <div class="name__panel">
-            <span class="eyebrow eyebrow--dark">01 — OUR NAME</span>
-            <h2 class="name__glyph"><span class="split">明知</span></h2>
-            <p class="name__line reveal">알수록, 선명해진다.</p>
-            <dl class="name__defs reveal">
-              <div><dt>明</dt><dd>밝을 명</dd></div>
-              <div><dt>知</dt><dd>알 지</dd></div>
-            </dl>
+      <!-- 02 MANIFESTO -->
+      <section class="section manifesto" id="manifesto">
+        <div class="marquee" aria-hidden="true">
+          <div class="marquee__track" id="marqueeTrack">
+            <span>VERITAS LUX MEA ✦ 진리는 나의 빛 ✦ MYONGJI UNIVERSITY ✦ 명지대학교 ✦ </span>
+            <span>VERITAS LUX MEA ✦ 진리는 나의 빛 ✦ MYONGJI UNIVERSITY ✦ 명지대학교 ✦ </span>
           </div>
-          <p class="name__hint">
-            <span class="name__hint-ring"></span><span class="name__hint-text">커서를 움직여 선명하게</span>
+        </div>
+        <p class="manifesto__text words" data-i18n="manifesto.text">
+          우리는 정답을 외우는 곳이 아닙니다. 아무도 묻지 않은 질문을 먼저 던지고, 가장 어려운 문제 앞에 가장 오래 머무는 곳입니다.
+          그 끈기가 한 사람을 바꾸고, 한 나라를 바꾸고, 결국 세계를 바꿉니다.
+        </p>
+      </section>
+
+      <!-- 03 ALUMNI CONSTELLATION -->
+      <section class="section" id="world" data-shape="1" data-tint="#050814" style="height: 100vh; display: flex; align-items: center; justify-content: center; position: relative;">
+        
+        <div style="position: absolute; top: 15vh; left: 5vw; max-width: 600px; z-index: 10; pointer-events: none;">
+          <span class="eyebrow">01 — THE GREAT MINDS</span>
+          <h2 class="h2 split" style="font-size: 4rem; line-height: 1.1;">MJU의 별들,<br />하나의 위대한 빛이 되다.</h2>
+          <p class="body reveal" style="font-size: 1.1rem; margin-top: 1.5rem; max-width: 400px; color: rgba(255,255,255,0.7);">
+            빛나는 별에 마우스를 올려, 인류의 역사를 바꾼 7인의 궤적을 확인해 보세요.
           </p>
         </div>
-      </section>
 
-      <!-- 03 CAMPUS — Traffic Wave -->
-      <section class="scene campus" id="campus">
-        <div class="scene__sticky">
-          <canvas class="scene__canvas" id="cvCampus"></canvas>
-          <div class="campus__head">
-            <span class="eyebrow">02 — TWO CAMPUSES</span>
-            <h2 class="h2"><span class="split">서울에서 용인까지,</span><br /><span class="split">하나의 길.</span></h2>
-          </div>
-          <div class="btags" id="buildingTags" aria-hidden="true"></div>
-          <div class="signs" id="signs" aria-hidden="true"></div>
-          <aside class="dir" id="directory">
-            <button type="button" class="dir__toggle" id="dirToggle">모든 장소 보기 <span>↗</span></button>
-            <div class="dir__panel">
-              <div class="dir__head">
-                <strong>캠퍼스 둘러보기</strong>
-                <button type="button" class="dir__back" id="dirBack">투어로 돌아가기</button>
-              </div>
-              <div class="dir__list" id="dirList"></div>
-            </div>
-          </aside>
-          <div class="route">
-            <div class="route__now">
-              <span class="route__stage" id="routeStage">인문캠퍼스 · SEOUL</span>
-              <strong class="route__place" id="routePlace">정문</strong>
-            </div>
-            <div class="route__bar">
-              <span class="route__fill" id="routeFill"></span>
-              <span class="route__mark" data-stage="SEOUL">인문캠퍼스</span>
-              <span class="route__mark" data-stage="YONGIN">자연캠퍼스</span>
-              <span class="route__mark route__mark--end" style="left: 100%">도착</span>
+        <!-- Spatial Alumni Cards mapping to the 7 stars -->
+        <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 20;">
+          
+          <!-- Alkaid -->
+          <div class="star-hotspot" style="left: 15%; top: 25%;">
+            <div class="alumni-card">
+              <img src="https://thumb.wikimedia.org/wikipedia/commons/thumb/a/ae/Lee_O-young_%28cropped%29_%28cropped%29.jpg/500px-Lee_O-young_%28cropped%29_%28cropped%29.jpg" alt="이어령" style="width: 100%; border-radius: 8px; margin-bottom: 15px; aspect-ratio: 1/1; object-fit: cover;">
+              <h4 style="color: #fff; font-size: 1.4rem; font-weight: 700; margin-bottom: 10px;">"젊음은 나이가 아니라 생각의 크기입니다."</h4>
+              <p style="color: #8892b0; font-size: 0.9rem; border-top: 1px solid rgba(255,255,255,0.2); padding-top: 10px;">故 이어령 (초대 문화부 장관)<br><span style="color: #4a8bff;">국어국문학과 52학번</span></p>
             </div>
           </div>
+
+          <!-- Mizar -->
+          <div class="star-hotspot" style="left: 28%; top: 32%;">
+            <div class="alumni-card">
+              <img src="https://thumb.wikimedia.org/wikipedia/commons/thumb/7/70/Ban_Ki-moon_February_2016.jpg/500px-Ban_Ki-moon_February_2016.jpg" alt="반기문" style="width: 100%; border-radius: 8px; margin-bottom: 15px; aspect-ratio: 1/1; object-fit: cover;">
+              <h4 style="color: #fff; font-size: 1.4rem; font-weight: 700; margin-bottom: 10px;">"세계의 평화는 결코 공짜로 얻어지지 않는다."</h4>
+              <p style="color: #8892b0; font-size: 0.9rem; border-top: 1px solid rgba(255,255,255,0.2); padding-top: 10px;">반기문 (제8대 UN 사무총장)<br><span style="color: #4a8bff;">외교학과 70학번</span></p>
+            </div>
+          </div>
+
+          <!-- Alioth -->
+          <div class="star-hotspot" style="left: 42%; top: 38%;">
+            <div class="alumni-card">
+              <img src="https://thumb.wikimedia.org/wikipedia/commons/thumb/5/59/151001_%EC%A1%B0%EC%88%98%EB%AF%B8_05.jpg/500px-151001_%EC%A1%B0%EC%88%98%EB%AF%B8_05.jpg" alt="조수미" style="width: 100%; border-radius: 8px; margin-bottom: 15px; aspect-ratio: 1/1; object-fit: cover;">
+              <h4 style="color: #fff; font-size: 1.4rem; font-weight: 700; margin-bottom: 10px;">"음악은 국경을 넘어 하나로 연결하는 힘입니다."</h4>
+              <p style="color: #8892b0; font-size: 0.9rem; border-top: 1px solid rgba(255,255,255,0.2); padding-top: 10px;">조수미 (세계적인 소프라노)<br><span style="color: #4a8bff;">성악과 81학번</span></p>
+            </div>
+          </div>
+
+          <!-- Megrez -->
+          <div class="star-hotspot" style="left: 55%; top: 45%;">
+            <div class="alumni-card">
+              <img src="https://thumb.wikimedia.org/wikipedia/commons/thumb/f/f5/Dr_Lee_Jong-wook.jpg/500px-Dr_Lee_Jong-wook.jpg" alt="이종욱" style="width: 100%; border-radius: 8px; margin-bottom: 15px; aspect-ratio: 1/1; object-fit: cover;">
+              <h4 style="color: #fff; font-size: 1.4rem; font-weight: 700; margin-bottom: 10px;">"우리의 행동이 누군가의 생명을 구합니다."</h4>
+              <p style="color: #8892b0; font-size: 0.9rem; border-top: 1px solid rgba(255,255,255,0.2); padding-top: 10px;">故 이종욱 (제6대 WHO 사무총장)<br><span style="color: #4a8bff;">의학과 76학번</span></p>
+            </div>
+          </div>
+
+          <!-- Phecda -->
+          <div class="star-hotspot" style="left: 60%; top: 65%;">
+            <div class="alumni-card">
+              <img src="/architect.jpg" alt="정기용" style="width: 100%; border-radius: 8px; margin-bottom: 15px; aspect-ratio: 1/1; object-fit: cover;">
+              <h4 style="color: #fff; font-size: 1.4rem; font-weight: 700; margin-bottom: 10px;">"건축은 형태가 아니라 사람들의 삶을 짓는 것이다."</h4>
+              <p style="color: #8892b0; font-size: 0.9rem; border-top: 1px solid rgba(255,255,255,0.2); padding-top: 10px;">故 정기용 (기적의 도서관 건축가)<br><span style="color: #4a8bff;">미술대학 64학번</span></p>
+            </div>
+          </div>
+
+          <!-- Merak -->
+          <div class="star-hotspot" style="left: 78%; top: 60%;">
+            <div class="alumni-card">
+              <img src="https://thumb.wikimedia.org/wikipedia/commons/thumb/f/f7/20140114_Hwang_Dong-hyuk.jpg/500px-20140114_Hwang_Dong-hyuk.jpg" alt="황동혁" style="width: 100%; border-radius: 8px; margin-bottom: 15px; aspect-ratio: 1/1; object-fit: cover;">
+              <h4 style="color: #fff; font-size: 1.4rem; font-weight: 700; margin-bottom: 10px;">"가장 한국적인 이야기가 가장 세계적인 이야기다."</h4>
+              <p style="color: #8892b0; font-size: 0.9rem; border-top: 1px solid rgba(255,255,255,0.2); padding-top: 10px;">황동혁 ('오징어 게임' 감독)<br><span style="color: #4a8bff;">신문방송학과 90학번</span></p>
+            </div>
+          </div>
+
+          <!-- Dubhe -->
+          <div class="star-hotspot" style="left: 82%; top: 40%;">
+            <div class="alumni-card">
+              <img src="https://thumb.wikimedia.org/wikipedia/commons/thumb/2/2e/Bang-Si-Hyuk.jpg/500px-Bang-Si-Hyuk.jpg" alt="방시혁" style="width: 100%; border-radius: 8px; margin-bottom: 15px; aspect-ratio: 1/1; object-fit: cover;">
+              <h4 style="color: #fff; font-size: 1.4rem; font-weight: 700; margin-bottom: 10px;">"음악과 진심으로 세계의 벽을 허물다."</h4>
+              <p style="color: #8892b0; font-size: 0.9rem; border-top: 1px solid rgba(255,255,255,0.2); padding-top: 10px;">방시혁 (하이브 의장)<br><span style="color: #4a8bff;">미학과 91학번</span></p>
+            </div>
+          </div>
+          
         </div>
       </section>
 
-      <!-- 04 VALUES — Striped Waves -->
-      <section class="scene values" id="values">
-        <div class="scene__sticky">
-          <canvas class="scene__canvas" id="cvValues"></canvas>
-          <span class="eyebrow values__eyebrow">03 — 대학이념 · VALUES</span>
-          <div class="values__stage">
-            <div class="value" data-i="0"><span class="value__ko">사랑</span><span class="value__en">Love</span></div>
-            <div class="value" data-i="1"><span class="value__ko">진리</span><span class="value__en">Truth</span></div>
-            <div class="value" data-i="2"><span class="value__ko">봉사</span><span class="value__en">Service</span></div>
-          </div>
-          <ol class="values__index" id="valuesIndex">
-            <li>01 사랑</li>
-            <li>02 진리</li>
-            <li>03 봉사</li>
-          </ol>
-        </div>
-      </section>
-
-      <!-- 05 COLLEGES — Rotunda -->
-      <section class="scene colleges" id="colleges">
-        <div class="scene__sticky">
-          <canvas class="scene__canvas scene__canvas--grab" id="cvColleges"></canvas>
+      <!-- 04 COLLEGES (sticky 3D carousel) -->
+      <section class="colleges" id="colleges" data-shape="2" data-tint="#6a4dff">
+        <div class="colleges__sticky">
           <div class="colleges__head">
-            <span class="eyebrow eyebrow--dark">04 — COLLEGES</span>
-            <h2 class="h2 h2--dark">열세 개의 문,<br />당신의 방은?</h2>
+            <span class="eyebrow" data-i18n="colleges.eyebrow">02 — COLLEGES</span>
+            <h2 class="h2" data-i18n-html="colleges.title">당신의 질문은<br />어디에 있나요?</h2>
           </div>
-          <div class="colleges__foot">
-            <span class="colleges__active" id="collegeActive"></span>
-            <span class="colleges__hint">DRAG · SCROLL</span>
+          <div class="carousel">
+            <div class="carousel__ring" id="ring"></div>
           </div>
           <div class="colleges__progress"><span id="collegeProgress"></span></div>
         </div>
       </section>
 
-      <!-- 06 FINALE — Ray Column -->
-      <section class="scene finale" id="finale">
-        <div class="scene__sticky">
-          <canvas class="scene__canvas" id="cvFinale"></canvas>
-          <div class="finale__inner">
-            <h2 class="finale__title"><span class="split">당신의 내일을 밝힐 지혜,</span><br /><span class="split">명지에서.</span></h2>
-            <a href="https://www.mju.ac.kr" target="_blank" rel="noopener" class="pill pill--dark pill--big">지원하기 →</a>
+      <!-- 05 CAMPUS → starlight gate -->
+      <section class="section campus" id="campus" data-shape="3" data-tint="#c98a2b">
+        <div class="campus__head">
+          <span class="eyebrow" data-i18n="campus.eyebrow">03 — CAMPUS</span>
+          <h2 class="h2 split" data-i18n-html="campus.title">명지의 품,<br />가장 큰 교실.</h2>
+        </div>
+
+        <div class="stats">
+          <div class="stat reveal">
+            <span class="stat__num" data-count="1946">0</span>
+            <span class="stat__label" data-i18n="campus.stats.0">개교</span>
           </div>
-          <footer class="footer">
-            <span>인문캠퍼스 · 서울 서대문구</span>
-            <span class="footer__mark">明知</span>
-            <span>자연캠퍼스 · 경기 용인시</span>
-            <span class="footer__credit">지도 데이터 © <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap</a> contributors · 건물 정보: 명지대학교 캠퍼스맵</span>
+          <div class="stat reveal">
+            <span class="stat__num" data-count="80" data-suffix="th">0</span>
+            <span class="stat__label" data-i18n="campus.stats.1">개교 주년</span>
+          </div>
+          <div class="stat reveal">
+            <span class="stat__num" data-count="1975">0</span>
+            <span class="stat__label" data-i18n="campus.stats.2">관악캠퍼스 이전</span>
+          </div>
+          <div class="stat reveal">
+            <span class="stat__num" data-count="16">0</span>
+            <span class="stat__label" data-i18n="campus.stats.3">단과대학 · 학부</span>
+          </div>
+        </div>
+        <!-- 02.1 SIGNATURE '샤' GATE & STARLIGHT INFLUX ANIMATION -->
+        <div class="gate-stage" id="gateStage">
+          <div class="gate-sticky">
+            <canvas id="gateCanvas" class="gate-canvas"></canvas>
+            <div class="gate-badge">
+              <span class="gate-badge__tag" data-i18n="gate.tag">SIGNATURE LANDMARK · 관악의 문</span>
+              <h3 class="gate-badge__title" data-i18n="gate.title">진리의 문으로 나아가는 발걸음</h3>
+              <p class="gate-badge__desc" data-i18n="gate.desc">80년 동안 수많은 지성의 별들이 이 문을 지나 대한민국과 인류의 내일을 밝혔습니다.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+
+
+      <!-- 06 CLIMB: through the gate's light onto the real Gwanak-san, up to the summit -->
+      <section class="climb" id="climb">
+        <div class="climb__sticky">
+          <canvas id="climbCanvas" class="climb__canvas"></canvas>
+          <div class="cl-tags" id="climbTags" aria-hidden="true"></div>
+
+          <aside class="cl-hud" id="climbHud" aria-hidden="true">
+            <div>
+              <span class="cl-hud__label" data-i18n="climb.alt">해발 ALT</span>
+              <span class="cl-hud__value"><span id="climbAlt">69</span><small>m</small></span>
+            </div>
+            <div class="cl-gauge">
+              <span class="cl-gauge__fill" id="climbGauge"></span>
+              <span class="cl-gauge__tick" style="bottom: 0">0</span>
+              <span class="cl-gauge__tick" style="bottom: 31.6%">200</span>
+              <span class="cl-gauge__tick" style="bottom: 63.3%">400</span>
+              <span class="cl-gauge__tick cl-gauge__tick--top" style="bottom: 100%">632</span>
+            </div>
+            <div>
+              <span class="cl-hud__label" data-i18n="climb.dist">거리</span>
+              <span class="cl-hud__small"><span id="climbDist">0.0</span> / <span id="climbTotal">3.4</span> km</span>
+            </div>
+          </aside>
+
+          <div class="cl-stages">
+            <div class="cl-stage" data-from="0.03" data-to="0.13">
+              <span class="eyebrow" data-i18n="climb.s1.eyebrow">04 — GWANAK · 정문 69m</span>
+              <h2 class="cl-stage__title" data-i18n-html="climb.s1.title">문을 지나면,<br />산이 시작됩니다.</h2>
+              <p class="cl-stage__body" data-i18n="climb.s1.body">명지대학교 정문에서 명지 정상까지 3.4km. 실제 지형 위를, 스크롤로 올라가 보세요.</p>
+            </div>
+            <div class="cl-stage" data-from="0.18" data-to="0.32">
+              <span class="eyebrow">1975</span>
+              <h2 class="cl-stage__title" data-i18n-html="climb.s2.title">흩어져 있던 대학이<br />관악으로 모였습니다.</h2>
+              <p class="cl-stage__body" data-i18n="climb.s2.body">서울 곳곳에 나뉘어 있던 단과대학들은 1975년, 이 산자락 아래 하나의 캠퍼스로 모였습니다.</p>
+            </div>
+            <div class="cl-stage" data-from="0.37" data-to="0.5">
+              <span class="eyebrow" data-i18n="climb.s3.eyebrow">캠퍼스 남쪽 끝</span>
+              <h2 class="cl-stage__title" data-i18n-html="climb.s3.title">캠퍼스의 끝이<br />곧 등산로의 시작.</h2>
+            </div>
+            <div class="cl-stage" data-from="0.55" data-to="0.67">
+              <span class="eyebrow" data-i18n="climb.s4.eyebrow">능선</span>
+              <h2 class="cl-stage__title" data-i18n-html="climb.s4.title">숨이 찰수록,<br />시야는 넓어집니다.</h2>
+            </div>
+            <div class="cl-stage" data-from="0.7" data-to="0.82">
+              <span class="eyebrow" data-i18n="climb.s5.eyebrow">자운암 국기봉 · 482m</span>
+              <h2 class="cl-stage__title" data-i18n-html="climb.s5.title">정상까지<br />얼마 남지 않았습니다.</h2>
+            </div>
+            <div class="cl-stage cl-stage--summit" data-from="0.86" data-to="0.935">
+              <span class="eyebrow" data-i18n="climb.summit.eyebrow">명지 정상 · 연주대</span>
+              <h2 class="cl-summit" data-i18n="climb.summit.title">해발 632m.</h2>
+            </div>
+            <div class="cl-stage cl-stage--cta" data-from="0.95" data-to="1.01">
+              <span class="eyebrow" data-i18n="anniversary.eyebrow">1946 — 2026 · 개교 80주년</span>
+              <p class="cl-cta__lead" data-i18n="climb.cta.lead">발아래 펼쳐진 저 불빛이, 명지대학교입니다.</p>
+              <h2 class="cl-cta__title" data-i18n-html="climb.cta.title">여러분도,<br />이 학교에 입학하고<br />싶지 않으신가요?</h2>
+              <div class="cl-cta__actions">
+                <a href="https://admission.snu.ac.kr" target="_blank" rel="noopener" class="btn btn--gold magnetic btn--big"><span data-i18n="anniversary.applyBtn">입학 안내 보기 →</span></a>
+                <a href="#climb" class="btn btn--ghost magnetic"><span data-i18n="climb.again">다시 오르기 ↑</span></a>
+              </div>
+            </div>
+          </div>
+
+          <div class="climb__veil" id="climbVeil"></div>
+          <footer class="footer climb__footer">
+            <span data-i18n="footer.address">서울특별시 관악구 관악로 1 · 명지대학교</span>
+            <span class="latin" data-i18n="footer.motto">Veritas Lux Mea</span>
+            <span><span data-i18n="footer.copy">© 2026 MJU 80th Promotion</span> · Terrain: AWS Terrain Tiles · Map: © <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap</a></span>
           </footer>
         </div>
       </section>

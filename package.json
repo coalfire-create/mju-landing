@@ -1,7 +1,7 @@
 {
-  "name": "mju-landing",
-  "private": true,
+  "name": "myongji-university-promo",
   "version": "0.0.0",
+  "private": true,
   "type": "module",
   "scripts": {
     "dev": "vite",

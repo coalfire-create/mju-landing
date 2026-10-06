@@ -2,83 +2,46 @@ import './style.css'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import Lenis from 'lenis'
-import { ShaderCanvas } from './shader-canvas.js'
-import { LOUVRE, MOSAIC, WAVES, RAYS } from './scenes/shaders.js'
-import { CampusFlight } from './scenes/campus.js'
-import CAMPUS_DATA from './data/campus.json'
-import { Rotunda } from './scenes/rotunda.js'
+import { Stage } from './gl.js'
+import { translations } from './i18n.js'
+import { GateExperience } from './gate.js'
+import { initClimb } from './climbSection.js'
 
 gsap.registerPlugin(ScrollTrigger)
 
-// [name, English name, campus] — the university's college list (mju.ac.kr,
-// 대학 page, 2026). Campus follows where each college's departments are housed.
 const COLLEGES = [
-  ['인문대학', 'Humanities', 'SEOUL'],
-  ['사회과학대학', 'Social Sciences', 'SEOUL'],
-  ['경영대학', 'Business', 'SEOUL'],
-  ['미디어·휴먼라이프대학', 'Media & Human Life', 'SEOUL'],
-  ['인공지능·소프트웨어융합대학', 'AI & Software Convergence', 'SEOUL'],
-  ['미래융합대학', 'Future Convergence', 'SEOUL'],
-  ['화학·생명과학대학', 'Chemistry & Life Sciences', 'YONGIN'],
-  ['스마트시스템공과대학', 'Smart Systems Engineering', 'YONGIN'],
-  ['반도체·ICT대학', 'Semiconductor & ICT', 'YONGIN'],
-  ['스포츠·예술대학', 'Sports & Arts', 'YONGIN'],
-  ['건축대학', 'Architecture', 'YONGIN'],
-  ['아너칼리지', 'Honors College', 'BOTH'],
-  ['방목기초교육대학', 'Bangmok College of Basic Education', 'BOTH'],
+  ['인문대학', 'Humanities'],
+  ['사회과학대학', 'Social Sciences'],
+  ['자연과학대학', 'Natural Sciences'],
+  ['간호대학', 'Nursing'],
+  ['경영대학', 'Business'],
+  ['공과대학', 'Engineering'],
+  ['농업생명과학대학', 'Agriculture & Life Sciences'],
+  ['미술대학', 'Fine Arts'],
+  ['사범대학', 'Education'],
+  ['생활과학대학', 'Human Ecology'],
+  ['수의과대학', 'Veterinary Medicine'],
+  ['약학대학', 'Pharmacy'],
+  ['음악대학', 'Music'],
+  ['의과대학', 'Medicine'],
+  ['자유전공학부', 'Liberal Studies'],
+  ['첨단융합학부', 'Advanced Convergence'],
 ]
-const CAMPUS_NAME = { SEOUL: '인문캠퍼스', YONGIN: '자연캠퍼스', BOTH: '양 캠퍼스' }
-
-// Wire palettes for 사랑 / 진리 / 봉사.
-const PALETTES = [
-  [[1.0, 0.3, 0.5], [1.0, 0.62, 0.78], [0.62, 0.32, 1.0]],
-  [[0.15, 0.35, 1.0], [0.5, 0.85, 1.0], [1.0, 1.0, 1.0]],
-  [[0.08, 0.8, 0.62], [0.62, 1.0, 0.72], [1.0, 0.85, 0.35]],
-]
-
-// English names and notes for places the campus map doesn't describe. Building
-// contents, codes and storeys come from the campus map (src/data/campus.json).
-const INFO = {
-  정문: { en: 'Main Gate' },
-  MCC관: { en: 'Myongji Campus Complex' },
-  종합관: { en: 'Main Hall' },
-  학생회관: { en: 'Student Union' },
-  방목학술정보관: { en: 'Bangmok Library' },
-  '60주년채플관': { en: '60th Anniversary Chapel' },
-  창조예술관: { en: 'Creative Arts Hall' },
-  백마상: { en: 'White Horse Statue', note: '자연캠퍼스의 상징' },
-  명진당: { en: 'Myungjindang Library' },
-  함박관: { en: 'Hambak Hall' },
-}
-const ADDRESS = { SEOUL: '서대문구 거북골로 34', YONGIN: '처인구 명지로 116' }
-
-// Every stop on the flight, in the same order as the camera path in
-// scenes/campus.js: each campus's stops from src/data/campus.json (built by
-// scripts/build_campus.py), with two stops on the road in between.
-const campusRoute = (key, stage) =>
-  CAMPUS_DATA[key].stops.map((s, i) => ({
-    stage,
-    ko: s.ko,
-    code: s.code ?? null,
-    en: INFO[s.ko]?.en ?? '',
-    note: s.note || INFO[s.ko]?.note || (i === 0 ? ADDRESS[stage] : ''),
-    floors: s.floors ? `${s.basement ? `지하${s.basement} · ` : ''}지상 ${s.floors}층` : '',
-  }))
-const ROUTE = [
-  ...campusRoute('seoul', 'SEOUL'),
-  { stage: 'ROAD', ko: '한강', en: 'Han River', note: '서울을 가로질러 남쪽으로' },
-  { stage: 'ROAD', ko: '용인', en: 'Yongin', note: '경기도 용인시 처인구' },
-  ...campusRoute('yongin', 'YONGIN'),
-]
-const STAGE_LABEL = { SEOUL: '인문캠퍼스 · SEOUL', ROAD: '이동 중 · ON THE ROAD', YONGIN: '자연캠퍼스 · YONGIN' }
 
 const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
-const clamp01 = gsap.utils.clamp(0, 1)
+let currentLang = localStorage.getItem('snu_lang') || 'ko'
+if (!translations[currentLang]) currentLang = 'ko'
+
+/* ---------- helpers ---------- */
+
+function getNestedTranslation(obj, path) {
+  return path.split('.').reduce((prev, curr) => (prev ? prev[curr] : undefined), obj)
+}
 
 function splitChars(el) {
-  el.setAttribute('aria-label', el.textContent)
   const text = el.textContent
-  el.textContent = ''
+  el.setAttribute('aria-label', text)
+  el.innerHTML = ''
   for (const ch of text) {
     const s = document.createElement('span')
     s.className = 'char'
@@ -88,280 +51,414 @@ function splitChars(el) {
   }
 }
 
-function buildSigns() {
-  const wrap = document.getElementById('signs')
-  return ROUTE.map((stop) => {
-    const el = document.createElement('div')
-    el.className = `sign sign--${stop.stage.toLowerCase()}`
-    el.innerHTML = `
-      <div class="sign__top">
-        <span class="sign__stage">${stop.stage === 'ROAD' ? 'ROUTE' : stop.stage === 'SEOUL' ? '인문캠퍼스' : '자연캠퍼스'}</span>
-        ${stop.code ? `<span class="sign__code">${stop.code}</span>` : ''}
-      </div>
-      <strong class="sign__ko" style="font-size:${Math.min(92, Math.floor(600 / [...stop.ko].length))}px">${stop.ko}</strong>
-      <div class="sign__bottom"><span>${stop.en}</span><span>${stop.floors}</span></div>
-      ${stop.note ? `<p class="sign__note">${stop.note}</p>` : ''}`
-    wrap.appendChild(el)
-    return el
+// Keeps <br> and <em> intact by splitting text nodes only.
+function splitCharsDeep(el) {
+  for (const node of [...el.childNodes]) {
+    if (node.nodeType === Node.TEXT_NODE) {
+      const frag = document.createDocumentFragment()
+      for (const ch of node.textContent) {
+        if (ch === '\n') continue
+        const s = document.createElement('span')
+        s.className = 'char'
+        s.textContent = ch === ' ' ? ' ' : ch
+        frag.appendChild(s)
+      }
+      node.replaceWith(frag)
+    } else if (node.nodeType === Node.ELEMENT_NODE && node.tagName !== 'BR') {
+      splitCharsDeep(node)
+    }
+  }
+}
+
+function splitWords(el) {
+  const words = el.textContent.trim().split(/\s+/)
+  el.innerHTML = words.map((w) => `<span class="word">${w}</span>`).join(' ')
+}
+
+/* ---------- i18n switcher ---------- */
+
+function updateContentForLanguage(lang) {
+  const data = translations[lang] || translations.ko
+  document.documentElement.lang = data.htmlLang
+  document.title = data.pageTitle
+
+  const metaDesc = document.querySelector('meta[name="description"]')
+  if (metaDesc) metaDesc.setAttribute('content', data.pageDesc)
+
+  // Text nodes
+  document.querySelectorAll('[data-i18n]').forEach((el) => {
+    const key = el.dataset.i18n
+    const val = getNestedTranslation(data, key)
+    if (typeof val === 'string') {
+      el.textContent = val
+    }
+  })
+
+  // HTML nodes (title with <br>, <em class="latin">)
+  document.querySelectorAll('[data-i18n-html]').forEach((el) => {
+    const key = el.dataset.i18nHtml
+    const val = getNestedTranslation(data, key)
+    if (typeof val === 'string') {
+      el.innerHTML = val
+    }
+  })
+
+  // Tags in Global section
+  const tagsEl = document.getElementById('globalTags')
+  if (tagsEl && data.global && data.global.tags) {
+    tagsEl.innerHTML = data.global.tags.map((t) => `<li>${t}</li>`).join('')
+  }
+
+  // Marquee track in Manifesto
+  const marquee = document.getElementById('marqueeTrack')
+  if (marquee && data.manifesto && data.manifesto.marquee) {
+    marquee.innerHTML = `<span>${data.manifesto.marquee}</span><span>${data.manifesto.marquee}</span>`
+  }
+
+  // Language switcher active states
+  document.querySelectorAll('.lang-btn').forEach((btn) => {
+    const isActive = btn.dataset.lang === lang
+    btn.classList.toggle('is-active', isActive)
+    btn.setAttribute('aria-pressed', isActive ? 'true' : 'false')
   })
 }
 
-// 0..1 progress through a tall section whose content is sticky.
-function stickyProgress(el) {
-  const r = el.getBoundingClientRect()
-  return clamp01(-r.top / Math.max(1, r.height - innerHeight))
+function reapplyTypographySplits(isIntroFinished = false) {
+  // Re-split characters
+  document.querySelectorAll('.split').forEach((el) => {
+    if (el.children.length) {
+      splitCharsDeep(el)
+    } else {
+      splitChars(el)
+    }
+  })
+
+  // Re-split words for manifesto
+  document.querySelectorAll('.words').forEach(splitWords)
+
+  // If switched after intro, ensure chars and words are visible without needing full replay
+  if (isIntroFinished) {
+    document.querySelectorAll('.hero .char').forEach((c) => {
+      c.style.opacity = '1'
+      c.style.transform = 'none'
+    })
+    document.querySelectorAll('.hero .split').forEach((el) => {
+      el.style.opacity = '1'
+    })
+
+    // For manifesto words, wire up scrub tween again
+    gsap.killTweensOf('.manifesto .word')
+    gsap.to('.manifesto .word', {
+      opacity: 1,
+      stagger: 0.1,
+      ease: 'none',
+      scrollTrigger: {
+        trigger: '.manifesto__text',
+        start: 'top 80%',
+        end: 'bottom 45%',
+        scrub: true,
+      },
+    })
+
+    ScrollTrigger.refresh()
+  }
 }
 
+/* ---------- colleges carousel ---------- */
+
+function buildCarousel() {
+  const ring = document.getElementById('ring')
+  const n = COLLEGES.length
+  COLLEGES.forEach(([ko, en], i) => {
+    const card = document.createElement('article')
+    card.className = 'card'
+    card.style.setProperty('--i', i)
+    card.style.setProperty('--hue', (220 + i * 9) % 360)
+    card.innerHTML = `
+      <span class="card__idx">${String(i + 1).padStart(2, '0')} / ${n}</span>
+      <div class="card__orb"></div>
+      <h3 class="card__ko">${ko}</h3>
+      <p class="card__en">${en}</p>`
+    ring.appendChild(card)
+  })
+  return [...ring.children]
+}
+
+/* ---------- cursor ---------- */
+
+function initCursor() {
+  if (window.matchMedia('(pointer: coarse)').matches) return
+  const dot = document.querySelector('.cursor__dot')
+  const ring = document.querySelector('.cursor__ring')
+  if (!dot || !ring) return
+  const pos = { x: innerWidth / 2, y: innerHeight / 2 }
+  const ringPos = { ...pos }
+  window.addEventListener('pointermove', (e) => {
+    pos.x = e.clientX
+    pos.y = e.clientY
+    dot.style.transform = `translate(${pos.x}px, ${pos.y}px)`
+  })
+  gsap.ticker.add(() => {
+    ringPos.x += (pos.x - ringPos.x) * 0.16
+    ringPos.y += (pos.y - ringPos.y) * 0.16
+    ring.style.transform = `translate(${ringPos.x}px, ${ringPos.y}px)`
+  })
+  document.querySelectorAll('a, button, .card').forEach((el) => {
+    el.addEventListener('pointerenter', () => document.body.classList.add('cursor-hover'))
+    el.addEventListener('pointerleave', () => document.body.classList.remove('cursor-hover'))
+  })
+}
+
+function initMagnetic() {
+  document.querySelectorAll('.magnetic').forEach((el) => {
+    const inner = el.querySelector('span')
+    el.addEventListener('pointermove', (e) => {
+      const r = el.getBoundingClientRect()
+      const x = e.clientX - r.left - r.width / 2
+      const y = e.clientY - r.top - r.height / 2
+      gsap.to(el, { x: x * 0.3, y: y * 0.4, duration: 0.4, ease: 'power3.out' })
+      if (inner) {
+        gsap.to(inner, { x: x * 0.15, y: y * 0.2, duration: 0.4, ease: 'power3.out' })
+      }
+    })
+    el.addEventListener('pointerleave', () => {
+      gsap.to([el, inner].filter(Boolean), { x: 0, y: 0, duration: 0.8, ease: 'elastic.out(1, 0.4)' })
+    })
+  })
+}
+
+
+/* ---------- scroll → 3D state ---------- */
+
+function sceneTargets() {
+  const mid = innerHeight / 2
+  const secs = [...document.querySelectorAll('[data-shape]')].map((el) => {
+    const r = el.getBoundingClientRect()
+    return {
+      shape: +el.dataset.shape,
+      tint: el.dataset.tint,
+      top: r.top + Math.min(r.height, innerHeight) / 2,
+      bottom: r.bottom - Math.min(r.height, innerHeight) / 2,
+    }
+  })
+
+  if (!secs.length) return { morph: 0, tint: '#2a3cff' }
+  if (mid <= secs[0].bottom) return { morph: secs[0].shape, tint: secs[0].tint }
+  for (let i = 0; i < secs.length - 1; i++) {
+    const a = secs[i]
+    const b = secs[i + 1]
+    if (mid >= a.top && mid <= a.bottom) return { morph: a.shape, tint: a.tint }
+    if (mid > a.bottom && mid < b.top) {
+      let f = (mid - a.bottom) / (b.top - a.bottom)
+      f = f * f * (3 - 2 * f)
+      return { morph: a.shape + (b.shape - a.shape) * f, tint: f < 0.5 ? a.tint : b.tint }
+    }
+  }
+  const last = secs[secs.length - 1]
+  return { morph: last.shape, tint: last.tint }
+}
+
+/* ---------- boot ---------- */
+
 async function boot() {
+  let isIntroFinished = false
+
+  // Apply initial language content before splitting typography
+  updateContentForLanguage(currentLang)
+
   const countEl = document.getElementById('loaderCount')
   const barEl = document.getElementById('loaderBar')
   const counter = { v: 0 }
-  const paint = () => {
-    countEl.textContent = Math.round(counter.v)
-    barEl.style.transform = `scaleX(${counter.v / 100})`
-  }
-  const countTween = gsap.to(counter, { v: 90, duration: 1.4, ease: 'power2.out', onUpdate: paint })
+  const countTween = gsap.to(counter, {
+    v: 90,
+    duration: 1.6,
+    ease: 'power2.out',
+    onUpdate: () => {
+      countEl.textContent = Math.round(counter.v)
+      barEl.style.transform = `scaleX(${counter.v / 100})`
+    },
+  })
 
-  // Canvas-drawn panels need their fonts ready.
+  // Particle text needs the display font rasterized first.
   await Promise.race([
-    Promise.all([
-      document.fonts.load('italic 400 100px "Instrument Serif"', 'Myongji'),
-      document.fonts.load('800 100px "Pretendard Variable"', '인문대학공과ICT'),
-      document.fonts.load('900 100px "Noto Serif KR"', '明知'),
-    ]),
+    document.fonts.load('900 100px "Noto Serif KR"', 'SNU80'),
     new Promise((r) => setTimeout(r, 2500)),
   ])
 
-  /* scenes */
-  const hero = new ShaderCanvas(document.getElementById('cvHero'), LOUVRE, { maxDpr: 1.5 })
-  const name = new ShaderCanvas(document.getElementById('cvName'), MOSAIC, {
-    maxDpr: 1.25,
-    idleMouse: (t) => [0.62 + 0.18 * Math.sin(t * 0.5), 0.5 + 0.22 * Math.sin(t * 0.37 + 1.2)],
-  })
-  const values = new ShaderCanvas(document.getElementById('cvValues'), WAVES, {
-    maxDpr: 1.25,
-    uniforms: { uC1: [...PALETTES[0][0]], uC2: [...PALETTES[0][1]], uC3: [...PALETTES[0][2]] },
-  })
-  const finale = new ShaderCanvas(document.getElementById('cvFinale'), RAYS, {
-    maxDpr: 1.5,
-    idleMouse: (t) => [0.5 + 0.25 * Math.sin(t * 0.4), 0.3],
-  })
-  const campus = new CampusFlight(document.getElementById('cvCampus'))
-  const rotunda = new Rotunda(document.getElementById('cvColleges'), COLLEGES)
+  const stage = new Stage(document.getElementById('gl'))
+  const cards = buildCarousel()
 
-  const scenes = [
-    { el: document.getElementById('hero'), view: hero },
-    { el: document.getElementById('name'), view: name },
-    { el: document.getElementById('campus'), view: campus },
-    { el: document.getElementById('values'), view: values },
-    { el: document.getElementById('colleges'), view: rotunda },
-    { el: document.getElementById('finale'), view: finale },
-  ]
-  // Only scenes near the viewport render.
-  const io = new IntersectionObserver(
-    (entries) => entries.forEach((e) => (scenes.find((s) => s.el === e.target).on = e.isIntersecting)),
-    { rootMargin: '10% 0px' },
-  )
-  scenes.forEach((s) => io.observe(s.el))
-
-  document.querySelectorAll('.split').forEach(splitChars)
+  // Initial split
+  reapplyTypographySplits(false)
 
   const lenis = new Lenis({ lerp: 0.085, wheelMultiplier: 0.9 })
   lenis.on('scroll', ScrollTrigger.update)
   gsap.ticker.add((t) => lenis.raf(t * 1000))
   gsap.ticker.lagSmoothing(0)
   lenis.stop()
+
   document.querySelectorAll('a[href^="#"]').forEach((a) =>
     a.addEventListener('click', (e) => {
       e.preventDefault()
-      lenis.scrollTo(a.getAttribute('href'), { duration: 2 })
+      lenis.scrollTo(a.getAttribute('href'), { duration: 2.2 })
     }),
   )
 
-  await countTween
-  await gsap.to(counter, { v: 100, duration: 0.35, onUpdate: paint })
+  await countTween.then()
+  await gsap.to(counter, {
+    v: 100,
+    duration: 0.4,
+    onUpdate: () => {
+      countEl.textContent = Math.round(counter.v)
+      barEl.style.transform = `scaleX(${counter.v / 100})`
+    },
+  })
 
-  /* intro: the light screen wipes up and "Myongji" rises out of the glass */
-  gsap
-    .timeline({ onComplete: () => lenis.start() })
-    .to('#loader', { clipPath: 'inset(0 0 100% 0)', duration: 1.2, ease: 'expo.inOut' })
-    .from('.hero .char', { yPercent: 110, opacity: 0, stagger: 0.06, duration: 1.4, ease: 'expo.out' }, '-=0.5')
-    .from('.nav, .hero .eyebrow, .reveal-hero', { y: 20, opacity: 0, stagger: 0.08, duration: 1, ease: 'power3.out' }, '-=1.1')
+  /* intro */
+  const intro = gsap.timeline({
+    onComplete: () => {
+      lenis.start()
+      isIntroFinished = true
+    },
+  })
+  intro
+    .to('#loader', { yPercent: -100, duration: 1.1, ease: 'expo.inOut' })
+    .to(stage.state, { intro: 1, duration: reduceMotion ? 0.1 : 3, ease: 'power3.out' }, '-=0.6')
+    .from('.nav', { y: -40, opacity: 0, duration: 1, ease: 'power3.out' }, '-=2.4')
+    .from('.hero .char', { yPercent: 120, rotate: 8, opacity: 0, stagger: 0.05, duration: 1.2, ease: 'expo.out' }, '-=2.2')
+    .from('.hero .eyebrow, .hero .reveal, .scroll-hint', { y: 24, opacity: 0, stagger: 0.1, duration: 1, ease: 'power3.out' }, '-=1.6')
 
-  /* reveals */
+  /* section reveals */
   document.querySelectorAll('section:not(.hero) .split').forEach((el) => {
     gsap.from(el.querySelectorAll('.char'), {
       yPercent: 110,
       opacity: 0,
-      stagger: 0.035,
-      duration: 1.1,
+      stagger: 0.03,
+      duration: 1,
       ease: 'expo.out',
-      scrollTrigger: { trigger: el.closest('section'), start: 'top 60%' },
+      scrollTrigger: { trigger: el, start: 'top 82%' },
     })
   })
-  document.querySelectorAll('.reveal').forEach((el) => {
-    gsap.from(el, { y: 30, opacity: 0, duration: 1.1, ease: 'power3.out', scrollTrigger: { trigger: el.closest('section'), start: 'top 55%' } })
+  document.querySelectorAll('section:not(.hero) .reveal').forEach((el) => {
+    gsap.from(el, { y: 40, opacity: 0, duration: 1.1, ease: 'power3.out', scrollTrigger: { trigger: el, start: 'top 88%' } })
   })
-
-  /* per-section scroll wiring */
-  const heroWord = document.querySelector('.hero__word')
-  const signEls = buildSigns()
-  // Small name tags for every official building, shown in the campus overviews.
-  const tagWrap = document.getElementById('buildingTags')
-  const tagEls = campus.tags.map((t) => {
-    const el = document.createElement('span')
-    el.className = 'btag'
-    el.textContent = t.name
-    tagWrap.appendChild(el)
-    return el
+  gsap.to('.manifesto .word', {
+    opacity: 1,
+    stagger: 0.1,
+    ease: 'none',
+    scrollTrigger: { trigger: '.manifesto__text', start: 'top 80%', end: 'bottom 45%', scrub: true },
   })
-  const famous = new Set(ROUTE.filter((r, i) => campus.tour.includes(i)).map((r) => r.ko))
-  const tagOrder = campus.tags.map((_, i) => i).sort((a, b) => famous.has(campus.tags[b].name) - famous.has(campus.tags[a].name))
-  const campusHead = document.querySelector('.campus__head')
-  const routeStage = document.getElementById('routeStage')
-  const routePlace = document.getElementById('routePlace')
-  const routeFill = document.getElementById('routeFill')
-  let currentStop = -1
-  // Place the bar's landmarks at their stops' share of the route.
-  document.querySelectorAll('.route__mark[data-stage]').forEach((m) => {
-    const k = campus.tour.findIndex((i) => ROUTE[i].stage === m.dataset.stage)
-    m.style.left = `${(k / (campus.tour.length - 1)) * 100}%`
+  gsap.to('.marquee__track', {
+    xPercent: -25,
+    ease: 'none',
+    scrollTrigger: { trigger: '.manifesto', start: 'top bottom', end: 'bottom top', scrub: true },
   })
-
-  // Building directory: every place on both campuses, one tap to fly there.
-  const dir = document.getElementById('directory')
-  const dirToggle = document.getElementById('dirToggle')
-  const dirList = document.getElementById('dirList')
-  for (const [stage, title] of [['SEOUL', '인문캠퍼스 · 서울'], ['YONGIN', '자연캠퍼스 · 용인']]) {
-    const group = document.createElement('div')
-    group.className = 'dir__group'
-    group.innerHTML = `<h4>${title}</h4>`
-    ROUTE.forEach((stop, i) => {
-      if (stop.stage !== stage) return
-      const b = document.createElement('button')
-      b.type = 'button'
-      b.className = 'dir__item'
-      b.dataset.stop = i
-      b.innerHTML = `<span>${i === ROUTE.findIndex((r) => r.stage === stage) ? '캠퍼스 전체 보기' : stop.ko}</span>${stop.code ? `<small>${stop.code}</small>` : ''}`
-      b.addEventListener('click', () => {
-        campus.flyTo(i)
-        dir.classList.add('is-exploring')
-        if (innerWidth < 760) dir.classList.remove('is-open')
-      })
-      group.appendChild(b)
+  document.querySelectorAll('[data-count]').forEach((el) => {
+    const obj = { v: 0 }
+    const end = +el.dataset.count
+    const suffix = el.dataset.suffix || ''
+    gsap.to(obj, {
+      v: end,
+      duration: 2.2,
+      ease: 'expo.out',
+      scrollTrigger: { trigger: el, start: 'top 85%' },
+      onUpdate: () => (el.textContent = Math.round(obj.v) + suffix),
     })
-    dirList.appendChild(group)
-  }
-  const dirItems = [...dirList.querySelectorAll('.dir__item')]
-  function closeDirectory(returnToTour) {
-    if (returnToTour) campus.exitExplore()
-    dir.classList.remove('is-exploring')
-  }
-  dirToggle.addEventListener('click', () => dir.classList.toggle('is-open'))
-  document.getElementById('dirBack').addEventListener('click', () => closeDirectory(true))
-  const valueEls = [...document.querySelectorAll('.value')]
-  const valueIdx = [...document.querySelectorAll('#valuesIndex li')]
-  const activeEl = document.getElementById('collegeActive')
-  const collegeBar = document.getElementById('collegeProgress')
-  let currentValue = -1
-  const palette = PALETTES[0].map((c) => [...c])
+  })
 
-  rotunda.onActive = (i) => {
-    const [ko, en, campus] = COLLEGES[i]
-    activeEl.innerHTML = `<b>${ko}</b> ${en} · ${CAMPUS_NAME[campus]}`
-  }
-  rotunda.onActive(0)
+  /* language switcher event listener */
+  const mainEl = document.querySelector('main')
+  let isSwitchingLang = false
 
-  const showValue = (i) => {
-    valueEls.forEach((el, j) => {
-      el.classList.toggle('is-active', j === i)
-      if (j === i) {
-        gsap.fromTo(el.children, { yPercent: 60, opacity: 0 }, { yPercent: 0, opacity: 1, stagger: 0.08, duration: 1, ease: 'expo.out', overwrite: true })
+  document.querySelectorAll('.lang-btn').forEach((btn) => {
+    btn.addEventListener('click', async () => {
+      const nextLang = btn.dataset.lang
+      if (nextLang === currentLang || isSwitchingLang) return
+      isSwitchingLang = true
+      currentLang = nextLang
+      localStorage.setItem('snu_lang', currentLang)
+
+      if (mainEl) {
+        mainEl.classList.add('lang-switching')
+        await new Promise((r) => setTimeout(r, 220))
       }
-    })
-    valueIdx.forEach((li, j) => li.classList.toggle('is-active', j === i))
-  }
 
-  let last = performance.now()
-  let time = 0
+      updateContentForLanguage(currentLang)
+      reapplyTypographySplits(isIntroFinished)
+
+      if (mainEl) {
+        mainEl.classList.remove('lang-switching')
+      }
+
+      isSwitchingLang = false
+    })
+  })
+
+  /* carousel + 3D sync */
+  const colleges = document.getElementById('colleges')
+  const progressEl = document.getElementById('collegeProgress')
+  const n = cards.length
+  const step = 360 / n
+  const ringEl = document.getElementById('ring')
+
+  // The Gwanak climb (after the gate). While its pinned canvas fills the
+  // screen, the particle stage behind it stops rendering.
+  const climbSec = await initClimb()
+  let lastT = performance.now()
+
   gsap.ticker.add(() => {
     const now = performance.now()
-    const dt = Math.min((now - last) / 1000, 0.05)
-    last = now
-    time += dt
+    const dt = Math.min((now - lastT) / 1000, 0.05)
+    lastT = now
+    climbSec.update(dt)
+    const target = sceneTargets()
+    stage.state.morphTarget = target.morph
+    stage.setTint(target.tint)
 
-    const hp = stickyProgress(scenes[0].el)
-    heroWord.style.transform = `translateY(${hp * -18}vh) scale(${1 + hp * 0.08})`
+    const r = colleges.getBoundingClientRect()
+    const p = gsap.utils.clamp(0, 1, -r.top / (r.height - innerHeight))
+    const angle = -p * 360 * (n - 1) / n
+    ringEl.style.transform = `translateZ(calc(var(--radius) * -1)) rotateY(${angle}deg)`
+    progressEl.style.transform = `scaleX(${p})`
+    stage.state.ringRot = (angle * Math.PI) / 180
+    cards.forEach((c, i) => {
+      let a = (((i * step + angle) % 360) + 540) % 360 - 180 // -180..180, 0 = front
+      const front = 1 - Math.min(Math.abs(a) / 180, 1)
+      c.style.opacity = 0.12 + Math.pow(front, 2.2) * 0.88
+      c.classList.toggle('is-active', Math.abs(a) < step / 2)
+    })
 
-    const cp = stickyProgress(scenes[2].el)
-    campus.progress = cp
-    // Scrolling takes the camera back from a directory jump to the tour.
-    if (campus.exploreTarget !== null && Math.abs(lenis.velocity) > 3) closeDirectory(true)
-    const active = campus.activeStop()
-    if (scenes[2].on) {
-      // Only the stop the camera is on shows its sign, over its real building.
-      const labelScale = innerWidth < 760 ? 0.3 : 0.42
-      signEls.forEach((el, i) => {
-        const fade = i === active.index ? active.weight : 0
-        const s = fade > 0 && campus.labelScreen(i)
-        el.style.visibility = s ? 'visible' : 'hidden'
-        if (!s) return
-        el.style.opacity = fade
-        // Keep the whole sign on screen (it is 640px wide before scaling).
-        const half = (640 * labelScale) / 2 + 12
-        const x = Math.min(innerWidth - half, Math.max(half, s.x))
-        // ...and below the nav bar.
-        const y = Math.max(s.y, 80 + el.offsetHeight * labelScale)
-        el.style.transform = `translate(${x}px, ${y}px) translate(-50%, -100%) scale(${labelScale})`
-      })
-      // Overview name tags: famous buildings first, and any tag that would
-      // overlap one already placed is skipped, so small screens stay legible.
-      const ov = campus.overview()
-      const placed = []
-      tagOrder.forEach((i) => {
-        const t = campus.tags[i]
-        const el = tagEls[i]
-        const s = ov && ov.key === t.key && campus.screen(t.pos)
-        const w = el.offsetWidth
-        const h = el.offsetHeight
-        const box = s && { l: s.x - w / 2 - 3, r: s.x + w / 2 + 3, t: s.y - h - 2, b: s.y + 2 }
-        const free = box && !placed.some((p) => box.l < p.r && box.r > p.l && box.t < p.b && box.b > p.t)
-        el.style.visibility = free ? 'visible' : 'hidden'
-        if (!free) return
-        placed.push(box)
-        el.style.opacity = ov.weight
-        el.style.transform = `translate(${s.x}px, ${s.y}px) translate(-50%, -100%)`
-      })
-    }
-    // The title steps aside once the flight begins.
-    campusHead.style.opacity = 1 - Math.min(1, Math.max(0, (cp - 0.01) / 0.03))
-    routeFill.style.transform = `scaleX(${campus.stopPosition() / (campus.tour.length - 1)})`
-    if (active.index !== currentStop) {
-      currentStop = active.index
-      routeStage.textContent = STAGE_LABEL[ROUTE[currentStop].stage]
-      routePlace.textContent = ROUTE[currentStop].ko
-      gsap.fromTo(routePlace, { yPercent: 60, opacity: 0 }, { yPercent: 0, opacity: 1, duration: 0.6, ease: 'expo.out', overwrite: true })
-      dirItems.forEach((b) => b.classList.toggle('is-active', +b.dataset.stop === currentStop))
-    }
-
-    const vp = stickyProgress(scenes[3].el)
-    const vi = Math.min(2, Math.floor(vp * 3))
-    if (vi !== currentValue) {
-      currentValue = vi
-      showValue(vi)
-    }
-    // Ease the wire palette toward the active value's colours.
-    palette.forEach((c, k) => c.forEach((v, j) => (c[j] = v + (PALETTES[vi][k][j] - v) * Math.min(1, dt * 3))))
-    values.set('uC1', palette[0])
-    values.set('uC2', palette[1])
-    values.set('uC3', palette[2])
-
-    const rp = stickyProgress(scenes[4].el)
-    rotunda.progress = rp
-    collegeBar.style.transform = `scaleX(${rp})`
-
-    for (const s of scenes) if (s.on) s.view.render(time, dt)
+    if (!climbSec.covering()) stage.update()
   })
+
+  /* Sha Gate & Starlight Influx Experience */
+  const gateCanvas = document.getElementById('gateCanvas')
+  if (gateCanvas) {
+    const gateExp = new GateExperience(gateCanvas)
+    ScrollTrigger.create({
+      trigger: '#gateStage',
+      start: 'top bottom',
+      end: 'bottom top',
+      onUpdate: (self) => {
+        const vel = Math.abs(self.getVelocity())
+        gateExp.scrollSpeed = 1 + Math.min(vel * 0.0006, 2.5)
+      },
+    })
+    // The walk up to and through the gate follows the pinned stretch.
+    const gateBadge = document.querySelector('.gate-badge')
+    ScrollTrigger.create({
+      trigger: '#gateStage',
+      start: 'top top',
+      end: 'bottom bottom',
+      onUpdate: (self) => {
+        gateExp.progress = self.progress
+        gateBadge.style.opacity = 1 - Math.min(1, Math.max(0, (self.progress - 0.6) / 0.15))
+      },
+    })
+  }
+
+  initCursor()
+  initMagnetic()
 }
 
 boot()
